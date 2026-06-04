@@ -1,0 +1,62 @@
+[
+  {
+    "name": "bug",
+    "color": "d73a4a",
+    "description": "Something isn't working"
+  },
+  {
+    "name": "enhancement",
+    "color": "a2eeef",
+    "description": "Improvement to existing functionality"
+  },
+  {
+    "name": "new-module",
+    "color": "0075ca",
+    "description": "New module proposal (utility, game, or other category)"
+  },
+  {
+    "name": "utility",
+    "color": "e4e669",
+    "description": "Relates to a utility tool module"
+  },
+  {
+    "name": "minigame",
+    "color": "7057ff",
+    "description": "Relates to a minigame module"
+  },
+  {
+    "name": "new-category",
+    "color": "f9d0c4",
+    "description": "Proposal to add a new module category"
+  },
+  {
+    "name": "needs-triage",
+    "color": "e99695",
+    "description": "Needs investigation or prioritisation"
+  },
+  {
+    "name": "dependencies",
+    "color": "0366d6",
+    "description": "Dependency updates (Dependabot)"
+  },
+  {
+    "name": "documentation",
+    "color": "0075ca",
+    "description": "Documentation only changes"
+  },
+  {
+    "name": "duplicate",
+    "color": "cfd3d7",
+    "description": "This issue or PR already exists"
+  },
+  {
+    "name": "wontfix",
+    "color": "ffffff",
+    "description": "This will not be worked on"
+  },
+  {
+    "name": "good first issue",
+    "color": "7fc97f",
+    "description": "Good starting point for new contributors"
+  }
+]

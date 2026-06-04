@@ -1,0 +1,43 @@
+name: 🐛 Bug Report
+description: Something is not working as expected
+labels: ["bug", "needs-triage"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Area
+      options:
+        - Utility Tool
+        - Minigame
+        - Navigation / Layout
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      placeholder: "When I do X, Y happens instead of Z..."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Navigate to '...'
+        2. Click on '...'
+        3. Error appears
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Browser / Device / OS
+      placeholder: "e.g. Safari iOS 17, iPhone 15"

@@ -1,0 +1,40 @@
+name: Main Checks
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    name: Lint, Types, Tests, Security
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Lint Markdown
+        run: npx --yes markdownlint-cli2 "**/*.md" "#node_modules"
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Security audit
+        run: npm audit --audit-level=high
+
+      - name: Build
+        run: npm run build

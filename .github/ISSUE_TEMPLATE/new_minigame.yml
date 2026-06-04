@@ -1,0 +1,54 @@
+name: 🎮 New Minigame
+description: Idea for a new minigame
+labels: ["new-module", "minigame"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Game name
+      placeholder: "e.g. Snake, Memory, Reaction Time Test"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Game idea
+      placeholder: "What is the objective? How does it work?"
+    validations:
+      required: true
+  - type: textarea
+    id: mechanics
+    attributes:
+      label: Game mechanics
+      placeholder: |
+        - Controls: touch / click / keyboard
+        - Win condition: ...
+        - Lose condition: ...
+    validations:
+      required: true
+  - type: dropdown
+    id: input_type
+    attributes:
+      label: Primary controls
+      options:
+        - Touch / Swipe (mobile-first)
+        - Click / Tap
+        - Keyboard
+        - Mixed
+    validations:
+      required: true
+  - type: textarea
+    id: scoring
+    attributes:
+      label: Scoring / High score
+      placeholder: "Are there points? A timer? A high score?"
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated complexity
+      options:
+        - Small (< 2h)
+        - Medium (2–6h)
+        - Large (> 6h)
+    validations:
+      required: true

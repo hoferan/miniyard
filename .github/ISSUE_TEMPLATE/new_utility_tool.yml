@@ -1,0 +1,50 @@
+name: 🔧 New Utility Tool
+description: Idea for a new utility tool (calculator, converter, text tool, etc.)
+labels: ["new-module", "utility"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Tool name
+      placeholder: "e.g. BMI Calculator, Unit Converter, Base64 Encoder"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What should the tool do?
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs
+      placeholder: |
+        - Weight (kg or lbs)
+        - Height (cm or inch)
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Output / Result
+      placeholder: |
+        - Calculated value
+        - Category / label
+    validations:
+      required: true
+  - type: textarea
+    id: formula
+    attributes:
+      label: Formula / Logic (if known)
+      placeholder: "e.g. BMI = weight (kg) / height (m)²"
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated complexity
+      options:
+        - Small (< 1h)
+        - Medium (1–4h)
+        - Large (> 4h)
+    validations:
+      required: true

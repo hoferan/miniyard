@@ -1,0 +1,29 @@
+name: ✨ Feature Request
+description: Improvement to an existing module or the app itself
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Area
+      options:
+        - Existing Utility Tool
+        - Existing Minigame
+        - UI / UX
+        - Performance
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is missing or annoying?
+      placeholder: "I wish I could..."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Desired solution
+    validations:
+      required: true
