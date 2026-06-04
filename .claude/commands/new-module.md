@@ -12,7 +12,8 @@ Generic entry point for any new module. Claude reads the target category's READM
 
 ### Step 1 – Choose category
 
-List the available categories by checking `src/modules/`:
+List the available categories by reading `src/modules/` and show them with one-line descriptions taken from each `README.md`:
+
 ```
 src/modules/
   utilities/   → src/modules/utilities/README.md
@@ -20,9 +21,15 @@ src/modules/
   ...
 ```
 
-Ask the user: **"Which category should this module go in?"** and show the available options with one-line descriptions from each README.
+Ask the user: **"Which category should this module go in?"**
 
-If none fit, suggest running `/new-category` first.
+**If the user names a category that does not exist in `src/modules/`:**
+
+Stop immediately. Do not proceed. Reply with:
+
+> "The category `[name]` does not exist yet. Please run `/new-category` first to set it up (this creates the category README, app pages, and type definitions). Once that is done, come back and run `/new-module` again."
+
+Do not attempt to create the category inline, do not continue the module workflow, do not make assumptions.
 
 ### Step 2 – Read the category README
 
