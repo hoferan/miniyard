@@ -75,7 +75,7 @@ All changes go through PRs — no direct pushes to `main`.
 | `/bugfix` | Structured bug fix workflow |
 | `/update-docs` | Check and update all documentation |
 | `/pr-summary` | Generate PR description from git diff |
-| `/coderabbit` | Process all open CodeRabbit review threads on a PR (reply + resolve) |
+| `/review-threads` | Interactive review of all open PR threads — CodeRabbit, human reviewers, and your own |
 
 ---
 
