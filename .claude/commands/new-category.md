@@ -15,11 +15,43 @@ Ask before writing any code:
 2. What is the display label? (e.g. `Swiss`)
 3. Short description for the listing page? (1 sentence)
 4. Icon emoji?
-5. What kind of modules will go here — utility-like (`logic.ts`) or API-based (`api.ts`)?
+5. What kind of modules will go here — what are some examples?
 
 Wait for confirmation.
 
-## Step 2 – Create app pages
+## Step 2 – Create the category README
+
+`src/modules/[category]/README.md` — this is the source of truth for the category. The `/new-module` command reads it to understand context and generate the right brainstorm questions. Use this structure:
+
+```markdown
+# [Category Label]
+
+## What belongs here
+[1–3 sentences describing what modules fit here]
+
+## Examples
+- [Example module 1]
+- [Example module 2]
+- [Example module 3]
+
+## What does NOT belong here
+- [Exclusion 1]
+- [Exclusion 2]
+
+## Module structure
+[File layout for modules in this category]
+
+## Brainstorm questions (Claude asks these before writing any code)
+1. [Category-specific question]
+2. [Category-specific question]
+3. ...
+
+## Conventions
+- [Convention 1]
+- [Convention 2]
+```
+
+## Step 3 – Create app pages
 
 `src/app/[category]/page.tsx` — listing page:
 ```tsx
@@ -60,20 +92,16 @@ export default async function [Label]ModulePage({ params }: { params: Promise<{ 
 }
 ```
 
-## Step 3 – Update types
+## Step 4 – Update types
 
 `src/lib/types.ts` — add the new category to the union:
 ```ts
 export type ModuleCategory = 'utilities' | 'games' | '[category]'
 ```
 
-## Step 4 – Update navigation
+## Step 5 – Update navigation
 
 `src/components/layout/nav.tsx` — add a link for the new category.
-
-## Step 5 – Create slash command
-
-`.claude/commands/new-[category]-module.md` — copy the structure from `new-utility-tool.md` and adapt paths and brainstorm questions for the new category.
 
 ## Step 6 – Create GitHub issue template
 
@@ -89,8 +117,8 @@ Add a new type checkbox in `.github/PULL_REQUEST_TEMPLATE.md`.
 
 ## Step 8 – Update docs
 
-- `README.md` — add new category section with empty module table
-- `CLAUDE.md` — update categories table, project structure, slash commands list
+- `README.md` — add new category section with empty module table and icon
+- `CLAUDE.md` — update categories table and project structure
 
 ## Step 9 – Verify
 

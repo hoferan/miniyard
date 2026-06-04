@@ -70,8 +70,7 @@ All changes go through PRs — no direct pushes to `main`.
 
 | Command | Description |
 |---------|-------------|
-| `/new-utility-tool` | New calculator, converter, or text tool |
-| `/new-minigame` | New browser-based game |
+| `/new-module` | New module in any category (reads category README automatically) |
 | `/new-category` | Add an entirely new module category |
 | `/bugfix` | Structured bug fix workflow |
 | `/update-docs` | Check and update all documentation |

@@ -9,7 +9,7 @@
 | **Utilities** | Calculators, converters, text tools, math functions | `src/modules/utilities/` |
 | **Games** | Browser games, mobile-first | `src/modules/games/` |
 
-Solo developer. Learning and showcase project. New categories are added when needed — see [How to add a new category](#how-to-add-a-new-category).
+Solo developer. Learning and showcase project. New categories are added when needed — see [How to add a new category](#how-to-add-a-new-category). Each category has a `README.md` in its module directory that defines what belongs there and guides Claude when creating new modules.
 
 ### Stack
 - **Framework:** Next.js 14 (App Router), React, TypeScript, Tailwind CSS
@@ -40,12 +40,14 @@ src/
       [slug]/page.tsx
   modules/
     utilities/
+      README.md                 # Category definition – what belongs here, brainstorm questions
       <name>/
         index.tsx               # React UI component
         meta.ts                 # Module metadata (slug, title, tags, status)
         logic.ts                # Pure logic – no React, no DOM
         logic.test.ts           # Vitest unit tests
     games/
+      README.md                 # Category definition
       <name>/
         index.tsx
         meta.ts
@@ -66,6 +68,7 @@ tests/
 - Logic (`logic.ts`) is always separated from UI (`index.tsx`). Pure functions, no React import, easy to unit-test.
 - Metadata (`meta.ts`) is always separated from component and logic code.
 - Every new module must be registered in `src/lib/registry.ts` and added to `componentMap` in the relevant `src/app/[category]/[slug]/page.tsx`.
+- Every category has a `README.md` in `src/modules/[category]/README.md`. This file defines what belongs in the category and is read by Claude before creating new modules.
 
 ---
 
@@ -111,8 +114,8 @@ tests/
 ```
 New task received
        │
-       ├─ New module (utility / game / ...)?
-       │         └─ YES → Workflow A (Brainstorm → Spec → TDD → Implement → Register → Docs → Review)
+       ├─ New module (any category)?
+       │         └─ YES → /new-module (reads category README, then Workflow A)
        │
        ├─ New category?
        │         └─ YES → /new-category command
@@ -131,13 +134,12 @@ New task received
 
 ## Workflow A: New Module (mandatory)
 
+Always start with `/new-module`. Claude reads `src/modules/[category]/README.md` first to understand the category context and derive the right brainstorm questions.
+
 ### Step 1 – Brainstorm
-**Before writing any line of code**, Claude actively asks questions:
-- What exactly should the module do? What should it not do?
-- What are the inputs, what are the outputs?
-- What edge cases (0, negative, empty, invalid)?
-- Mobile-first: How does the user interact on a smartphone?
+**Before writing any line of code**, Claude reads the category README and asks its defined questions. Additional generic questions:
 - Are there similar modules in the project that can be reused?
+- Mobile-first: How does the user interact on a smartphone?
 
 Claude waits for answers. No assumptions.
 
@@ -309,7 +311,8 @@ npm run test        # No regressions
 | What changed? | What to update? |
 |---|---|
 | New module | README.md module list + `docs/[category]/` if needed |
-| New category | All files listed in the "How to add a new category" section above |
+| New category | All files listed in the "How to add a new category" section above + `src/modules/[category]/README.md` |
+| Category definition change | `src/modules/[category]/README.md` |
 | New ENV variable | README.md setup section + `.env.example` |
 | New npm dependency | README.md tech stack if relevant |
 | Breaking change to structure | Code comment + README + CLAUDE.md |
@@ -379,8 +382,7 @@ When handing over to a new session, first output a short summary: what was done,
 
 | Command | Description |
 |---|---|
-| `/new-utility-tool` | New calculator, converter, or text tool |
-| `/new-minigame` | New browser-based game |
+| `/new-module` | New module in any category (reads category README automatically) |
 | `/new-category` | Add an entirely new module category |
 | `/bugfix` | Structured bug fix workflow |
 | `/update-docs` | Check and update all documentation |
