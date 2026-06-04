@@ -376,6 +376,7 @@ When handing over to a new session, first output a short summary: what was done,
 | `npm run test:e2e` | Run Playwright E2E tests |
 | `npm run test:e2e:ui` | Run Playwright with UI |
 | `npx shadcn@latest add [component]` | Add a shadcn/ui component |
+| `npx markdownlint-cli2 "**/*.md" "#node_modules"` | Check all markdown files for lint errors |
 | `/compact` | Compress current session context |
 
 ## Claude Code Slash Commands

@@ -127,7 +127,7 @@ Use this exact format per thread:
 
 After all blocks, show the **decision form**:
 
-```
+```text
 Your decisions — one line per thread.
 Format is flexible: just include the thread number and your choice.
 Examples: "1: option 1, resolve" · "2: skip" · "3: option 2, no resolve" · "4: custom"
