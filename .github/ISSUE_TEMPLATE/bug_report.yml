@@ -1,0 +1,44 @@
+name: 🐛 Bug Report
+description: Etwas funktioniert nicht wie erwartet
+labels: ["bug", "needs-triage"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Bereich
+      options:
+        - Utility Tool
+        - Minigame
+        - API Explorer
+        - Navigation / Layout
+        - Anderes
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Was ist passiert?
+      placeholder: "Wenn ich X mache, passiert Y statt Z..."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Schritte zur Reproduktion
+      placeholder: |
+        1. Navigiere zu '...'
+        2. Klicke auf '...'
+        3. Fehler erscheint
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Erwartetes Verhalten
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Browser / Gerät / OS
+      placeholder: "z.B. Safari iOS 17, iPhone 15"

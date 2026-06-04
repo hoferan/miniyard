@@ -1,0 +1,50 @@
+name: 🔧 Neues Utility Tool
+description: Idee für ein neues Utility Tool (Rechner, Umrechner, Text-Tool, etc.)
+labels: ["new-tool", "utility"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Name des Tools
+      placeholder: "z.B. BMI Rechner, Unit Converter, Base64 Encoder"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Was soll das Tool tun?
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs
+      placeholder: |
+        - Gewicht (kg oder lbs)
+        - Grösse (cm oder inch)
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Output / Ergebnis
+      placeholder: |
+        - Berechneter Wert
+        - Kategorie / Label
+    validations:
+      required: true
+  - type: textarea
+    id: formula
+    attributes:
+      label: Formel / Logik (falls bekannt)
+      placeholder: "z.B. BMI = Gewicht (kg) / Grösse (m)²"
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Geschätzte Komplexität
+      options:
+        - Klein (< 1h)
+        - Mittel (1–4h)
+        - Gross (> 4h)
+    validations:
+      required: true

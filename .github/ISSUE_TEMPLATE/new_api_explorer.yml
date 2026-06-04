@@ -1,0 +1,43 @@
+name: 🔌 Neuer API Explorer
+description: Idee für einen neuen API Explorer / Hands-on Demo
+labels: ["new-tool", "api-explorer"]
+body:
+  - type: input
+    id: api_name
+    attributes:
+      label: API Name
+      placeholder: "z.B. OpenWeather, NASA APOD, Exchange Rates"
+    validations:
+      required: true
+  - type: input
+    id: api_url
+    attributes:
+      label: API Dokumentation URL
+      placeholder: "https://..."
+  - type: textarea
+    id: what_to_show
+    attributes:
+      label: Was wird demonstriert?
+      placeholder: "Welche Endpoints? Was sieht der User?"
+    validations:
+      required: true
+  - type: dropdown
+    id: auth
+    attributes:
+      label: Authentifizierung
+      options:
+        - Keine (public)
+        - API Key (via .env)
+        - OAuth
+    validations:
+      required: true
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Geschätzte Komplexität
+      options:
+        - Klein (< 1h)
+        - Mittel (1–4h)
+        - Gross (> 4h)
+    validations:
+      required: true
