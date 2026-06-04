@@ -28,7 +28,7 @@ Solo developer. Learning and showcase project. New categories are added when nee
 
 ## Project Structure
 
-```
+```text
 src/
   app/
     page.tsx                    # Home – shows all modules
@@ -111,7 +111,7 @@ tests/
 
 ## Workflow Decision Tree
 
-```
+```text
 New task received
        │
        ├─ New module (any category)?
@@ -146,7 +146,7 @@ Claude waits for answers. No assumptions.
 ### Step 2 – Spec (confirm in writing)
 Claude summarises the requirements and waits for confirmation:
 
-```
+```text
 ## Spec: [Module Name]
 Category: [utilities / games / ...]
 Function: [1–2 sentences]
@@ -233,7 +233,7 @@ Use `/new-category` or follow this checklist manually. Do **not** create a new c
 
 ### Files to create
 
-```
+```text
 src/app/[category]/
   page.tsx                     # Category listing page
   [slug]/page.tsx              # Module detail page with componentMap

@@ -23,7 +23,7 @@ Browser-based mini games — simple, fun, mobile-first. Self-contained, no backe
 
 ## Module structure
 
-```
+```text
 src/modules/games/<name>/
   meta.ts           # Metadata: slug, title, description, icon, tags, status
   logic.ts          # Pure game logic — state transitions, win/lose, score

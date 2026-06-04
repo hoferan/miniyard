@@ -22,7 +22,7 @@ Calculators, converters, text tools, and math functions — anything that takes 
 
 ## Module structure
 
-```
+```text
 src/modules/utilities/<name>/
   meta.ts           # Metadata: slug, title, description, icon, tags, status
   logic.ts          # Pure functions — no side effects, no network calls

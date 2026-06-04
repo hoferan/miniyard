@@ -10,7 +10,7 @@ Workflow B – bug fix without brainstorm.
 
 ## Prompt Template
 
-```
+```text
 /bugfix
 
 Problem: [what is broken]

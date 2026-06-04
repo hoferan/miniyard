@@ -14,7 +14,7 @@ Generic entry point for any new module. Claude reads the target category's READM
 
 List the available categories by reading `src/modules/` and show them with one-line descriptions taken from each `README.md`:
 
-```
+```text
 src/modules/
   utilities/   → src/modules/utilities/README.md
   games/       → src/modules/games/README.md
@@ -46,7 +46,7 @@ Ask the category-specific brainstorm questions from the README. Do not skip any.
 
 Summarise and wait for confirmation:
 
-```
+```text
 ## Spec: [Module Name]
 Category: [category]
 Function: [1–2 sentences]

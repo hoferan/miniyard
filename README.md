@@ -60,7 +60,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 New modules follow a structured workflow:
 
-```
+```text
 Brainstorm → Spec (confirmed) → Tests first (TDD) → Implement → Register → Docs → PR
 ```
 
@@ -80,7 +80,7 @@ All changes go through PRs — no direct pushes to `main`.
 
 ## Project Structure
 
-```
+```text
 src/
   modules/
     utilities/  # Utility tools  (meta.ts + logic.ts + logic.test.ts + index.tsx)
