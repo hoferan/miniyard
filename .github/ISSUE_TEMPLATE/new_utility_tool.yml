@@ -1,18 +1,18 @@
-name: 🔧 Neues Utility Tool
-description: Idee für ein neues Utility Tool (Rechner, Umrechner, Text-Tool, etc.)
+name: 🔧 New Utility Tool
+description: Idea for a new utility tool (calculator, converter, text tool, etc.)
 labels: ["new-tool", "utility"]
 body:
   - type: input
     id: name
     attributes:
-      label: Name des Tools
-      placeholder: "z.B. BMI Rechner, Unit Converter, Base64 Encoder"
+      label: Tool name
+      placeholder: "e.g. BMI Calculator, Unit Converter, Base64 Encoder"
     validations:
       required: true
   - type: textarea
     id: description
     attributes:
-      label: Was soll das Tool tun?
+      label: What should the tool do?
     validations:
       required: true
   - type: textarea
@@ -20,31 +20,31 @@ body:
     attributes:
       label: Inputs
       placeholder: |
-        - Gewicht (kg oder lbs)
-        - Grösse (cm oder inch)
+        - Weight (kg or lbs)
+        - Height (cm or inch)
     validations:
       required: true
   - type: textarea
     id: outputs
     attributes:
-      label: Output / Ergebnis
+      label: Output / Result
       placeholder: |
-        - Berechneter Wert
-        - Kategorie / Label
+        - Calculated value
+        - Category / label
     validations:
       required: true
   - type: textarea
     id: formula
     attributes:
-      label: Formel / Logik (falls bekannt)
-      placeholder: "z.B. BMI = Gewicht (kg) / Grösse (m)²"
+      label: Formula / Logic (if known)
+      placeholder: "e.g. BMI = weight (kg) / height (m)²"
   - type: dropdown
     id: complexity
     attributes:
-      label: Geschätzte Komplexität
+      label: Estimated complexity
       options:
-        - Klein (< 1h)
-        - Mittel (1–4h)
-        - Gross (> 4h)
+        - Small (< 1h)
+        - Medium (1–4h)
+        - Large (> 4h)
     validations:
       required: true

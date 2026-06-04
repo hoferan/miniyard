@@ -1,19 +1,19 @@
 ---
 name: pr-summary
-description: Generiert eine fertige PR-Beschreibung basierend auf git diff zu main
+description: Generates a finished PR description based on git diff to main
 ---
 
 # /pr-summary
 
-Generiert eine fertige PR-Beschreibung.
+Generates a finished PR description.
 
-## Was Claude tut
+## What Claude does
 
-1. `git diff main` analysieren
-2. PR-Template aus `.github/PULL_REQUEST_TEMPLATE.md` ausfüllen
-3. Konventionellen Commit-Titel vorschlagen
-4. Checklist-Punkte als erfüllt/offen markieren
+1. Analyse `git diff main`
+2. Fill in the PR template from `.github/PULL_REQUEST_TEMPLATE.md`
+3. Suggest a conventional commit title
+4. Mark checklist items as done / open
 
-## Ausgabe
+## Output
 
-Fertige PR-Beschreibung zum Einfügen in GitHub – kopierbereit.
+Finished PR description ready to paste into GitHub.

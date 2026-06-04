@@ -1,25 +1,25 @@
 ---
 name: update-docs
-description: Prüft ob README, docs/ und Kommentare nach einer Änderung noch aktuell sind und aktualisiert sie
+description: Checks whether README, docs/ and comments are still up to date after a change and updates them
 ---
 
 # /update-docs
 
-Prüft und aktualisiert alle Dokumentation nach einer Änderung.
+Checks and updates all documentation after a change.
 
-## Was Claude prüft
+## What Claude checks
 
-1. **README.md** – Sind alle Tools, Games, Explorers in den Listen?
-   Fehlt etwas? Ist ein Tool umbenannt oder entfernt worden?
+1. **README.md** – Are all tools, games, and explorers in the lists?
+   Is anything missing? Has a tool been renamed or removed?
 
-2. **docs/tools/** – Gibt es komplexe Logik oder API-Integrationen ohne Dokumentation?
+2. **docs/tools/** – Is there complex logic or API integrations without documentation?
 
-3. **ENV Variablen** – Sind alle `.env`-Keys im README Setup-Abschnitt dokumentiert?
+3. **ENV variables** – Are all `.env` keys documented in the README setup section?
 
-4. **Code-Kommentare** – Ist komplexe Logik (`logic.ts`) selbsterklärend oder braucht es Kommentare?
+4. **Code comments** – Is complex logic (`logic.ts`) self-explanatory or does it need comments?
 
-## Wann verwenden
+## When to use
 
-- Nach einer Implementierung die docs vergessen wurden
-- Vor einem PR als finaler Check
-- Wenn `README.md` outdated wirkt
+- After an implementation where docs were forgotten
+- Before a PR as a final check
+- When `README.md` looks outdated

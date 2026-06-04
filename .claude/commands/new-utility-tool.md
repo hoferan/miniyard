@@ -1,38 +1,38 @@
 ---
 name: new-utility-tool
-description: Startet den vollständigen Workflow für ein neues Utility Tool (Brainstorm → Spec → TDD → Implement → Docs)
-argument-hint: "[Tool-Name oder kurze Idee]"
+description: Starts the full workflow for a new utility tool (Brainstorm → Spec → TDD → Implement → Docs)
+argument-hint: "[tool name or brief idea]"
 ---
 
 # /new-utility-tool
 
-Startet Workflow A für ein neues **Utility Tool** (Rechner, Umrechner, Text-Tool, etc.).
+Starts Workflow A for a new **Utility Tool** (calculator, converter, text tool, etc.).
 
-## Ablauf
+## Flow
 
-**Schritt 1 – Brainstorm**
-Claude stellt folgende Fragen (alle, bevor Code geschrieben wird):
-1. Was soll das Tool genau berechnen / verarbeiten?
-2. Welche Inputs gibt es? (Typen, Einheiten, Validierung)
-3. Was ist der Output? (Zahl, Text, Liste?)
-4. Gibt es eine Formel oder bekannte Logik?
-5. Welche Edge Cases müssen behandelt werden? (0, negativ, leer, ungültig)
-6. Wie sieht die mobile Interaktion aus? (Slider, Input-Felder, Buttons?)
+**Step 1 – Brainstorm**
+Claude asks the following questions (all of them, before any code is written):
+1. What exactly should the tool calculate / process?
+2. What are the inputs? (types, units, validation)
+3. What is the output? (number, text, list?)
+4. Is there a formula or known logic?
+5. What edge cases need to be handled? (0, negative, empty, invalid)
+6. What does the mobile interaction look like? (slider, input fields, buttons?)
 
-**Schritt 2 – Spec**
-Claude fasst schriftlich zusammen und wartet auf Bestätigung. Keine Weiterfahrt ohne OK.
+**Step 2 – Spec**
+Claude summarises in writing and waits for confirmation. No proceeding without OK.
 
-**Schritt 3 – Tests zuerst**
-`src/tools/<name>/logic.test.ts` mit allen Testfällen schreiben.
-Tests sind rot – korrekt so.
+**Step 3 – Tests first**
+Write `src/tools/<name>/logic.test.ts` with all test cases.
+Tests are red – that's correct.
 
-**Schritt 4 – Implementierung**
-`src/tools/<name>/logic.ts` → alle Tests grün.
+**Step 4 – Implementation**
+`src/tools/<name>/logic.ts` → all tests green.
 `src/tools/<name>/index.tsx` → Tailwind, mobile-first.
 
-**Schritt 5 – Dokumentation**
-- `README.md` Tool-Liste aktualisieren
-- `docs/tools/<name>.md` falls Logik komplex ist
+**Step 5 – Documentation**
+- Update README.md tool list
+- `docs/tools/<name>.md` if logic is complex
 
-**Schritt 6 – PR-Beschreibung**
-Fertige PR-Beschreibung nach Template ausgeben.
+**Step 6 – PR description**
+Output finished PR description from template.

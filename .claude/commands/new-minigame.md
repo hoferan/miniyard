@@ -1,39 +1,39 @@
 ---
 name: new-minigame
-description: Startet den vollständigen Workflow für ein neues Minigame (Brainstorm → Spec → TDD → Implement → Docs)
-argument-hint: "[Spielname oder kurze Idee]"
+description: Starts the full workflow for a new minigame (Brainstorm → Spec → TDD → Implement → Docs)
+argument-hint: "[game name or brief idea]"
 ---
 
 # /new-minigame
 
-Startet Workflow A für ein neues **Minigame**.
+Starts Workflow A for a new **Minigame**.
 
-## Ablauf
+## Flow
 
-**Schritt 1 – Brainstorm**
-Claude stellt folgende Fragen:
-1. Was ist das Spielziel? Wie gewinnt / verliert man?
-2. Wie wird gesteuert? (Touch, Tap, Tastatur, Swipe?)
-3. Gibt es Punkte, Timer, oder Highscore?
-4. Wie schnell / langsam ist das Spieltempo?
-5. Welche Schwierigkeitsstufen (falls vorhanden)?
-6. Smartphone-Ansicht: passt das Spiel auf ein kleines Display?
+**Step 1 – Brainstorm**
+Claude asks the following questions:
+1. What is the game objective? How does the player win / lose?
+2. How is it controlled? (touch, tap, keyboard, swipe?)
+3. Are there points, a timer, or a high score?
+4. How fast / slow is the game pace?
+5. What difficulty levels are there (if any)?
+6. Smartphone view: does the game fit a small display?
 
-**Schritt 2 – Spec**
-Claude fasst schriftlich zusammen: Spielziel, Mechanik, State-Modell, Rendering-Ansatz.
-Wartet auf Bestätigung.
+**Step 2 – Spec**
+Claude summarises in writing: game objective, mechanics, state model, rendering approach.
+Waits for confirmation.
 
-**Schritt 3 – Tests zuerst**
-`src/games/<name>/logic.test.ts` – Spiellogik (State-Transitions, Score-Berechnung, Win/Lose-Bedingungen).
-Kein DOM, kein React in den Tests.
+**Step 3 – Tests first**
+`src/games/<name>/logic.test.ts` – game logic (state transitions, score calculation, win/lose conditions).
+No DOM, no React in tests.
 
-**Schritt 4 – Implementierung**
-`src/games/<name>/logic.ts` → reine Spiellogik, alle Tests grün.
-`src/games/<name>/index.tsx` → Game Loop, Rendering, Touch-Events.
+**Step 4 – Implementation**
+`src/games/<name>/logic.ts` → pure game logic, all tests green.
+`src/games/<name>/index.tsx` → game loop, rendering, touch events.
 
-**Schritt 5 – Dokumentation**
-- `README.md` Minigames-Liste aktualisieren
-- Steuerung im Code kommentieren falls nicht offensichtlich
+**Step 5 – Documentation**
+- Update README.md minigames list
+- Comment controls in code if not obvious
 
-**Schritt 6 – PR-Beschreibung**
-Fertige PR-Beschreibung nach Template ausgeben.
+**Step 6 – PR description**
+Output finished PR description from template.

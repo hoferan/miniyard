@@ -1,40 +1,40 @@
 ---
 name: new-api-explorer
-description: Startet den vollständigen Workflow für einen neuen API Explorer (Brainstorm → Spec → TDD → Implement → Docs)
-argument-hint: "[API-Name oder URL]"
+description: Starts the full workflow for a new API Explorer (Brainstorm → Spec → TDD → Implement → Docs)
+argument-hint: "[API name or URL]"
 ---
 
 # /new-api-explorer
 
-Startet Workflow A für einen neuen **API Explorer**.
+Starts Workflow A for a new **API Explorer**.
 
-## Ablauf
+## Flow
 
-**Schritt 1 – Brainstorm**
-Claude stellt folgende Fragen:
-1. Welche API? URL zur Dokumentation?
-2. Welche Endpoints werden genutzt?
-3. Braucht es einen API Key? (→ `.env.local` + Netlify Env Variable)
-4. Was sieht der User? (Daten, Visualisierung, interaktive Abfrage?)
-5. Fehlerfall: Was passiert wenn die API nicht antwortet?
-6. Rate Limits oder Kosten zu beachten?
+**Step 1 – Brainstorm**
+Claude asks the following questions:
+1. Which API? URL to the documentation?
+2. Which endpoints will be used?
+3. Does it need an API key? (→ `.env.local` + Netlify env variable)
+4. What does the user see? (data, visualisation, interactive query?)
+5. Error case: what happens if the API does not respond?
+6. Any rate limits or costs to consider?
 
-**Schritt 2 – Spec**
-Endpoints, Request/Response-Struktur, Fehlerbehandlung, UI-Konzept.
-Wartet auf Bestätigung.
+**Step 2 – Spec**
+Endpoints, request/response structure, error handling, UI concept.
+Waits for confirmation.
 
-**Schritt 3 – Tests zuerst**
-`src/explorers/<name>/api.test.ts` – Response-Parsing, Fehlerbehandlung, Edge Cases.
-Echte API-Calls werden gemockt.
+**Step 3 – Tests first**
+`src/explorers/<name>/api.test.ts` – response parsing, error handling, edge cases.
+Real API calls are mocked.
 
-**Schritt 4 – Implementierung**
-`src/explorers/<name>/api.ts` → Fetching, Parsing, Sentry-Integration.
-`src/explorers/<name>/index.tsx` → UI, Loading State, Error State.
+**Step 4 – Implementation**
+`src/explorers/<name>/api.ts` → fetching, parsing, Sentry integration.
+`src/explorers/<name>/index.tsx` → UI, loading state, error state.
 
-**Schritt 5 – Dokumentation**
-- `README.md` API Explorers-Liste aktualisieren
-- `docs/tools/<name>.md` mit API-Referenz, benötigten ENV Variablen, Rate Limits
-- `.env.local.example` falls neuer API Key nötig
+**Step 5 – Documentation**
+- Update README.md API Explorers list
+- `docs/tools/<name>.md` with API reference, required ENV variables, rate limits
+- `.env.local.example` if a new API key is needed
 
-**Schritt 6 – PR-Beschreibung**
-Fertige PR-Beschreibung nach Template ausgeben.
+**Step 6 – PR description**
+Output finished PR description from template.

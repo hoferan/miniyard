@@ -1,54 +1,54 @@
-name: 🎮 Neues Minigame
-description: Idee für ein neues Minigame
+name: 🎮 New Minigame
+description: Idea for a new minigame
 labels: ["new-tool", "minigame"]
 body:
   - type: input
     id: name
     attributes:
-      label: Name des Spiels
-      placeholder: "z.B. Snake, Memory, Reaction Time Test"
+      label: Game name
+      placeholder: "e.g. Snake, Memory, Reaction Time Test"
     validations:
       required: true
   - type: textarea
     id: description
     attributes:
-      label: Spielidee
-      placeholder: "Was ist das Ziel? Wie funktioniert es?"
+      label: Game idea
+      placeholder: "What is the objective? How does it work?"
     validations:
       required: true
   - type: textarea
     id: mechanics
     attributes:
-      label: Spielmechanik
+      label: Game mechanics
       placeholder: |
-        - Steuerung: Touch / Klick / Tastatur
-        - Gewinnbedingung: ...
-        - Verlustbedingung: ...
+        - Controls: touch / click / keyboard
+        - Win condition: ...
+        - Lose condition: ...
     validations:
       required: true
   - type: dropdown
     id: input_type
     attributes:
-      label: Primäre Steuerung
+      label: Primary controls
       options:
-        - Touch / Swipe (Mobile-first)
-        - Klick / Tap
-        - Tastatur
-        - Gemischt
+        - Touch / Swipe (mobile-first)
+        - Click / Tap
+        - Keyboard
+        - Mixed
     validations:
       required: true
   - type: textarea
     id: scoring
     attributes:
-      label: Scoring / Highscore
-      placeholder: "Gibt es Punkte? Einen Timer? Einen Highscore?"
+      label: Scoring / High score
+      placeholder: "Are there points? A timer? A high score?"
   - type: dropdown
     id: complexity
     attributes:
-      label: Geschätzte Komplexität
+      label: Estimated complexity
       options:
-        - Klein (< 2h)
-        - Mittel (2–6h)
-        - Gross (> 6h)
+        - Small (< 2h)
+        - Medium (2–6h)
+        - Large (> 6h)
     validations:
       required: true

@@ -1,44 +1,44 @@
 name: 🐛 Bug Report
-description: Etwas funktioniert nicht wie erwartet
+description: Something is not working as expected
 labels: ["bug", "needs-triage"]
 body:
   - type: dropdown
     id: category
     attributes:
-      label: Bereich
+      label: Area
       options:
         - Utility Tool
         - Minigame
         - API Explorer
         - Navigation / Layout
-        - Anderes
+        - Other
     validations:
       required: true
   - type: textarea
     id: description
     attributes:
-      label: Was ist passiert?
-      placeholder: "Wenn ich X mache, passiert Y statt Z..."
+      label: What happened?
+      placeholder: "When I do X, Y happens instead of Z..."
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Schritte zur Reproduktion
+      label: Steps to reproduce
       placeholder: |
-        1. Navigiere zu '...'
-        2. Klicke auf '...'
-        3. Fehler erscheint
+        1. Navigate to '...'
+        2. Click on '...'
+        3. Error appears
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: Erwartetes Verhalten
+      label: Expected behaviour
     validations:
       required: true
   - type: textarea
     id: context
     attributes:
-      label: Browser / Gerät / OS
-      placeholder: "z.B. Safari iOS 17, iPhone 15"
+      label: Browser / Device / OS
+      placeholder: "e.g. Safari iOS 17, iPhone 15"

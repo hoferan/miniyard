@@ -1,30 +1,30 @@
 name: ✨ Feature Request
-description: Verbesserung an einem bestehenden Tool, Minigame oder der App selbst
+description: Improvement to an existing tool, minigame, or the app itself
 labels: ["enhancement"]
 body:
   - type: dropdown
     id: category
     attributes:
-      label: Bereich
+      label: Area
       options:
-        - Bestehendes Utility Tool
-        - Bestehendes Minigame
-        - Bestehender API Explorer
+        - Existing Utility Tool
+        - Existing Minigame
+        - Existing API Explorer
         - UI / UX
         - Performance
-        - Anderes
+        - Other
     validations:
       required: true
   - type: textarea
     id: problem
     attributes:
-      label: Was fehlt oder nervt?
-      placeholder: "Ich wünschte mir, ich könnte..."
+      label: What is missing or annoying?
+      placeholder: "I wish I could..."
     validations:
       required: true
   - type: textarea
     id: solution
     attributes:
-      label: Gewünschte Lösung
+      label: Desired solution
     validations:
       required: true

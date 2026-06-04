@@ -1,28 +1,28 @@
 ---
 name: bugfix
-description: Strukturierter Bugfix-Workflow ohne Brainstorm-Overhead
-argument-hint: "[kurze Fehlerbeschreibung]"
+description: Structured bug fix workflow without brainstorm overhead
+argument-hint: "[brief description of the bug]"
 ---
 
 # /bugfix
 
-Workflow B – Bugfix ohne Brainstorm.
+Workflow B – bug fix without brainstorm.
 
-## Prompt-Template
+## Prompt Template
 
 ```
 /bugfix
 
-Problem: [was ist kaputt]
-Datei / Komponente: [wo]
-Erwartetes Verhalten: [was sollte passieren]
-Aktuelles Verhalten: [was passiert stattdessen]
-Reproduzierbar: [immer / manchmal / unter Bedingung X]
+Problem: [what is broken]
+File / Component: [where]
+Expected behaviour: [what should happen]
+Actual behaviour: [what happens instead]
+Reproducible: [always / sometimes / under condition X]
 ```
 
-## Was Claude tut
+## What Claude does
 
-1. Betroffene Datei lesen, Ursache benennen
-2. Falls `logic.ts` betroffen: Failing Test für den Bug schreiben, dann fixen
-3. Minimaler Fix – keine unnötigen Änderungen
-4. PR-Beschreibung mit Ursache, Fix und betroffenen Tests
+1. Read the affected file, name the root cause
+2. If `logic.ts` is affected: write a failing test for the bug, then fix it
+3. Minimal fix – no unnecessary changes
+4. PR description with cause, fix, and affected tests

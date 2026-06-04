@@ -1,26 +1,26 @@
-## Was ändert dieser PR?
+## What does this PR change?
 
-<!-- Kurze Beschreibung der Änderung -->
+<!-- Brief description of the change -->
 
-## Typ
+## Type
 
-- [ ] 🔧 Neues Utility Tool
-- [ ] 🎮 Neues Minigame
-- [ ] 🔌 Neuer API Explorer
-- [ ] ✨ Verbesserung / Feature
-- [ ] 🐛 Bugfix
+- [ ] 🔧 New Utility Tool
+- [ ] 🎮 New Minigame
+- [ ] 🔌 New API Explorer
+- [ ] ✨ Improvement / Feature
+- [ ] 🐛 Bug fix
 - [ ] 🧹 Refactor / Cleanup
 - [ ] 📚 Docs / Config
 
-## Verknüpftes Issue
+## Related Issue
 
-Closes #<!-- Nummer -->
+Closes #<!-- number -->
 
 ## Checklist
 
-- [ ] Tests geschrieben (`logic.test.ts` vollständig)
-- [ ] Alle Tests grün (`npm test`)
-- [ ] Netlify Preview geprüft
-- [ ] Keine neuen Sentry-Fehler erwartet
-- [ ] Keine Secrets / API Keys im Code
-- [ ] Dokumentation aktualisiert (README, `docs/` falls relevant)
+- [ ] Tests written (`logic.test.ts` complete)
+- [ ] All tests green (`npm test`)
+- [ ] Netlify preview checked
+- [ ] No new Sentry errors expected
+- [ ] No secrets / API keys in code
+- [ ] Documentation updated (README, `docs/` if relevant)

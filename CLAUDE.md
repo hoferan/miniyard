@@ -1,41 +1,41 @@
 # miniyard – Claude Code Instructions
 
-## Projektübersicht
+## Project Overview
 
-**miniyard** ist eine modulare Playground-Applikation mit drei Kategorien:
+**miniyard** is a modular playground application with three categories:
 
-| Kategorie | Beschreibung | Pfad |
+| Category | Description | Path |
 |---|---|---|
-| **Utility Tools** | Rechner, Umrechner, Text-Tools, mathematische Funktionen | `src/tools/` |
-| **Minigames** | Browser-Spiele, Mobile-first | `src/games/` |
-| **API Explorers** | Hands-on Demos mit öffentlichen APIs | `src/explorers/` |
+| **Utility Tools** | Calculators, converters, text tools, math functions | `src/tools/` |
+| **Minigames** | Browser games, mobile-first | `src/games/` |
+| **API Explorers** | Hands-on demos with public APIs | `src/explorers/` |
 
-Solo-Entwickler. Lern- und Showcase-Projekt.
+Solo developer. Learning and showcase project.
 
 ### Stack
 - **Framework:** Next.js (App Router), React, TypeScript, Tailwind CSS
 - **Testing:** Jest + React Testing Library
-- **Hosting:** Netlify mit PR Preview Deployments
+- **Hosting:** Netlify with PR Preview Deployments
 - **Error Tracking:** Sentry
-- **Code Review:** CodeRabbit (automatisch auf jedem PR)
-- **Dependencies:** Dependabot (wöchentlich, Montag)
+- **Code Review:** CodeRabbit (automatic on every PR)
+- **Dependencies:** Dependabot (weekly, Monday)
 
-### Branch-Strategie
-Ausschliesslich `main`. **Kein direkter Push.** Jede Änderung via PR.
+### Branch Strategy
+`main` only. **No direct push.** Every change via PR.
 
 ---
 
-## Projektstruktur
+## Project Structure
 
 ```
 src/
   app/                        # Next.js App Router Pages & Layouts
-  components/                 # Geteilte UI-Komponenten
+  components/                 # Shared UI components
   tools/
     <tool-name>/
-      index.tsx               # React UI-Komponente
-      logic.ts                # Reine Logik – kein React, kein DOM
-      logic.test.ts           # Tests für logic.ts (TDD)
+      index.tsx               # React UI component
+      logic.ts                # Pure logic – no React, no DOM
+      logic.test.ts           # Tests for logic.ts (TDD)
   games/
     <game-name>/
       index.tsx
@@ -44,149 +44,150 @@ src/
   explorers/
     <api-name>/
       index.tsx
-      api.ts                  # API-Calls, Fetching
+      api.ts                  # API calls, fetching
       api.test.ts
   lib/                        # Shared utilities & helpers
 docs/
-  tools/                      # Dokumentation pro Tool (optional)
+  tools/                      # Per-tool documentation (optional)
   adr/                        # Architecture Decision Records (optional)
 ```
 
-**Goldene Regel:** Logik (`logic.ts`) ist immer von der UI (`index.tsx`) getrennt. Reine Funktionen, einfach testbar, kein React-Import.
+**Golden rule:** Logic (`logic.ts`) is always separated from UI (`index.tsx`). Pure functions, easy to test, no React import.
 
 ---
 
-## Workflow-Entscheidungsbaum
+## Workflow Decision Tree
 
 ```
-Neue Aufgabe erhalten
+New task received
        │
-       ├─ Neues Tool / Minigame / API Explorer?
-       │         └─ JA → Workflow A (Brainstorm → Spec → TDD → Implement → Docs → Review)
+       ├─ New tool / minigame / API explorer?
+       │         └─ YES → Workflow A (Brainstorm → Spec → TDD → Implement → Docs → Review)
        │
-       ├─ Bugfix?
-       │         └─ JA → Workflow B (Analyse → Fix → Test → PR)
+       ├─ Bug fix?
+       │         └─ YES → Workflow B (Analyse → Fix → Test → PR)
        │
-       ├─ UI-Anpassung / Styling?
-       │         └─ JA → Workflow C (Direkt → PR)
+       ├─ UI adjustment / styling?
+       │         └─ YES → Workflow C (Direct → PR)
        │
-       └─ Refactor / Cleanup?
-                 └─ JA → Workflow C (Änderung, Tests grün halten → PR)
+       └─ Refactor / cleanup?
+                 └─ YES → Workflow C (Change, keep tests green → PR)
 ```
 
 ---
 
-## Workflow A: Neues Tool / Feature (Pflicht)
+## Workflow A: New Tool / Feature (mandatory)
 
-### Schritt 1 – Brainstorm
-**Bevor irgendeine Zeile Code geschrieben wird**, stellt Claude aktiv Rückfragen:
-- Was genau soll das Tool tun? Was nicht?
-- Welche Inputs, welche Outputs?
-- Welche Edge Cases (0, negativ, leer, ungültig)?
-- Mobile-first: Wie interagiert der User auf dem Smartphone?
-- Gibt es ähnliche Tools im Projekt, die wiederverwendet werden können?
+### Step 1 – Brainstorm
+**Before writing any line of code**, Claude actively asks questions:
+- What exactly should the tool do? What should it not do?
+- What are the inputs, what are the outputs?
+- What edge cases (0, negative, empty, invalid)?
+- Mobile-first: How does the user interact on a smartphone?
+- Are there similar tools in the project that can be reused?
 
-Claude wartet auf Antworten. Keine Annahmen treffen.
+Claude waits for answers. No assumptions.
 
-### Schritt 2 – Spec (schriftlich bestätigen)
-Claude fasst die Anforderungen zusammen und wartet auf Bestätigung:
+### Step 2 – Spec (confirm in writing)
+Claude summarises the requirements and waits for confirmation:
 
 ```
-## Spec: [Tool-Name]
-Kategorie: [Utility / Minigame / API Explorer]
-Funktion: [1–2 Sätze]
-Inputs: [Liste mit Typ und Validierung]
-Outputs: [Liste]
-Logik / Algorithmus: [Kernformel oder Ablauf]
-Edge Cases: [Liste]
-Neue Dateien:
+## Spec: [Tool Name]
+Category: [Utility / Minigame / API Explorer]
+Function: [1–2 sentences]
+Inputs: [list with type and validation]
+Outputs: [list]
+Logic / Algorithm: [core formula or flow]
+Edge Cases: [list]
+New files:
   - src/[tools|games|explorers]/[name]/logic.ts
   - src/[tools|games|explorers]/[name]/logic.test.ts
   - src/[tools|games|explorers]/[name]/index.tsx
-Dokumentation:
-  - README.md aktualisieren (Tool-Liste)
-  - docs/tools/[name].md falls komplex
+Documentation:
+  - README.md update (tool list)
+  - docs/tools/[name].md if complex
 ```
 
-**Keine Implementierung ohne explizite Bestätigung der Spec.**
+**No implementation without explicit spec confirmation.**
 
-### Schritt 3 – Tests zuerst (TDD, nicht verhandelbar)
-Claude schreibt `logic.test.ts` vollständig **bevor** `logic.ts` existiert:
-- Happy Path (Normalfall)
-- Edge Cases (0, negativ, leerer String, null/undefined)
-- Fehlerfälle / ungültige Inputs
-- Boundary-Werte
+### Step 3 – Tests first (TDD, non-negotiable)
+Claude writes `logic.test.ts` completely **before** `logic.ts` exists:
+- Happy path (normal case)
+- Edge cases (0, negative, empty string, null/undefined)
+- Error cases / invalid inputs
+- Boundary values
 
-Tests sind **rot** – das ist korrekt und beabsichtigt.
+Tests are **red** – that is correct and intentional.
 
-### Schritt 4 – Implementierung
-`logic.ts` implementieren bis alle Tests grün.
-Danach `index.tsx`: Tailwind, mobile-first, keine inline styles.
+### Step 4 – Implementation
+Implement `logic.ts` until all tests are green.
+Then `index.tsx`: Tailwind, mobile-first, no inline styles.
 
-### Schritt 5 – Dokumentation aktualisieren (Pflicht)
-Nach jeder Implementierung:
-- **`README.md`**: Tool/Minigame/Explorer in der entsprechenden Liste ergänzen
-- **`docs/tools/<name>.md`**: Nur bei komplexer Logik oder externen APIs
-- Kommentare im Code falls die Logik nicht selbsterklärend ist
+### Step 5 – Update documentation (mandatory)
+After every implementation:
+- **`README.md`**: Add tool/minigame/explorer to the appropriate list
+- **`docs/tools/<name>.md`**: Only for complex logic or external APIs
+- Code comments if the logic is not self-explanatory
 
-### Schritt 6 – Review-Checkliste
-Claude prüft selbst vor dem PR:
-- [ ] Alle Tests grün (`npm test`)
-- [ ] Keine hardcodierten Werte in `logic.ts`
-- [ ] Keine unnötigen npm-Pakete
-- [ ] Sentry error boundary bei externen Calls
-- [ ] Mobile-Ansicht funktioniert (Tailwind responsive)
-- [ ] README und Docs aktuell
-
----
-
-## Workflow B: Bugfix
-
-1. Betroffene Datei lesen, Fehlerursache **benennen** bevor gefixt wird
-2. Falls `logic.ts` betroffen: Failing Test für den Bug schreiben, **dann** fixen
-3. Minimaler Fix – keine unnötigen Änderungen an anderen Dateien
-4. PR-Beschreibung: Ursache + Fix + betroffene Tests
+### Step 6 – Review checklist
+Claude checks before the PR:
+- [ ] All tests green (`npm test`)
+- [ ] No hardcoded values in `logic.ts`
+- [ ] No unnecessary npm packages
+- [ ] Sentry error boundary for external calls
+- [ ] Mobile view works (Tailwind responsive)
+- [ ] README and docs up to date
 
 ---
 
-## Workflow C: Direktänderung (Styling, Config, Docs)
+## Workflow B: Bug Fix
 
-Keine Spec nötig. Direkt ändern, PR erstellen, kurze Beschreibung.
+1. Read the affected file, **name the root cause** before fixing
+2. If `logic.ts` is affected: write a failing test for the bug, **then** fix it
+3. Minimal fix – no unnecessary changes to other files
+4. PR description: cause + fix + affected tests
 
 ---
 
-## Dokumentationsregeln (immer einhalten)
+## Workflow C: Direct Change (styling, config, docs)
 
-| Was geändert? | Was aktualisieren? |
+No spec needed. Change directly, create PR, short description.
+
+---
+
+## Documentation Rules (always follow)
+
+| What changed? | What to update? |
 |---|---|
-| Neues Tool / Game / Explorer | README.md Tool-Liste + ggf. `docs/tools/` |
-| Neue ENV Variable | README.md Setup-Abschnitt |
-| Neue npm Dependency | README.md Tech Stack falls relevant |
-| Breaking Change an Struktur | Kommentar im Code + README |
-| Komplexe API-Integration | `docs/tools/<name>.md` |
+| New tool / game / explorer | README.md tool list + `docs/tools/` if needed |
+| New ENV variable | README.md setup section |
+| New npm dependency | README.md tech stack if relevant |
+| Breaking change to structure | Code comment + README |
+| Complex API integration | `docs/tools/<name>.md` |
 
-Claude prüft **immer** ob Dokumentation angepasst werden muss – ohne explizite Aufforderung.
+Claude **always** checks whether documentation needs updating – without explicit prompt.
 
 ---
 
-## Konventionen
+## Conventions
 
 - **Commits:** Conventional Commits – `feat:`, `fix:`, `test:`, `chore:`, `docs:`, `refactor:`
-- **Sprache:** Code + Kommentare auf Englisch
-- **Komponenten:** Funktionale Komponenten, Hooks, kein Class-basiertes React
-- **Logik:** Immer in `logic.ts` auslagern – pure functions, kein Side-Effect
-- **Styling:** Tailwind utility classes, kein inline CSS, kein separates CSS ausser `globals.css`
-- **Fehlerbehandlung:** `Sentry.captureException()` bei unerwarteten Fehlern und API-Calls
-- **Secrets:** Nur via `.env.local` (lokal) / Netlify Environment Variables (prod)
+- **Language:** Everything in English – code, comments, documentation, commit messages, PR descriptions, Claude responses, and all repo content. This applies even when the user communicates in German.
+- **Components:** Functional components, hooks, no class-based React
+- **Logic:** Always extracted to `logic.ts` – pure functions, no side effects
+- **Styling:** Tailwind utility classes, no inline CSS, no separate CSS except `globals.css`
+- **Error handling:** `Sentry.captureException()` for unexpected errors and API calls
+- **Secrets:** Only via `.env.local` (local) / Netlify Environment Variables (prod)
 
 ---
 
-## Verbote (niemals, unter keinen Umständen)
+## Prohibitions (never, under any circumstances)
 
-- ❌ Direkter Push auf `main`
-- ❌ Implementierung ohne bestätigte Spec (bei neuen Features)
-- ❌ Tests überspringen, deaktivieren oder auskommentieren
-- ❌ `.env`-Dateien anfassen oder Inhalt loggen
-- ❌ Neue npm-Pakete ohne kurze Begründung
-- ❌ Sentry entfernen oder deaktivieren
-- ❌ Dokumentation nach einer Änderung nicht aktualisieren
+- ❌ Direct push to `main`
+- ❌ Implementation without confirmed spec (for new features)
+- ❌ Skipping, disabling, or commenting out tests
+- ❌ Touching `.env` files or logging their contents
+- ❌ New npm packages without a brief justification
+- ❌ Removing or disabling Sentry
+- ❌ Not updating documentation after a change
+- ❌ Writing anything in the repository in a language other than English
