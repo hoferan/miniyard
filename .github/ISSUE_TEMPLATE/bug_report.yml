@@ -9,8 +9,6 @@ body:
       options:
         - Utility Tool
         - Minigame
-        - API Explorer
-        - Swiss Module
         - Navigation / Layout
         - Other
     validations:

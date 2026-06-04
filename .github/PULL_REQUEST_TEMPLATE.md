@@ -6,8 +6,7 @@
 
 - [ ] 🔧 New Utility Tool
 - [ ] 🎮 New Minigame
-- [ ] 🔌 New API Explorer
-- [ ] 🇨🇭 New Swiss Module
+- [ ] 🗂️ New Category
 - [ ] ✨ Improvement / Feature
 - [ ] 🐛 Bug fix
 - [ ] 🧹 Refactor / Cleanup
@@ -26,6 +25,5 @@ Closes #<!-- number -->
 - [ ] TypeScript check passes (`npm run typecheck`)
 - [ ] Build passes (`npm run build`)
 - [ ] Netlify preview checked
-- [ ] No new Sentry errors expected
 - [ ] No secrets / API keys in code
 - [ ] Documentation updated (README, `docs/` if relevant)

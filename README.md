@@ -1,6 +1,6 @@
 # miniyard
 
-A modular playground with useful tools, mini games, API explorers, and Swiss-specific tools — built with Next.js, React, and Tailwind CSS.
+A modular playground with useful tools and mini games — built with Next.js, React, and Tailwind CSS. Starts small and grows over time.
 
 ## Categories
 
@@ -14,18 +14,6 @@ A modular playground with useful tools, mini games, API explorers, and Swiss-spe
 <!-- Add games here as they are built -->
 | Game | Description |
 |------|-------------|
-| *(none yet)* | |
-
-### 🔌 API Explorers
-<!-- Add explorers here as they are built -->
-| Explorer | API | Docs |
-|----------|-----|------|
-| *(none yet)* | | |
-
-### 🇨🇭 Swiss
-<!-- Add Swiss modules here as they are built -->
-| Module | Description |
-|--------|-------------|
 | *(none yet)* | |
 
 ---
@@ -66,8 +54,6 @@ Open [http://localhost:3000](http://localhost:3000).
 |----------|----------|-------------|
 | `NEXT_PUBLIC_SENTRY_DSN` | Yes | Sentry DSN for error tracking |
 
-Add API keys for explorers as needed — see `.env.example`.
-
 ---
 
 ## Development Workflow
@@ -86,8 +72,7 @@ All changes go through PRs — no direct pushes to `main`.
 |---------|-------------|
 | `/new-utility-tool` | New calculator, converter, or text tool |
 | `/new-minigame` | New browser-based game |
-| `/new-api-explorer` | New hands-on API demo |
-| `/new-swiss-module` | New Swiss-specific tool or reference |
+| `/new-category` | Add an entirely new module category |
 | `/bugfix` | Structured bug fix workflow |
 | `/update-docs` | Check and update all documentation |
 | `/pr-summary` | Generate PR description from git diff |
@@ -101,17 +86,12 @@ src/
   modules/
     utilities/  # Utility tools  (meta.ts + logic.ts + logic.test.ts + index.tsx)
     games/      # Minigames       (meta.ts + logic.ts + logic.test.ts + index.tsx)
-    apis/       # API Explorers   (meta.ts + api.ts   + api.test.ts   + index.tsx)
-    swiss/      # Swiss modules   (meta.ts + logic.ts or api.ts + test + index.tsx)
   app/          # Next.js App Router pages
   components/   # Shared UI components
   lib/          # registry.ts, types.ts, utils.ts
 tests/
   e2e/          # Playwright E2E tests
-docs/
-  utilities/    # Per-module documentation (complex tools)
-  apis/         # Per-explorer documentation
-  swiss/        # Per-Swiss-module documentation
+docs/           # Per-module documentation (complex modules only)
 ```
 
 ---

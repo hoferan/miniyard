@@ -2,16 +2,14 @@
 
 ## Project Overview
 
-**miniyard** is a modular playground platform with four categories:
+**miniyard** is a modular playground platform. It starts with two categories and grows over time:
 
 | Category | Description | Path |
 |---|---|---|
 | **Utilities** | Calculators, converters, text tools, math functions | `src/modules/utilities/` |
 | **Games** | Browser games, mobile-first | `src/modules/games/` |
-| **API Explorers** | Hands-on demos with public APIs | `src/modules/apis/` |
-| **Swiss** | Tools and references for Switzerland | `src/modules/swiss/` |
 
-Solo developer. Learning and showcase project.
+Solo developer. Learning and showcase project. New categories are added when needed — see [How to add a new category](#how-to-add-a-new-category).
 
 ### Stack
 - **Framework:** Next.js 14 (App Router), React, TypeScript, Tailwind CSS
@@ -40,12 +38,6 @@ src/
     games/
       page.tsx
       [slug]/page.tsx
-    apis/
-      page.tsx
-      [slug]/page.tsx
-    swiss/
-      page.tsx
-      [slug]/page.tsx
   modules/
     utilities/
       <name>/
@@ -59,18 +51,6 @@ src/
         meta.ts
         logic.ts
         logic.test.ts
-    apis/
-      <name>/
-        index.tsx
-        meta.ts
-        api.ts                  # API calls, fetching, Sentry integration
-        api.test.ts
-    swiss/
-      <name>/
-        index.tsx
-        meta.ts
-        logic.ts or api.ts      # depending on whether data is local or external
-        logic.test.ts or api.test.ts
   components/
     layout/                     # header.tsx, footer.tsx, nav.tsx
     module-card.tsx
@@ -83,7 +63,7 @@ tests/
 ```
 
 **Golden rules:**
-- Logic (`logic.ts` / `api.ts`) is always separated from UI (`index.tsx`). Pure functions, no React import, easy to unit-test.
+- Logic (`logic.ts`) is always separated from UI (`index.tsx`). Pure functions, no React import, easy to unit-test.
 - Metadata (`meta.ts`) is always separated from component and logic code.
 - Every new module must be registered in `src/lib/registry.ts` and added to `componentMap` in the relevant `src/app/[category]/[slug]/page.tsx`.
 
@@ -92,7 +72,7 @@ tests/
 ## Architecture Rules
 
 - Every module lives in `src/modules/[category]/[name]/`
-- Every module has `index.tsx` (component), `meta.ts` (metadata), and `logic.ts` or `api.ts` (logic / fetching)
+- Every module has `index.tsx` (component), `meta.ts` (metadata), and `logic.ts` (logic)
 - New modules must be registered in `src/lib/registry.ts`
 - New modules must be added to `componentMap` in the relevant `src/app/[category]/[slug]/page.tsx`
 - Never put business logic in `app/` pages – pages only load modules
@@ -131,8 +111,11 @@ tests/
 ```
 New task received
        │
-       ├─ New module (utility / game / API explorer / Swiss)?
+       ├─ New module (utility / game / ...)?
        │         └─ YES → Workflow A (Brainstorm → Spec → TDD → Implement → Register → Docs → Review)
+       │
+       ├─ New category?
+       │         └─ YES → /new-category command
        │
        ├─ Bug fix?
        │         └─ YES → Workflow B (Analyse → Fix → Test → PR)
@@ -154,7 +137,6 @@ New task received
 - What are the inputs, what are the outputs?
 - What edge cases (0, negative, empty, invalid)?
 - Mobile-first: How does the user interact on a smartphone?
-- Is it utility-like (`logic.ts`) or API-based (`api.ts`)?
 - Are there similar modules in the project that can be reused?
 
 Claude waits for answers. No assumptions.
@@ -164,7 +146,7 @@ Claude summarises the requirements and waits for confirmation:
 
 ```
 ## Spec: [Module Name]
-Category: [utilities / games / apis / swiss]
+Category: [utilities / games / ...]
 Function: [1–2 sentences]
 Inputs: [list with type and validation]
 Outputs: [list]
@@ -172,8 +154,8 @@ Logic / Algorithm: [core formula or flow]
 Edge Cases: [list]
 New files:
   - src/modules/[category]/[name]/meta.ts
-  - src/modules/[category]/[name]/logic.ts  (or api.ts)
-  - src/modules/[category]/[name]/logic.test.ts  (or api.test.ts)
+  - src/modules/[category]/[name]/logic.ts
+  - src/modules/[category]/[name]/logic.test.ts
   - src/modules/[category]/[name]/index.tsx
 Registration:
   - src/lib/registry.ts
@@ -186,7 +168,7 @@ Documentation:
 **No implementation without explicit spec confirmation.**
 
 ### Step 3 – Tests first (TDD, non-negotiable)
-Claude writes `logic.test.ts` (or `api.test.ts`) completely **before** `logic.ts` exists:
+Claude writes `logic.test.ts` completely **before** `logic.ts` exists:
 - Happy path (normal case)
 - Edge cases (0, negative, empty string, null/undefined)
 - Error cases / invalid inputs
@@ -196,7 +178,7 @@ Tests are **red** – that is correct and intentional.
 
 ### Step 4 – Implementation
 1. Create `meta.ts` with module metadata
-2. Implement `logic.ts` (or `api.ts`) until all tests are green
+2. Implement `logic.ts` until all tests are green
 3. Create `index.tsx`: Tailwind, shadcn/ui components, mobile-first, no inline styles
 4. Register module in `src/lib/registry.ts`
 5. Add to `componentMap` in `src/app/[category]/[slug]/page.tsx`
@@ -204,15 +186,14 @@ Tests are **red** – that is correct and intentional.
 ### Step 5 – Update documentation (mandatory)
 After every implementation:
 - **`README.md`**: Add module to the appropriate category list
-- **`docs/[category]/[name].md`**: Only for complex logic or external APIs
+- **`docs/[category]/[name].md`**: Only for complex logic
 - Code comments if the logic is not self-explanatory
 
 ### Step 6 – Review checklist
 Claude checks before the PR:
 - [ ] All unit tests green (`npm run test`)
-- [ ] No hardcoded values in `logic.ts` or `api.ts`
+- [ ] No hardcoded values in `logic.ts`
 - [ ] No unnecessary npm packages
-- [ ] Sentry error boundary for external API calls (`api.ts`)
 - [ ] Mobile view works (Tailwind responsive)
 - [ ] Module registered in `src/lib/registry.ts`
 - [ ] Module added to `componentMap` in `src/app/[category]/[slug]/page.tsx`
@@ -225,7 +206,7 @@ Claude checks before the PR:
 ## Workflow B: Bug Fix
 
 1. Read the affected file, **name the root cause** before fixing
-2. If `logic.ts` or `api.ts` is affected: write a failing test for the bug, **then** fix it
+2. If `logic.ts` is affected: write a failing test for the bug, **then** fix it
 3. Minimal fix – no unnecessary changes to other files
 4. PR description: cause + fix + affected tests
 
@@ -237,15 +218,101 @@ No spec needed. Change directly, create PR, short description.
 
 ---
 
+## How to Add a New Category
+
+Use `/new-category` or follow this checklist manually. Do **not** create a new category without confirming the name and purpose with the user first.
+
+### What to confirm before starting
+- Category name (singular, lowercase, e.g. `swiss`, `apis`)
+- URL slug (same as name)
+- Short description (1 sentence)
+- Icon (emoji)
+- Module pattern: utility-like (`logic.ts`) or API-based (`api.ts`)?
+
+### Files to create
+
+```
+src/app/[category]/
+  page.tsx                     # Category listing page
+  [slug]/page.tsx              # Module detail page with componentMap
+
+src/modules/[category]/        # Empty directory (first module goes here)
+
+.claude/commands/
+  new-[category]-module.md     # Slash command for new modules in this category
+
+.github/ISSUE_TEMPLATE/
+  new_[category]_module.yml    # GitHub issue template
+```
+
+### Files to update
+
+| File | Change |
+|---|---|
+| `src/lib/types.ts` | Add `'[category]'` to `ModuleCategory` union |
+| `src/components/layout/nav.tsx` | Add navigation link |
+| `README.md` | Add new category section with empty table |
+| `CLAUDE.md` | Update categories table, project structure, slash commands list |
+
+### page.tsx template
+
+`src/app/[category]/page.tsx`:
+```tsx
+import { getModulesByCategory } from '@/lib/registry'
+import { ModuleCard } from '@/components/module-card'
+
+export default function [Category]Page() {
+  const modules = getModulesByCategory('[category]')
+  return (
+    <main className="max-w-5xl mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold mb-2">[Category Label]</h1>
+      <p className="text-muted-foreground mb-8">[Short description]</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {modules.map((module) => (
+          <ModuleCard key={module.slug} module={module} />
+        ))}
+      </div>
+    </main>
+  )
+}
+```
+
+`src/app/[category]/[slug]/page.tsx`:
+```tsx
+import { getModuleBySlug } from '@/lib/registry'
+import { notFound } from 'next/navigation'
+
+const componentMap: Record<string, React.ComponentType> = {
+  // Add module components here as they are created
+}
+
+export default async function [Category]ModulePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const module = getModuleBySlug(slug)
+  const Component = componentMap[slug]
+  if (!module || !Component) return notFound()
+  return <Component />
+}
+```
+
+### Verification after adding a category
+```bash
+npm run typecheck   # ModuleCategory type must be valid
+npm run build       # New pages must compile
+npm run test        # No regressions
+```
+
+---
+
 ## Documentation Rules (always follow)
 
 | What changed? | What to update? |
 |---|---|
 | New module | README.md module list + `docs/[category]/` if needed |
+| New category | All files listed in the "How to add a new category" section above |
 | New ENV variable | README.md setup section + `.env.example` |
 | New npm dependency | README.md tech stack if relevant |
 | Breaking change to structure | Code comment + README + CLAUDE.md |
-| Complex API integration | `docs/[category]/[name].md` |
 
 Claude **always** checks whether documentation needs updating – without explicit prompt.
 
@@ -256,9 +323,9 @@ Claude **always** checks whether documentation needs updating – without explic
 - **Commits:** Conventional Commits – `feat:`, `fix:`, `test:`, `chore:`, `docs:`, `refactor:`
 - **Language:** Everything in English – code, comments, documentation, commit messages, PR descriptions, Claude responses, and all repo content. This applies even when the user communicates in German.
 - **Components:** Functional components, hooks, no class-based React
-- **Logic:** Always extracted to `logic.ts` or `api.ts` – pure functions, no side effects
+- **Logic:** Always extracted to `logic.ts` – pure functions, no side effects
 - **Styling:** Tailwind utility classes + shadcn/ui, no inline CSS, no separate CSS except `globals.css`
-- **Error handling:** `Sentry.captureException()` for unexpected errors and API calls
+- **Error handling:** `Sentry.captureException()` for unexpected errors
 - **Secrets:** Only via `.env.local` (local) / Netlify Environment Variables (prod)
 
 ---
@@ -267,7 +334,7 @@ Claude **always** checks whether documentation needs updating – without explic
 
 | Tool | Purpose | Location |
 |---|---|---|
-| Vitest | Unit tests for logic and API parsing | `src/modules/[category]/[name]/[name].test.ts` |
+| Vitest | Unit tests for logic | `src/modules/[category]/[name]/logic.test.ts` |
 | Playwright | E2E tests for user flows | `tests/e2e/` |
 
 ```bash
@@ -276,6 +343,20 @@ npm run test:watch    # Run unit tests in watch mode
 npm run test:e2e      # Run Playwright E2E tests
 npm run test:e2e:ui   # Run Playwright with UI
 ```
+
+---
+
+## Context Management
+
+Monitor session length actively. Long sessions degrade response quality.
+
+**Rule:** When context compression occurs (system messages about prior message summarisation appear), or after approximately 15–20 significant exchanges, proactively check and mention it:
+
+1. Suggest the user run `/compact` to compress the current context, or
+2. Ask: *"This session is getting long — would you like to start a fresh session? I can summarise the current state first."*
+3. Aim to raise this at roughly 60% estimated capacity — before quality degrades, not after.
+
+When handing over to a new session, first output a short summary: what was done, what the next step is, any open decisions.
 
 ---
 
@@ -292,6 +373,7 @@ npm run test:e2e:ui   # Run Playwright with UI
 | `npm run test:e2e` | Run Playwright E2E tests |
 | `npm run test:e2e:ui` | Run Playwright with UI |
 | `npx shadcn@latest add [component]` | Add a shadcn/ui component |
+| `/compact` | Compress current session context |
 
 ## Claude Code Slash Commands
 
@@ -299,8 +381,7 @@ npm run test:e2e:ui   # Run Playwright with UI
 |---|---|
 | `/new-utility-tool` | New calculator, converter, or text tool |
 | `/new-minigame` | New browser-based game |
-| `/new-api-explorer` | New hands-on API demo |
-| `/new-swiss-module` | New Swiss-specific tool or reference |
+| `/new-category` | Add an entirely new module category |
 | `/bugfix` | Structured bug fix workflow |
 | `/update-docs` | Check and update all documentation |
 | `/pr-summary` | Generate PR description from git diff |
