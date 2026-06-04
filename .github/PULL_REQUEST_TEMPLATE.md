@@ -7,6 +7,7 @@
 - [ ] 🔧 New Utility Tool
 - [ ] 🎮 New Minigame
 - [ ] 🔌 New API Explorer
+- [ ] 🇨🇭 New Swiss Module
 - [ ] ✨ Improvement / Feature
 - [ ] 🐛 Bug fix
 - [ ] 🧹 Refactor / Cleanup
@@ -18,8 +19,12 @@ Closes #<!-- number -->
 
 ## Checklist
 
-- [ ] Tests written (`logic.test.ts` complete)
-- [ ] All tests green (`npm test`)
+- [ ] `meta.ts` created with correct metadata
+- [ ] Module registered in `src/lib/registry.ts`
+- [ ] Module added to `componentMap` in `src/app/[category]/[slug]/page.tsx`
+- [ ] Tests written and all green (`npm run test`)
+- [ ] TypeScript check passes (`npm run typecheck`)
+- [ ] Build passes (`npm run build`)
 - [ ] Netlify preview checked
 - [ ] No new Sentry errors expected
 - [ ] No secrets / API keys in code

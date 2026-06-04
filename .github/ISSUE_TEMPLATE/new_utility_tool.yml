@@ -1,6 +1,6 @@
 name: 🔧 New Utility Tool
 description: Idea for a new utility tool (calculator, converter, text tool, etc.)
-labels: ["new-tool", "utility"]
+labels: ["new-module", "utility"]
 body:
   - type: input
     id: name

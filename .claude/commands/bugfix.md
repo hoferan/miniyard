@@ -14,7 +14,7 @@ Workflow B – bug fix without brainstorm.
 /bugfix
 
 Problem: [what is broken]
-File / Component: [where]
+File / Component: [where, e.g. src/modules/utilities/unit-converter/logic.ts]
 Expected behaviour: [what should happen]
 Actual behaviour: [what happens instead]
 Reproducible: [always / sometimes / under condition X]
@@ -23,6 +23,6 @@ Reproducible: [always / sometimes / under condition X]
 ## What Claude does
 
 1. Read the affected file, name the root cause
-2. If `logic.ts` is affected: write a failing test for the bug, then fix it
+2. If `logic.ts` or `api.ts` is affected: write a failing Vitest test for the bug, then fix it
 3. Minimal fix – no unnecessary changes
 4. PR description with cause, fix, and affected tests

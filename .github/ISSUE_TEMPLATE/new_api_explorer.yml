@@ -1,6 +1,6 @@
 name: 🔌 New API Explorer
 description: Idea for a new API Explorer / hands-on demo
-labels: ["new-tool", "api-explorer"]
+labels: ["new-module", "api-explorer"]
 body:
   - type: input
     id: api_name

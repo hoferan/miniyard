@@ -1,6 +1,6 @@
 name: 🎮 New Minigame
 description: Idea for a new minigame
-labels: ["new-tool", "minigame"]
+labels: ["new-module", "minigame"]
 body:
   - type: input
     id: name

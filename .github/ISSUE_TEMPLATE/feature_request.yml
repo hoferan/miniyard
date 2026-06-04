@@ -1,5 +1,5 @@
 name: ✨ Feature Request
-description: Improvement to an existing tool, minigame, or the app itself
+description: Improvement to an existing module or the app itself
 labels: ["enhancement"]
 body:
   - type: dropdown
@@ -10,6 +10,7 @@ body:
         - Existing Utility Tool
         - Existing Minigame
         - Existing API Explorer
+        - Existing Swiss Module
         - UI / UX
         - Performance
         - Other

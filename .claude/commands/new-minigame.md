@@ -1,6 +1,6 @@
 ---
 name: new-minigame
-description: Starts the full workflow for a new minigame (Brainstorm → Spec → TDD → Implement → Docs)
+description: Starts the full workflow for a new minigame (Brainstorm → Spec → TDD → Implement → Register → Docs)
 argument-hint: "[game name or brief idea]"
 ---
 
@@ -24,15 +24,18 @@ Claude summarises in writing: game objective, mechanics, state model, rendering 
 Waits for confirmation.
 
 **Step 3 – Tests first**
-`src/games/<name>/logic.test.ts` – game logic (state transitions, score calculation, win/lose conditions).
-No DOM, no React in tests.
+`src/modules/games/<name>/logic.test.ts` – game logic (state transitions, score calculation, win/lose conditions).
+No DOM, no React in tests. Uses Vitest.
 
 **Step 4 – Implementation**
-`src/games/<name>/logic.ts` → pure game logic, all tests green.
-`src/games/<name>/index.tsx` → game loop, rendering, touch events.
+1. `src/modules/games/<name>/meta.ts` → module metadata
+2. `src/modules/games/<name>/logic.ts` → pure game logic, all tests green
+3. `src/modules/games/<name>/index.tsx` → game loop, rendering, touch events, shadcn/ui
+4. Register in `src/lib/registry.ts`
+5. Add to `componentMap` in `src/app/games/[slug]/page.tsx`
 
 **Step 5 – Documentation**
-- Update README.md minigames list
+- Update README.md games list
 - Comment controls in code if not obvious
 
 **Step 6 – PR description**
