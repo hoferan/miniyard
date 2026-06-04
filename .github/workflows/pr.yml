@@ -37,7 +37,7 @@ jobs:
         run: npm audit --audit-level=high
 
       - name: Dependency vulnerability scan
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.36.0
         with:
           scan-type: 'fs'
           scan-ref: '.'
