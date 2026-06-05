@@ -52,7 +52,30 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `NEXT_PUBLIC_SENTRY_DSN` | Yes | Sentry DSN for error tracking |
+| `NEXT_PUBLIC_SENTRY_DSN` | Yes | Sentry DSN for error tracking (public, safe to commit) |
+| `SENTRY_AUTH_TOKEN` | Build only | Sentry auth token for source map upload — set in Netlify dashboard, never commit |
+
+---
+
+## Deployment
+
+The app is deployed on [Netlify](https://netlify.com/).
+
+| Environment | URL |
+|-------------|-----|
+| Production (`main`) | <https://miniyard.netlify.app/> |
+| PR Preview | `https://deploy-preview-{pr-number}--miniyard.netlify.app/` |
+
+Netlify auto-detects Next.js and runs `npm run build` with `@netlify/plugin-nextjs`.
+
+### Required environment variables in Netlify dashboard
+
+Set these under **Site configuration → Environment variables**:
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN (same value as in `.env.example`) |
+| `SENTRY_AUTH_TOKEN` | Secret token for Sentry source map upload |
 
 ---
 
