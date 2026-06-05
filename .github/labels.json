@@ -58,5 +58,10 @@
     "name": "good first issue",
     "color": "7fc97f",
     "description": "Good starting point for new contributors"
+  },
+  {
+    "name": "ci-cd",
+    "color": "f4a623",
+    "description": "CI/CD pipeline, workflows, build, or deployment"
   }
 ]
