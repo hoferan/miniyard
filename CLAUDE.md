@@ -391,6 +391,7 @@ When handing over to a new session, first output a short summary: what was done,
 | `/pr-summary` | Generate PR description from git diff |
 | `/review-threads` | Interactive review of all open PR threads — CodeRabbit, human reviewers, and your own |
 | `/github-issue` | Create a GitHub issue via natural language — detects template, asks questions, proposes content for approval |
+| `/create-pr` | Create a pull request — reads the diff, fills the template, asks only what it can't infer, proposes for approval |
 
 ---
 
