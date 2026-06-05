@@ -390,6 +390,7 @@ When handing over to a new session, first output a short summary: what was done,
 | `/update-docs` | Check and update all documentation |
 | `/pr-summary` | Generate PR description from git diff |
 | `/review-threads` | Interactive review of all open PR threads — CodeRabbit, human reviewers, and your own |
+| `/github-issue` | Create a GitHub issue via natural language — detects template, asks questions, proposes content for approval |
 
 ---
 
