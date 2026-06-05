@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8dfeaeee-8e4c-4545-abda-17511c8a3830/deploy-status)](https://app.netlify.com/projects/miniyard/deploys)
+
 # miniyard
 
 A modular playground with useful tools and mini games — built with Next.js, React, and Tailwind CSS. Starts small and grows over time.
