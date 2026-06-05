@@ -7,3 +7,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  NEXT_PUBLIC_SENTRY_ENVIRONMENT = "production"
+
+[context.deploy-preview.environment]
+  NEXT_PUBLIC_SENTRY_ENVIRONMENT = "staging"
