@@ -63,5 +63,10 @@
     "name": "ci-cd",
     "color": "f4a623",
     "description": "CI/CD pipeline, workflows, build, or deployment"
+  },
+  {
+    "name": "ui-ux",
+    "color": "bfd4f2",
+    "description": "User interface or user experience improvement"
   }
 ]
