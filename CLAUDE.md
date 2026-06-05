@@ -330,6 +330,7 @@ Claude **always** checks whether documentation needs updating – without explic
 - **Styling:** Tailwind utility classes + shadcn/ui, no inline CSS, no separate CSS except `globals.css`
 - **Error handling:** `Sentry.captureException()` for unexpected errors
 - **Secrets:** Only via `.env.local` (local) / Netlify Environment Variables (prod)
+- **npm versions:** Always pin exact versions in `package.json` — no `^` or `~` prefixes. When installing a new package, strip the range prefix immediately (e.g. `"10.56.0"` not `"^10.56.0"`). Dependabot handles upgrades.
 
 ---
 
@@ -399,6 +400,7 @@ When handing over to a new session, first output a short summary: what was done,
 - ❌ Skipping, disabling, or commenting out tests
 - ❌ Touching `.env` files or logging their contents
 - ❌ New npm packages without a brief justification and bundle size consideration
+- ❌ Adding a npm package with a `^` or `~` version prefix — always pin exact versions
 - ❌ Removing or disabling Sentry
 - ❌ Not updating documentation after a change
 - ❌ Writing anything in the repository in a language other than English
