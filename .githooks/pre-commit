@@ -1,0 +1,13 @@
+#!/bin/sh
+# Pre-commit checks — runs only on staged files for speed.
+# Install once with: git config core.hooksPath .githooks
+
+if git diff --cached --name-only --diff-filter=ACM -z | grep -qz '\.md$'; then
+  echo "→ Markdown lint..."
+  git diff --cached --name-only --diff-filter=ACM -z | grep -z '\.md$' | xargs -0 npx markdownlint-cli2
+fi
+
+if git diff --cached --name-only --diff-filter=ACM -z | grep -qzE '\.(ts|tsx)$'; then
+  echo "→ ESLint..."
+  git diff --cached --name-only --diff-filter=ACM -z | grep -zE '\.(ts|tsx)$' | xargs -0 npx eslint --max-warnings=0
+fi
