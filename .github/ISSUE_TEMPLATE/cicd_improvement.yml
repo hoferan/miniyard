@@ -1,0 +1,42 @@
+name: ⚙️ CI/CD Improvement
+description: Improve workflows, testing pipelines, build, deployment, or tooling
+labels: ["enhancement", "ci-cd"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Workflows
+        - Testing
+        - Linting & Type Checking
+        - Security
+        - Build & Deploy
+        - Monitoring & Reporting
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem or gap?
+      placeholder: "Currently there is no... / The pipeline fails when... / We have no visibility into..."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      placeholder: "Add X to the PR workflow... / Configure Y to..."
+    validations:
+      required: true
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Estimated effort
+      options:
+        - Small (< 1h)
+        - Medium (1–4h)
+        - Large (> 4h)
+    validations:
+      required: true
