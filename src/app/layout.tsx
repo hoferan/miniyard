@@ -5,7 +5,7 @@ import { Nav } from '@/components/layout/nav'
 import { Footer } from '@/components/layout/footer'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const INTER_FONT = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'miniyard',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={INTER_FONT.className}>
         <Header />
         <Nav />
         {children}
