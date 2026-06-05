@@ -1,12 +1,9 @@
-// TODO: REVERT — remove SentryTestButton import and usage after Sentry has been verified in all environments.
 import { registry } from '@/lib/registry'
 import { ModuleCard } from '@/components/module-card'
-import { SentryTestButton } from '@/components/sentry-test-button'
 
 export default function HomePage() {
   return (
     <main className="max-w-5xl mx-auto px-4 py-12">
-      <SentryTestButton />
       <h1 className="text-4xl font-bold mb-2">miniyard 🧰</h1>
       <p className="text-muted-foreground mb-10">
         A modular playground for useful tools, mini games, and API explorers.
