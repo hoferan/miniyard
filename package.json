@@ -14,30 +14,30 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.475.0",
-    "next": "^15.3.3",
-    "react": "^19",
-    "react-dom": "^19",
-    "tailwind-merge": "^2.6.0"
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "lucide-react": "0.475.0",
+    "next": "15.5.19",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "tailwind-merge": "2.6.1"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^5.11.0",
-    "@playwright/test": "^1.50.1",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.5.0",
-    "eslint": "^9",
-    "eslint-config-next": "^15.3.3",
-    "jsdom": "^26.0.0",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5",
-    "vitest": "^4.1.8"
+    "@netlify/plugin-nextjs": "5.15.11",
+    "@playwright/test": "1.60.0",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
+    "@types/node": "20.19.41",
+    "@types/react": "19.2.16",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "4.7.0",
+    "autoprefixer": "10.5.0",
+    "eslint": "9.39.4",
+    "eslint-config-next": "15.5.19",
+    "jsdom": "26.1.0",
+    "postcss": "8.5.15",
+    "tailwindcss": "3.4.19",
+    "typescript": "5.9.3",
+    "vitest": "4.1.8"
   }
 }

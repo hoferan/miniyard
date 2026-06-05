@@ -9,8 +9,8 @@ reviews:
   path_filters:
     - "!**/*.lock"
     - "!**/node_modules/**"
-  finishing_touches:
+  pre_merge_checks:
     docstrings:
-      enabled: false
+      mode: off
 chat:
   auto_reply: true
