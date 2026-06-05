@@ -1,0 +1,16 @@
+#!/bin/sh
+# Pre-commit checks — runs only on staged files for speed.
+# Install once with: git config core.hooksPath .githooks
+set -e
+
+STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' || true)
+if [ -n "$STAGED_MD" ]; then
+  echo "→ Markdown lint..."
+  echo "$STAGED_MD" | xargs npx --yes markdownlint-cli2
+fi
+
+STAGED_TS=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx)$' || true)
+if [ -n "$STAGED_TS" ]; then
+  echo "→ ESLint..."
+  echo "$STAGED_TS" | xargs npx eslint --max-warnings=0
+fi

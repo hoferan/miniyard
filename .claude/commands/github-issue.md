@@ -36,7 +36,7 @@ If the input clearly matches one template, state it and proceed to Step 2.
 
 If the input is ambiguous or no clear match, present the menu and ask:
 
-```
+```text
 Which type of issue is this?
 
   [1] 🐛 Bug Report — something is not working
@@ -58,7 +58,7 @@ Use the exact field labels from the template so the proposal maps cleanly to the
 
 ### Bug Report fields
 
-```
+```text
 1. Area — which part of the app?
    Options: Utility Tool | Minigame | Navigation / Layout | Other
 
@@ -77,7 +77,7 @@ Use the exact field labels from the template so the proposal maps cleanly to the
 
 ### New Utility Tool fields
 
-```
+```text
 1. Tool name
    (e.g. BMI Calculator, Unit Converter, Base64 Encoder)
 
@@ -99,7 +99,7 @@ Use the exact field labels from the template so the proposal maps cleanly to the
 
 ### New Minigame fields
 
-```
+```text
 1. Game name
    (e.g. Snake, Memory, Reaction Time Test)
 
@@ -121,7 +121,7 @@ Use the exact field labels from the template so the proposal maps cleanly to the
 
 ### Feature Request fields
 
-```
+```text
 1. Area — which part of the app does this affect?
    Options: Existing Utility Tool | Existing Minigame | UI / UX | Performance | Other
 
@@ -134,7 +134,7 @@ Use the exact field labels from the template so the proposal maps cleanly to the
 
 ### CI/CD Improvement fields
 
-```
+```text
 1. Area
    Options: Workflows | Testing | Linting & Type Checking | Security | Build & Deploy | Monitoring & Reporting | Other
 
@@ -156,7 +156,7 @@ After receiving all answers, construct the full issue and present it for approva
 
 Format the proposal exactly like this:
 
-```
+```text
 ---
 PROPOSED ISSUE
 ---
@@ -226,7 +226,7 @@ Once the user confirms with `yes` (or equivalent: "looks good", "create it", "go
 
 2. Report back with the issue URL and number:
 
-```
+```text
 Issue created: #[number] — [title]
 [URL]
 ```

@@ -331,6 +331,7 @@ Claude **always** checks whether documentation needs updating – without explic
 - **Error handling:** `Sentry.captureException()` for unexpected errors
 - **Secrets:** Only via `.env.local` (local) / Netlify Environment Variables (prod)
 - **npm versions:** Always pin exact versions in `package.json` — no `^` or `~` prefixes. When installing a new package, strip the range prefix immediately (e.g. `"10.56.0"` not `"^10.56.0"`). Dependabot handles upgrades.
+- **Markdown:** Every fenced code block must have a language identifier — use ` ```text ` for plain-text examples, ` ```bash ` for shell, ` ```ts ` for TypeScript snippets. Bare ` ``` ` fences are forbidden (MD040 is enforced by CI and the pre-commit hook).
 
 ---
 
@@ -377,7 +378,8 @@ When handing over to a new session, first output a short summary: what was done,
 | `npm run test:e2e` | Run Playwright E2E tests |
 | `npm run test:e2e:ui` | Run Playwright with UI |
 | `npx shadcn@latest add [component]` | Add a shadcn/ui component |
-| `npx markdownlint-cli2 "**/*.md" "#node_modules"` | Check all markdown files for lint errors |
+| `npm run lint:md` | Check all markdown files for lint errors (MD040 etc.) |
+| `git config core.hooksPath .githooks` | Activate pre-commit hooks (run once after cloning) |
 | `/compact` | Compress current session context |
 
 ## Claude Code Slash Commands
@@ -409,3 +411,4 @@ When handing over to a new session, first output a short summary: what was done,
 - ❌ Adding a database without updating CLAUDE.md first
 - ❌ Adding authentication without updating CLAUDE.md first
 - ❌ Using inline styles
+- ❌ Fenced code blocks without a language identifier in `.md` files — use ` ```text ` for plain-text blocks (MD040)

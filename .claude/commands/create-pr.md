@@ -108,7 +108,7 @@ Keep the title under 72 characters.
 
 After reading the diff, ask these questions in a single message:
 
-```
+```text
 I've read the diff. Here's what I still need from you:
 
 1. Related issue — is this linked to a GitHub issue?
@@ -135,7 +135,7 @@ Construct the full PR using the template and present it for approval. Do not cre
 
 Format:
 
-```
+```text
 ---
 PROPOSED PULL REQUEST
 ---
@@ -188,7 +188,7 @@ Reply with:
 
 When "Related Issue" is "N/A", render the section as:
 
-```
+```text
 ## Related Issue
 
 N/A
@@ -229,7 +229,7 @@ Once the user confirms with `yes` (or equivalent: "looks good", "create it", "go
 
 3. Report back with the PR URL and number:
 
-```
+```text
 PR created: #[number] — [title]
 [URL]
 ```
