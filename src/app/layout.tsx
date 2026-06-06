@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { Header } from '@/components/layout/header'
 import { Nav } from '@/components/layout/nav'
 import { Footer } from '@/components/layout/footer'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const INTER_FONT = Inter({ subsets: ['latin'] })
@@ -14,12 +15,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={INTER_FONT.className}>
-        <Header />
-        <Nav />
-        {children}
-        <Footer />
+        <ThemeProvider>
+          <Header />
+          <Nav />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   )
