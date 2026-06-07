@@ -15,6 +15,7 @@ export default defineConfig({
       reporter: ['text', 'html'],
       reportsDirectory: './coverage',
       thresholds: {
+        perFile: true,
         lines: 80,
         branches: 80,
         functions: 80,
