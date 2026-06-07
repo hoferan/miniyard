@@ -1,4 +1,5 @@
 import { getModuleBySlug } from '@/lib/registry'
+import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
 import UnitConverter from '@/modules/utilities/unit-converter'
 import { notFound } from 'next/navigation'
 
@@ -11,5 +12,10 @@ export default async function UtilityPage({ params }: { params: Promise<{ slug: 
   const mod = getModuleBySlug(slug)
   const Component = componentMap[slug]
   if (!mod || !Component) return notFound()
-  return <Component />
+  return (
+    <>
+      <ModuleBreadcrumb title={mod.title} category={mod.category} />
+      <Component />
+    </>
+  )
 }
