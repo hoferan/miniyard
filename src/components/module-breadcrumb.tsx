@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ModuleCategory } from '@/lib/types'
 import {
   Breadcrumb,
@@ -20,11 +21,15 @@ export function ModuleBreadcrumb({ title, category }: Props) {
     <Breadcrumb className="px-4 pt-4 pb-1">
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/">miniyard</BreadcrumbLink>
+          <BreadcrumbLink asChild>
+            <Link href="/">miniyard</Link>
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={`/${category}`}>{CATEGORY_LABELS[category]}</BreadcrumbLink>
+          <BreadcrumbLink asChild>
+            <Link href={`/${category}`}>{CATEGORY_LABELS[category]}</Link>
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
