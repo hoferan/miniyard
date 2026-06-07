@@ -1,4 +1,5 @@
 import { getModuleBySlug } from '@/lib/registry'
+import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
 import { notFound } from 'next/navigation'
 
 const componentMap: Record<string, React.ComponentType> = {
@@ -10,5 +11,10 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
   const mod = getModuleBySlug(slug)
   const Component = componentMap[slug]
   if (!mod || !Component) return notFound()
-  return <Component />
+  return (
+    <>
+      <ModuleBreadcrumb title={mod.title} category={mod.category} />
+      <Component />
+    </>
+  )
 }
