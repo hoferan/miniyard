@@ -9,6 +9,20 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     globals: true,
     exclude: ['**/node_modules/**', '**/tests/e2e/**'],
+    coverage: {
+      provider: 'v8',
+      include: ['src/modules/**/logic.ts'],
+      reporter: ['text', 'html', 'json-summary', 'json'],
+      reportsDirectory: './coverage',
+      reportOnFailure: true,
+      thresholds: {
+        perFile: true,
+        lines: 80,
+        branches: 80,
+        functions: 80,
+        statements: 80,
+      },
+    },
   },
   resolve: {
     alias: {
