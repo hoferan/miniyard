@@ -11,6 +11,9 @@ jobs:
   checks:
     name: Lint, Types, Tests, Security
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -46,6 +49,12 @@ jobs:
           name: coverage-report
           path: coverage/
           retention-days: 7
+
+      - name: Post coverage comment
+        uses: davelosert/vitest-coverage-report-action@v2
+        if: always()
+        with:
+          file-coverage-mode: changes
 
       - name: Security audit
         run: npm audit --audit-level=high
@@ -115,3 +124,5 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           build-script: build
           pattern: '.next/static/**/*.{js,css}'
+          strip-hash: '-(\w+)\.(js|css)$'
+          exclude: '{**/*.map,.next/static/development/**}'

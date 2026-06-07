@@ -12,8 +12,9 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/modules/**/logic.ts'],
-      reporter: ['text', 'html'],
+      reporter: ['text', 'html', 'json-summary', 'json'],
       reportsDirectory: './coverage',
+      reportOnFailure: true,
       thresholds: {
         perFile: true,
         lines: 80,
