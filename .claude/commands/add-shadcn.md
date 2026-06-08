@@ -64,6 +64,11 @@ https://github.com/shadcn-ui/ui/tree/main/apps/www/registry/new-york/ui
 
 Then retry the raw URL with the correct filename.
 
+If the fetch fails for any other reason (network error, timeout, 5xx), report:
+> "Failed to fetch `<name>` from GitHub — check your connection or try again."
+
+Then stop. Do not write a partial file.
+
 ### Step 3 – Write the file
 
 Write the fetched content exactly as-is to:
@@ -74,9 +79,9 @@ src/components/ui/<name>.tsx
 
 Do not modify the content.
 
-### Step 4 – Resolve registry dependencies
+### Step 4 – Resolve shadcn component dependencies
 
-Inspect the written file for a `registryDependencies` array (appears as a comment or in the file header). For each listed shadcn component that is not yet present in `src/components/ui/`, repeat Steps 2–4 recursively.
+Inspect the written file for `import` statements that reference other `@/components/ui/<x>` paths. For each referenced component where `src/components/ui/<x>.tsx` does not yet exist, repeat Steps 2–4 recursively to install it.
 
 ### Step 5 – Resolve npm dependencies
 
