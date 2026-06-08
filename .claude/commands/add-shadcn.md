@@ -1,12 +1,44 @@
 ---
 name: add-shadcn
-description: Adds a shadcn/ui component to the project by fetching it directly from GitHub (works in cloud and local environments)
+description: Adds a shadcn/ui component to the project by fetching it directly from GitHub (works in cloud and local environments). Also triggered by phrases like "add a [name] component", "I need a shadcn [name]", "install the [name] component", "use shadcn's [name]", "can you add [name] from shadcn", "we need a [name] picker/dialog/dropdown".
 argument-hint: "<component-name>"
 ---
 
 # /add-shadcn
 
 Adds one or more shadcn/ui components to `src/components/ui/`. Uses WebFetch to copy the source directly from the shadcn GitHub repo because `npx shadcn@latest add` fails with a 403 error in the cloud environment.
+
+## Natural language triggers
+
+Invoke this command whenever the user's message matches any of these patterns — even without typing `/add-shadcn`:
+
+- "Add a dialog component"
+- "I need a select / dropdown / combobox"
+- "Can you install the shadcn badge?"
+- "Use a calendar picker from shadcn"
+- "We need a date picker"
+- "Add the accordion and tabs components"
+- "Install shadcn's tooltip"
+- "Can you add a toast / sonner notification?"
+- "I want to use a popover here"
+- "We're missing a skeleton loader"
+
+When the user names a UI concept rather than an exact shadcn component name (e.g. "dropdown", "toast", "date picker"), map it to the closest shadcn component before fetching:
+
+| User says | shadcn component |
+|---|---|
+| dropdown, dropdown menu | `dropdown-menu` |
+| toast, notification | `sonner` |
+| date picker | `calendar` + `popover` |
+| combobox | `command` + `popover` |
+| modal | `dialog` |
+| tooltip | `tooltip` |
+| loading skeleton | `skeleton` |
+| progress bar | `progress` |
+| notification badge | `badge` |
+| tabs | `tabs` |
+
+If the mapping is ambiguous, state the assumed component name and proceed — do not ask for confirmation.
 
 ## Flow
 
