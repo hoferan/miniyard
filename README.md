@@ -1,4 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8dfeaeee-8e4c-4545-abda-17511c8a3830/deploy-status)](https://app.netlify.com/projects/miniyard/deploys)
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/hoferan/miniyard?utm_source=oss&utm_medium=github&utm_campaign=hoferan%2Fminiyard&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
 # miniyard
 
