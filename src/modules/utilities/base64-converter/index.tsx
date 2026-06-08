@@ -1,0 +1,130 @@
+'use client'
+
+import { useState } from 'react'
+import { Copy, Check } from 'lucide-react'
+import * as Sentry from '@sentry/nextjs'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import { encodeBase64, decodeBase64, byteLength } from './logic'
+
+type Mode = 'encode' | 'decode'
+
+export default function Base64Converter() {
+  const [mode, setMode] = useState<Mode>('encode')
+  const [input, setInput] = useState('')
+  const [copied, setCopied] = useState(false)
+
+  const decoded = mode === 'decode' ? decodeBase64(input) : null
+  const output =
+    input === ''
+      ? ''
+      : mode === 'encode'
+        ? encodeBase64(input)
+        : decoded && decoded.ok
+          ? decoded.value
+          : ''
+  const error = mode === 'decode' && input !== '' && decoded && !decoded.ok ? decoded.error : null
+
+  function handleModeChange(next: Mode) {
+    if (next === mode) return
+    setMode(next)
+    setInput('')
+    setCopied(false)
+  }
+
+  async function handleCopy() {
+    if (!output) return
+    try {
+      await navigator.clipboard.writeText(output)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    } catch (error) {
+      Sentry.captureException(error)
+    }
+  }
+
+  return (
+    <div className="p-4 max-w-lg mx-auto">
+      <h1 className="text-2xl font-bold mb-1">Base64 Encoder / Decoder</h1>
+      <p className="text-sm text-muted-foreground mb-6">
+        Encode text to Base64 or decode it back. Everything runs in your browser — nothing is sent
+        anywhere.
+      </p>
+
+      {/* Mode toggle */}
+      <div className="flex gap-1 mb-6">
+        {(['encode', 'decode'] as const).map((m) => (
+          <Button
+            key={m}
+            onClick={() => handleModeChange(m)}
+            variant={mode === m ? 'default' : 'secondary'}
+            size="sm"
+            className="capitalize"
+          >
+            {m}
+          </Button>
+        ))}
+      </div>
+
+      <div className="space-y-4">
+        {/* Input */}
+        <div>
+          <div className="flex items-baseline justify-between mb-1.5">
+            <Label htmlFor="base64-input">{mode === 'encode' ? 'Plain text' : 'Base64'}</Label>
+            <span className="text-xs text-muted-foreground">
+              {input.length} chars · {byteLength(input)} bytes
+            </span>
+          </div>
+          <Textarea
+            id="base64-input"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={mode === 'encode' ? 'Type or paste text…' : 'Paste a Base64 string…'}
+            rows={4}
+            className="resize-y font-mono"
+          />
+        </div>
+
+        {/* Output */}
+        <div>
+          <div className="flex items-baseline justify-between mb-1.5">
+            <Label htmlFor="base64-output">{mode === 'encode' ? 'Base64' : 'Plain text'}</Label>
+            <span className="text-xs text-muted-foreground">
+              {output.length} chars · {byteLength(output)} bytes
+            </span>
+          </div>
+          <div className="relative">
+            <Textarea
+              id="base64-output"
+              value={output}
+              readOnly
+              placeholder="—"
+              rows={4}
+              className="resize-y bg-muted pr-11 text-muted-foreground font-mono"
+            />
+            <Button
+              type="button"
+              onClick={handleCopy}
+              disabled={!output}
+              variant="ghost"
+              size="icon"
+              aria-label="Copy result to clipboard"
+              className={cn('absolute right-2 top-2 h-8 w-8 text-muted-foreground')}
+            >
+              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+            </Button>
+          </div>
+        </div>
+
+        {/* Error */}
+        {error && (
+          <p className="text-sm text-destructive" role="alert">
+            {error}
+          </p>
+        )}
+      </div>
+    </div>
+  )
+}
