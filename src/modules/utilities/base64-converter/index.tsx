@@ -2,7 +2,11 @@
 
 import { useState } from 'react'
 import { Copy, Check } from 'lucide-react'
+import * as Sentry from '@sentry/nextjs'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
 import { encodeBase64, decodeBase64, byteLength } from './logic'
 
 type Mode = 'encode' | 'decode'
@@ -32,9 +36,13 @@ export default function Base64Converter() {
 
   async function handleCopy() {
     if (!output) return
-    await navigator.clipboard.writeText(output)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
+    try {
+      await navigator.clipboard.writeText(output)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    } catch (error) {
+      Sentry.captureException(error)
+    }
   }
 
   return (
@@ -48,18 +56,15 @@ export default function Base64Converter() {
       {/* Mode toggle */}
       <div className="flex gap-1 mb-6">
         {(['encode', 'decode'] as const).map((m) => (
-          <button
+          <Button
             key={m}
             onClick={() => handleModeChange(m)}
-            className={cn(
-              'px-4 py-1.5 rounded-md text-sm font-medium transition-colors capitalize',
-              mode === m
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-            )}
+            variant={mode === m ? 'default' : 'secondary'}
+            size="sm"
+            className="capitalize"
           >
             {m}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -67,51 +72,49 @@ export default function Base64Converter() {
         {/* Input */}
         <div>
           <div className="flex items-baseline justify-between mb-1.5">
-            <label htmlFor="base64-input" className="text-sm font-medium">
-              {mode === 'encode' ? 'Plain text' : 'Base64'}
-            </label>
+            <Label htmlFor="base64-input">{mode === 'encode' ? 'Plain text' : 'Base64'}</Label>
             <span className="text-xs text-muted-foreground">
               {input.length} chars · {byteLength(input)} bytes
             </span>
           </div>
-          <textarea
+          <Textarea
             id="base64-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder={mode === 'encode' ? 'Type or paste text…' : 'Paste a Base64 string…'}
             rows={4}
-            className="w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring font-mono"
+            className="resize-y font-mono"
           />
         </div>
 
         {/* Output */}
         <div>
           <div className="flex items-baseline justify-between mb-1.5">
-            <label htmlFor="base64-output" className="text-sm font-medium">
-              {mode === 'encode' ? 'Base64' : 'Plain text'}
-            </label>
+            <Label htmlFor="base64-output">{mode === 'encode' ? 'Base64' : 'Plain text'}</Label>
             <span className="text-xs text-muted-foreground">
               {output.length} chars · {byteLength(output)} bytes
             </span>
           </div>
           <div className="relative">
-            <textarea
+            <Textarea
               id="base64-output"
               value={output}
               readOnly
               placeholder="—"
               rows={4}
-              className="w-full resize-y rounded-md border border-input bg-muted px-3 py-2 pr-11 text-sm text-muted-foreground placeholder:text-muted-foreground focus-visible:outline-none font-mono"
+              className="resize-y bg-muted pr-11 text-muted-foreground font-mono"
             />
-            <button
+            <Button
               type="button"
               onClick={handleCopy}
               disabled={!output}
+              variant="ghost"
+              size="icon"
               aria-label="Copy result to clipboard"
-              className="absolute right-2 top-2 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-40"
+              className={cn('absolute right-2 top-2 h-8 w-8 text-muted-foreground')}
             >
               {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            </button>
+            </Button>
           </div>
         </div>
 
