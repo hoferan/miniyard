@@ -365,6 +365,24 @@ When handing over to a new session, first output a short summary: what was done,
 
 ---
 
+## Adding shadcn/ui Components
+
+`npx shadcn@latest add` **does not work in the cloud environment** — the CLI fails with a 403 because `ui.shadcn.com` is unreachable from the remote container.
+
+**Always use the manual copy approach in cloud sessions:**
+
+1. Use WebFetch to retrieve the component source from the shadcn GitHub repo:
+   `https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/www/registry/new-york/ui/<name>.tsx`
+2. Write the content exactly as-is to `src/components/ui/<name>.tsx`
+3. Inspect the component source for a `registryDependencies` field — fetch and install any listed shadcn components the same way
+4. Inspect the component source for a `dependencies` field — install any listed npm packages with `npm install` using exact versions (no `^` or `~`)
+
+If the raw URL returns a 404, browse `https://github.com/shadcn-ui/ui/tree/main/apps/www/registry/new-york/ui` first to confirm the correct filename before writing.
+
+**Locally:** `npx shadcn@latest add <name>` still works as normal.
+
+---
+
 ## Useful Commands
 
 | Command | Description |
@@ -377,7 +395,7 @@ When handing over to a new session, first output a short summary: what was done,
 | `npm run test:watch` | Run unit tests in watch mode |
 | `npm run test:e2e` | Run Playwright E2E tests |
 | `npm run test:e2e:ui` | Run Playwright with UI |
-| `npx shadcn@latest add [component]` | Add a shadcn/ui component |
+| `npx shadcn@latest add [component]` | Add a shadcn/ui component — **local only**, see "Adding shadcn/ui Components" above for cloud |
 | `npm run lint:md` | Check all markdown files for lint errors (MD040 etc.) |
 | `git config core.hooksPath .githooks` | Activate pre-commit hooks (run once after cloning) |
 | `/compact` | Compress current session context |
