@@ -41,7 +41,7 @@
     "@vitest/coverage-v8": "4.1.8",
     "autoprefixer": "10.5.0",
     "eslint": "9.39.4",
-    "eslint-config-next": "15.5.19",
+    "eslint-config-next": "16.2.7",
     "jsdom": "26.1.0",
     "markdownlint-cli2": "0.22.1",
     "postcss": "8.5.15",
