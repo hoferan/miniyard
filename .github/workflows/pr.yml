@@ -58,7 +58,7 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          report-type: test_results
+          report_type: test_results
 
       - name: Security audit
         run: npm audit --audit-level=high
