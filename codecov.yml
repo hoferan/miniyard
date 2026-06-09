@@ -40,6 +40,3 @@ comment:
   layout: "reach,diff,flags,tree"
   behavior: default
   require_changes: false
-
-test_analytics:
-  flake_detection: true
