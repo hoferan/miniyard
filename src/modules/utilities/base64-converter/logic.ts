@@ -37,13 +37,8 @@ export function decodeBase64(input: string): DecodeResult {
     return { ok: false, error: INVALID_BASE64_MESSAGE }
   }
 
-  let bytes: Uint8Array
-  try {
-    const binary = atob(cleaned)
-    bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0))
-  } catch {
-    return { ok: false, error: INVALID_BASE64_MESSAGE }
-  }
+  const binary = atob(cleaned)
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0))
 
   try {
     const value = new TextDecoder('utf-8', { fatal: true }).decode(bytes)
