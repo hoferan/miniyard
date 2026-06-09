@@ -60,6 +60,12 @@ jobs:
           files: ./coverage/lcov.info
           fail_ci_if_error: false
 
+      - name: Upload test results to Codecov
+        uses: codecov/test-results-action@v1
+        if: ${{ !cancelled() }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
       - name: Security audit
         run: npm audit --audit-level=high
 

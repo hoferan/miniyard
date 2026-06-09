@@ -9,6 +9,10 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     globals: true,
     exclude: ['**/node_modules/**', '**/tests/e2e/**'],
+    reporters: ['default', 'junit'],
+    outputFile: {
+      junit: './test-report.junit.xml',
+    },
     coverage: {
       provider: 'v8',
       include: ['src/modules/**/logic.ts'],
