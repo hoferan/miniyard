@@ -13,6 +13,29 @@ coverage:
         target: auto
         threshold: 1%
 
+component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: auto
+        branches:
+          - "!main"
+  individual_components:
+    - component_id: module_utilities
+      name: utilities
+      paths:
+        - src/modules/utilities/**
+    - component_id: module_games
+      name: games
+      paths:
+        - src/modules/games/**
+    - component_id: module_app
+      name: app
+      paths:
+        - src/app/**
+        - src/components/**
+        - src/lib/**
+
 comment:
   layout: "reach,diff,flags,tree"
   behavior: default

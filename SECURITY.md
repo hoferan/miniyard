@@ -12,8 +12,7 @@ section will be updated to list supported and unsupported release lines.
 
 ## Reporting a Vulnerability
 
-Please report vulnerabilities via GitHub Security Advisories at:
-https://github.com/hoferan/miniyard/security/advisories/new
+Please report vulnerabilities via [GitHub Security Advisories](https://github.com/hoferan/miniyard/security/advisories/new).
 
 Reports will be acknowledged promptly and updates will be provided as the
 issue is reviewed. When a vulnerability is confirmed, disclosure will be
