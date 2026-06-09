@@ -85,8 +85,10 @@ Tests are **red** — that is correct and intentional.
 
 ### Step 7 – Documentation
 
-- Update `README.md` — add module to the correct category table
-- Add `docs/[category]/[name].md` only if logic is complex
+Run `/update-docs`. It checks all documentation surfaces and applies what is missing:
+- `README.md` — add module to the correct category table
+- `docs/[category]/[name].md` — only if logic is complex
+- Code comments where non-obvious
 
 ### Step 8 – Review checklist
 
@@ -96,7 +98,7 @@ Tests are **red** — that is correct and intentional.
 - [ ] Mobile view works
 - [ ] TypeScript check passes (`npm run typecheck`)
 - [ ] Build passes (`npm run build`)
-- [ ] README updated
+- [ ] `/update-docs` run — no pending doc updates
 
 ### Step 9 – PR description
 

@@ -39,6 +39,13 @@ Run `git diff main...HEAD` and `git log main..HEAD --oneline` to understand what
 **1d. Read the PR template**
 Read `.github/PULL_REQUEST_TEMPLATE.md` in full.
 
+**1e. Documentation check (mandatory)**
+Before proposing the PR, ask: does this diff leave any documentation surface stale?
+
+Run `/update-docs` now. If updates are needed, apply and commit them before continuing.
+
+Skip only when every changed file is already a documentation or CI file (`.md`, `.yml`, workflow, config) with no module-level implications.
+
 ---
 
 ## Step 2 – Infer what you can
