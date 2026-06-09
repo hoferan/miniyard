@@ -2,6 +2,15 @@
 
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { convert, getCategories, getUnits, UnitCategoryId } from './logic'
 
 export default function UnitConverter() {
@@ -43,18 +52,17 @@ export default function UnitConverter() {
       {/* Category tabs */}
       <div className="flex gap-1 mb-6 flex-wrap">
         {categories.map((cat) => (
-          <button
+          <Button
             key={cat.id}
             onClick={() => handleCategoryChange(cat.id)}
+            variant={activeCategory === cat.id ? 'default' : 'ghost'}
+            size="sm"
             className={cn(
-              'px-3 py-1.5 rounded-md text-sm font-medium transition-colors',
-              activeCategory === cat.id
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+              activeCategory !== cat.id && 'bg-muted text-muted-foreground'
             )}
           >
             {cat.label}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -62,24 +70,25 @@ export default function UnitConverter() {
       <div className="space-y-4">
         {/* From */}
         <div className="flex gap-2">
-          <input
+          <Input
             type="number"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="0"
-            className="flex-1 min-w-0 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="flex-1 min-w-0"
           />
-          <select
-            value={fromUnit}
-            onChange={(e) => setFromUnit(e.target.value)}
-            className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            {units.map((u) => (
-              <option key={u.id} value={u.id}>
-                {u.label}
-              </option>
-            ))}
-          </select>
+          <Select value={fromUnit} onValueChange={setFromUnit}>
+            <SelectTrigger className="w-auto">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {units.map((u) => (
+                <SelectItem key={u.id} value={u.id}>
+                  {u.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="flex items-center gap-2 text-muted-foreground text-sm">
@@ -90,24 +99,25 @@ export default function UnitConverter() {
 
         {/* To */}
         <div className="flex gap-2">
-          <input
+          <Input
             type="number"
             value={formattedResult}
             readOnly
             placeholder="—"
-            className="flex-1 min-w-0 rounded-md border border-input bg-muted px-3 py-2 text-sm text-muted-foreground"
+            className="flex-1 min-w-0 bg-muted text-muted-foreground"
           />
-          <select
-            value={toUnit}
-            onChange={(e) => setToUnit(e.target.value)}
-            className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            {units.map((u) => (
-              <option key={u.id} value={u.id}>
-                {u.label}
-              </option>
-            ))}
-          </select>
+          <Select value={toUnit} onValueChange={setToUnit}>
+            <SelectTrigger className="w-auto">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {units.map((u) => (
+                <SelectItem key={u.id} value={u.id}>
+                  {u.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>
