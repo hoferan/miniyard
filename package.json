@@ -29,6 +29,7 @@
     "tailwind-merge": "2.6.1"
   },
   "devDependencies": {
+    "@codecov/nextjs-webpack-plugin": "2.0.1",
     "@eslint/eslintrc": "3.3.5",
     "@netlify/plugin-nextjs": "5.15.11",
     "@playwright/test": "1.60.0",
