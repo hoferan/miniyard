@@ -17,6 +17,7 @@ Solo developer. Learning and showcase project. New categories are added when nee
 - **Testing:** Vitest (unit) + Playwright (E2E)
 - **Hosting:** Netlify with PR Preview Deployments
 - **Error Tracking:** Sentry
+- **Coverage & Bundle Analysis:** Codecov
 - **Code Review:** CodeRabbit (automatic on every PR)
 - **Dependencies:** Dependabot (weekly, Monday)
 - **CI/CD:** GitHub Actions

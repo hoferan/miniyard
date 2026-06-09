@@ -33,6 +33,7 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 - [Sentry](https://sentry.io/) – Error Tracking
 - [Netlify](https://netlify.com/) – Hosting + PR Previews
 - [GitHub Actions](https://github.com/features/actions) – CI/CD
+- [Codecov](https://codecov.io/) – Coverage tracking + bundle analysis
 - [CodeRabbit](https://coderabbit.ai/) – AI Code Review
 - [Dependabot](https://docs.github.com/en/code-security/dependabot) – Dependency Updates
 
@@ -59,6 +60,7 @@ Open [http://localhost:3000](http://localhost:3000).
 |----------|----------|-------------|
 | `NEXT_PUBLIC_SENTRY_DSN` | Yes | Sentry DSN for error tracking (public, safe to commit) |
 | `SENTRY_AUTH_TOKEN` | Build only | Sentry auth token for source map upload — set in Netlify dashboard, never commit |
+| `CODECOV_TOKEN` | CI only | Codecov token for coverage and bundle analysis upload — set as GitHub Actions secret |
 
 ---
 
@@ -81,6 +83,14 @@ Set these under **Site configuration → Environment variables**:
 |----------|-------------|
 | `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN (same value as in `.env.example`) |
 | `SENTRY_AUTH_TOKEN` | Secret token for Sentry source map upload |
+
+### Required GitHub Actions secrets
+
+Set these under **Settings → Secrets and variables → Actions**:
+
+| Secret | Description |
+|--------|-------------|
+| `CODECOV_TOKEN` | Codecov repository token — get it from [app.codecov.io](https://app.codecov.io) → your repo → Settings |
 
 ---
 
