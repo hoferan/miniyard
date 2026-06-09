@@ -25,4 +25,5 @@ Reproducible: [always / sometimes / under condition X]
 1. Read the affected file, name the root cause
 2. If `logic.ts` or `api.ts` is affected: write a failing Vitest test for the bug, then fix it
 3. Minimal fix – no unnecessary changes
-4. PR description with cause, fix, and affected tests
+4. Run `/update-docs` — verify no doc surface is stale after the fix
+5. PR description with cause, fix, and affected tests

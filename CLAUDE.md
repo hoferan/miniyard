@@ -17,6 +17,7 @@ Solo developer. Learning and showcase project. New categories are added when nee
 - **Testing:** Vitest (unit) + Playwright (E2E)
 - **Hosting:** Netlify with PR Preview Deployments
 - **Error Tracking:** Sentry
+- **Coverage & Bundle Analysis:** Codecov
 - **Code Review:** CodeRabbit (automatic on every PR)
 - **Dependencies:** Dependabot (weekly, Monday)
 - **CI/CD:** GitHub Actions
@@ -186,7 +187,7 @@ Tests are **red** – that is correct and intentional.
 5. Add to `componentMap` in `src/app/[category]/[slug]/page.tsx`
 
 ### Step 5 – Update documentation (mandatory)
-After every implementation:
+Run `/update-docs`. It checks all documentation surfaces and applies what is missing:
 - **`README.md`**: Add module to the appropriate category list
 - **`docs/[category]/[name].md`**: Only for complex logic
 - Code comments if the logic is not self-explanatory
@@ -199,7 +200,7 @@ Claude checks before the PR:
 - [ ] Mobile view works (Tailwind responsive)
 - [ ] Module registered in `src/lib/registry.ts`
 - [ ] Module added to `componentMap` in `src/app/[category]/[slug]/page.tsx`
-- [ ] README and docs up to date
+- [ ] `/update-docs` run — no pending doc updates
 - [ ] TypeScript check passes (`npm run typecheck`)
 - [ ] Build passes (`npm run build`)
 
@@ -210,13 +211,14 @@ Claude checks before the PR:
 1. Read the affected file, **name the root cause** before fixing
 2. If `logic.ts` is affected: write a failing test for the bug, **then** fix it
 3. Minimal fix – no unnecessary changes to other files
-4. PR description: cause + fix + affected tests
+4. Run `/update-docs` — verify no doc surface is stale after the fix
+5. PR description: cause + fix + affected tests
 
 ---
 
 ## Workflow C: Direct Change (styling, config, docs)
 
-No spec needed. Change directly, create PR, short description.
+No spec needed. Change directly, run `/update-docs`, create PR, short description.
 
 ---
 

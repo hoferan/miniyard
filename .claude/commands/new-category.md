@@ -117,8 +117,9 @@ Add a new type checkbox in `.github/PULL_REQUEST_TEMPLATE.md`.
 
 ## Step 8 – Update docs
 
-- `README.md` — add new category section with empty module table and icon
-- `CLAUDE.md` — update categories table and project structure
+Run `/update-docs` to verify all documentation surfaces are current after the category setup. At minimum it should find and apply:
+- `README.md` — new category section with empty module table and icon
+- `CLAUDE.md` — categories table and project structure
 
 ## Step 9 – Verify
 
