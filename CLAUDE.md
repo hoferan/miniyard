@@ -115,6 +115,9 @@ tests/
 ```text
 New task received
        │
+       ├─ GitHub issue number given?
+       │         └─ YES → /issue #[n] (reads issue, classifies, runs correct workflow, opens PR)
+       │
        ├─ New module (any category)?
        │         └─ YES → /new-module (reads category README, then Workflow A)
        │
@@ -407,6 +410,7 @@ If the raw URL returns a 404, browse `https://github.com/shadcn-ui/ui/tree/main/
 | `/new-module` | New module in any category (reads category README automatically) |
 | `/new-category` | Add an entirely new module category |
 | `/bugfix` | Structured bug fix workflow |
+| `/issue #[n]` | Read a GitHub issue, brainstorm it, implement it, and open a PR that closes it |
 | `/update-docs` | Check and update all documentation |
 | `/pr-summary` | Generate PR description from git diff |
 | `/review-threads` | Interactive review of all open PR threads — CodeRabbit, human reviewers, and your own |
