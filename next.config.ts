@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   webpack: (config, options) => {
     config.plugins.push(
       codecovNextJSWebpackPlugin({
-        enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
+        enableBundleAnalysis: !!process.env.CODECOV_TOKEN,
         bundleName: 'miniyard',
         uploadToken: process.env.CODECOV_TOKEN,
         webpack: options.webpack,
