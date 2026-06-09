@@ -2,20 +2,20 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+This project has no published releases or git tags in this checkout. The
+current development version (from `package.json`) is **0.1.0**, which is the
+version actively maintained in this repository.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+Security fixes are applied to the `main` branch and will be published as
+tagged releases when created. If and when formal releases exist, this
+section will be updated to list supported and unsupported release lines.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Please report vulnerabilities via GitHub Security Advisories at:
+https://github.com/hoferan/miniyard/security/advisories/new
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Reports will be acknowledged promptly and updates will be provided as the
+issue is reviewed. When a vulnerability is confirmed, disclosure will be
+coordinated with the reporter and a reasonable period will be requested to
+address the issue before public disclosure.
