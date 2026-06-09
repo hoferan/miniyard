@@ -111,6 +111,16 @@ describe('convert – temperature', () => {
   })
 })
 
+describe('convert – unknown unit', () => {
+  it('throws for an unknown from-unit', () => {
+    expect(() => convert(1, 'lightyear', 'm', 'length')).toThrow(/Unknown unit/)
+  })
+
+  it('throws for an unknown to-unit', () => {
+    expect(() => convert(1, 'm', 'lightyear', 'length')).toThrow(/Unknown unit/)
+  })
+})
+
 describe('convert – volume', () => {
   it('1 l = 1000 ml', () => {
     expect(convert(1, 'l', 'ml', 'volume')).toBeCloseTo(1000)
