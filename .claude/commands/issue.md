@@ -105,9 +105,9 @@ Registration:
 
 **No implementation without explicit spec confirmation.**
 
-4. **Tests first (TDD)** — write `logic.test.ts` completely before `logic.ts` exists. Tests must be red. Cover: happy path, edge cases, boundary values, invalid inputs.
-5. **Implementation** — `meta.ts` → `logic.ts` (until green) → `index.tsx` → register in `registry.ts` → add to `componentMap`.
-6. **Documentation** — run `/update-docs`.
+1. **Tests first (TDD)** — write `logic.test.ts` completely before `logic.ts` exists. Tests must be red. Cover: happy path, edge cases, boundary values, invalid inputs.
+2. **Implementation** — `meta.ts` → `logic.ts` (until green) → `index.tsx` → register in `registry.ts` → add to `componentMap`.
+3. **Documentation** — run `/update-docs`.
 
 ### Workflow B — Bug fix (`/bugfix`)
 
