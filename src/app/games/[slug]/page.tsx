@@ -1,9 +1,10 @@
 import { getModuleBySlug } from '@/lib/registry'
 import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
 import { notFound } from 'next/navigation'
+import MemoryCard from '@/modules/games/memory-card'
 
 const componentMap: Record<string, React.ComponentType> = {
-  // Add game components here as they are created
+  'memory-card': MemoryCard,
 }
 
 export default async function GamePage({ params }: { params: Promise<{ slug: string }> }) {

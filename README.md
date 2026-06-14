@@ -19,7 +19,7 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 <!-- Add games here as they are built -->
 | Game | Description |
 |------|-------------|
-| *(none yet)* | |
+| [Memory Card Matching](src/modules/games/memory-card) | Flip cards two at a time to find all 8 emoji pairs. Beat your best move count! |
 
 ---
 
