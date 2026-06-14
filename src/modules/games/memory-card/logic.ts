@@ -21,7 +21,7 @@ export interface GameState {
   phase: GamePhase
 }
 
-const TOTAL_PAIRS = 8
+const TOTAL_PAIRS = EMOJIS.length
 
 export function shuffleEmojis(emojis: string[], random: () => number = Math.random): string[] {
   const deck = [...emojis, ...emojis]
