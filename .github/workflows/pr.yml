@@ -183,12 +183,30 @@ jobs:
               '',
               '_Thresholds: Perf ≥ 80 · A11y ≥ 90 · Best Practices ≥ 90 · SEO ≥ 90_'
             ].join('\n')
-            await github.rest.issues.createComment({
+            const { data: comments } = await github.rest.issues.listComments({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body
+              per_page: 100,
             })
+            const existing = comments.find(c =>
+              c.user.login === 'github-actions[bot]' && c.body.includes('## Lighthouse Results')
+            )
+            if (existing) {
+              await github.rest.issues.updateComment({
+                comment_id: existing.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              })
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              })
+            }
 
       - name: Fail if Lighthouse assertions failed
         if: steps.lhci.outcome == 'failure'
