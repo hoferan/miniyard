@@ -31,7 +31,16 @@ jobs:
         run: npm run build
 
       - name: Start server and wait
-        run: npm start & sleep 5
+        run: |
+          npm start &
+          for i in {1..30}; do
+            if curl -fsS http://localhost:3000/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Server did not become ready within 30s"
+          exit 1
 
       - name: Run Lighthouse CI
         id: lhci
