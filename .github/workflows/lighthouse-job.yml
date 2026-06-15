@@ -77,7 +77,7 @@ jobs:
               '|---|---|---|---|---|---|',
               ...rows,
               '',
-              '_Thresholds: Perf ≥ 80 · A11y ≥ 90 · Best Practices ≥ 90 · SEO ≥ 90_'
+              '_Blocking: A11y ≥ 90 · Best Practices ≥ 90 · SEO ≥ 90 — Informative: Perf ≥ 70_'
             ].join('\n')
             const { data: comments } = await github.rest.issues.listComments({
               issue_number: context.issue.number,
