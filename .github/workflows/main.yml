@@ -71,4 +71,3 @@ jobs:
     uses: ./.github/workflows/lighthouse-job.yml
     with:
       post_comment: false
-    secrets: inherit

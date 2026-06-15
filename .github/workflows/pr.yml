@@ -127,4 +127,3 @@ jobs:
     uses: ./.github/workflows/lighthouse-job.yml
     with:
       post_comment: true
-    secrets: inherit
