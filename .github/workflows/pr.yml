@@ -123,7 +123,6 @@ jobs:
     name: Lighthouse CI
     needs: checks
     permissions:
-      contents: read
       pull-requests: write
     uses: ./.github/workflows/lighthouse-job.yml
     with:
