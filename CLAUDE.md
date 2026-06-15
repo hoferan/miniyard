@@ -260,6 +260,7 @@ src/modules/[category]/        # Empty directory (first module goes here)
 | `src/components/layout/nav.tsx` | Add navigation link |
 | `README.md` | Add new category section with empty table |
 | `CLAUDE.md` | Update categories table, project structure, slash commands list |
+| `.lighthouserc.json` | Add the category listing URL and one representative module URL |
 
 ### page.tsx template
 
