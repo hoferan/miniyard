@@ -157,7 +157,7 @@ jobs:
           uploadArtifacts: true
 
       - name: Post Lighthouse comment
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         env:
           MANIFEST: ${{ steps.lhci.outputs.manifest }}
@@ -167,13 +167,13 @@ jobs:
             const manifest = JSON.parse(process.env.MANIFEST || '[]')
             const links = JSON.parse(process.env.LINKS || '{}')
             if (!manifest.length) return
-            const icon = v => v >= 0.9 ? '🟢' : v >= 0.8 ? '🟡' : '🔴'
+            const icon = (v, min) => v >= min ? '🟢' : v >= 0.8 ? '🟡' : '🔴'
             const fmt = v => Math.round(v * 100)
             const rows = manifest.map(r => {
               const url = r.url.replace('http://localhost:3000', '') || '/'
               const s = r.summary
               const report = links[r.url] ? `[Report](${links[r.url]})` : '—'
-              return `| \`${url}\` | ${icon(s.performance)}${fmt(s.performance)} | ${icon(s.accessibility)}${fmt(s.accessibility)} | ${icon(s['best-practices'])}${fmt(s['best-practices'])} | ${icon(s.seo)}${fmt(s.seo)} | ${report} |`
+              return `| \`${url}\` | ${icon(s.performance, 0.8)}${fmt(s.performance)} | ${icon(s.accessibility, 0.9)}${fmt(s.accessibility)} | ${icon(s['best-practices'], 0.9)}${fmt(s['best-practices'])} | ${icon(s.seo, 0.9)}${fmt(s.seo)} | ${report} |`
             })
             const body = [
               '## Lighthouse Results',
