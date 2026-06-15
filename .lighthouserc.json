@@ -1,8 +1,6 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "npm start",
-      "startServerReadyPattern": "Ready",
       "url": [
         "http://localhost:3000/",
         "http://localhost:3000/utilities",

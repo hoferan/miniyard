@@ -121,95 +121,11 @@ jobs:
 
   lighthouse:
     name: Lighthouse CI
-    runs-on: ubuntu-latest
     needs: checks
     permissions:
       contents: read
       pull-requests: write
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
-        with:
-          persist-credentials: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Run Lighthouse CI
-        id: lhci
-        continue-on-error: true
-        uses: treosh/lighthouse-ci-action@3e7e23fb74242897f95c0ba9cabad3d0227b9b18 # v12
-        with:
-          configPath: .lighthouserc.json
-          temporaryPublicStorage: true
-          uploadArtifacts: true
-
-      - name: Post Lighthouse comment
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
-        env:
-          MANIFEST: ${{ steps.lhci.outputs.manifest }}
-          LINKS: ${{ steps.lhci.outputs.links }}
-        with:
-          script: |
-            const manifest = JSON.parse(process.env.MANIFEST || '[]')
-            const links = JSON.parse(process.env.LINKS || '{}')
-            if (!manifest.length) return
-            const icon = (v, min) => v >= min ? '🟢' : v >= 0.8 ? '🟡' : '🔴'
-            const fmt = v => Math.round(v * 100)
-            const rows = manifest.map(r => {
-              const url = r.url.replace('http://localhost:3000', '') || '/'
-              const s = r.summary
-              const report = links[r.url] ? `[Report](${links[r.url]})` : '—'
-              return `| \`${url}\` | ${icon(s.performance, 0.8)}${fmt(s.performance)} | ${icon(s.accessibility, 0.9)}${fmt(s.accessibility)} | ${icon(s['best-practices'], 0.9)}${fmt(s['best-practices'])} | ${icon(s.seo, 0.9)}${fmt(s.seo)} | ${report} |`
-            })
-            const body = [
-              '## Lighthouse Results',
-              '| URL | Perf | A11y | Best Practices | SEO | Report |',
-              '|---|---|---|---|---|---|',
-              ...rows,
-              '',
-              '_Thresholds: Perf ≥ 80 · A11y ≥ 90 · Best Practices ≥ 90 · SEO ≥ 90_'
-            ].join('\n')
-            const { data: comments } = await github.rest.issues.listComments({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              per_page: 100,
-            })
-            const existing = comments.find(c =>
-              c.user.login === 'github-actions[bot]' && c.body.includes('## Lighthouse Results')
-            )
-            if (existing) {
-              await github.rest.issues.updateComment({
-                comment_id: existing.id,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body,
-              })
-            } else {
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body,
-              })
-            }
-
-      - name: Fail if Lighthouse assertions failed
-        if: steps.lhci.outcome == 'failure'
-        run: |
-          echo "Lighthouse CI assertions failed — one or more scores are below threshold."
-          exit 1
+    uses: ./.github/workflows/lighthouse-job.yml
+    with:
+      post_comment: true
+    secrets: inherit
