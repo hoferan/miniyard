@@ -1,6 +1,7 @@
 [build]
   command = "npm run build"
   publish = ".next"
+  ignore = "node -e \"process.exit(process.env.CONTEXT === 'deploy-preview' && (process.env.HEAD || '').startsWith('dependabot/') ? 0 : 1)\""
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

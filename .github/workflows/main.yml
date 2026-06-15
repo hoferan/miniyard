@@ -1,4 +1,4 @@
-name: Main Checks
+name: CI
 
 on:
   push:
@@ -64,3 +64,10 @@ jobs:
 
       - name: Security audit
         run: npm audit --audit-level=high
+
+  lighthouse:
+    name: Lighthouse CI
+    needs: checks
+    uses: ./.github/workflows/lighthouse-job.yml
+    with:
+      post_comment: false
