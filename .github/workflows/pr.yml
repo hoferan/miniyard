@@ -147,12 +147,6 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Start server
-        run: npm start &
-
-      - name: Wait for server to be ready
-        run: sleep 5
-
       - name: Run Lighthouse CI
         id: lhci
         continue-on-error: true
