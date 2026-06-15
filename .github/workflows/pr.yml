@@ -147,6 +147,16 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Start server and warm up
+        run: |
+          npm start &
+          until curl -sf http://localhost:3000 > /dev/null; do sleep 1; done
+          curl -sf http://localhost:3000/ > /dev/null
+          curl -sf http://localhost:3000/utilities > /dev/null
+          curl -sf http://localhost:3000/utilities/unit-converter > /dev/null
+          curl -sf http://localhost:3000/games > /dev/null
+          curl -sf http://localhost:3000/games/memory-card > /dev/null
+
       - name: Run Lighthouse CI
         id: lhci
         continue-on-error: true
