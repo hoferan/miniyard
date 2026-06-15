@@ -68,8 +68,6 @@ jobs:
   lighthouse:
     name: Lighthouse CI
     needs: checks
-    permissions:
-      contents: read
     uses: ./.github/workflows/lighthouse-job.yml
     with:
       post_comment: false
