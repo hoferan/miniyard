@@ -6,9 +6,6 @@ on:
       post_comment:
         type: boolean
         default: false
-    secrets:
-      CODECOV_TOKEN:
-        required: false
 
 permissions:
   contents: read
@@ -36,8 +33,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Start server and wait
         run: npm start & sleep 5
