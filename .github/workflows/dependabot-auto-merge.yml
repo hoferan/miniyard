@@ -11,7 +11,10 @@ jobs:
   auto-merge:
     name: Auto-merge minor and patch updates
     runs-on: ubuntu-latest
-    if: startsWith(github.head_ref, 'dependabot/')
+    if: |
+      startsWith(github.head_ref, 'dependabot/') &&
+      github.actor == 'dependabot[bot]' &&
+      github.event.pull_request.user.login == 'dependabot[bot]'
 
     steps:
       - name: Fetch Dependabot metadata
