@@ -13,6 +13,13 @@ interface CopyButtonProps {
 
 export function CopyButton({ value, className }: CopyButtonProps) {
   const [copied, setCopied] = useState(false)
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+    }
+  }, [])
 
   async function handleCopy() {
     if (!value) return
@@ -30,7 +37,11 @@ export function CopyButton({ value, className }: CopyButtonProps) {
         document.body.removeChild(textarea)
       }
       setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+      resetTimerRef.current = setTimeout(() => {
+        setCopied(false)
+        resetTimerRef.current = null
+      }, 2000)
     } catch (err) {
       Sentry.captureException(err)
     }
