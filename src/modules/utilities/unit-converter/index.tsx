@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { ArrowLeftRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -29,6 +30,20 @@ export default function UnitConverter() {
     setInputValue('')
   }
 
+  function handleFromUnitChange(id: string) {
+    if (id === toUnit) {
+      setToUnit(units.find((u) => u.id !== id)?.id ?? toUnit)
+    }
+    setFromUnit(id)
+  }
+
+  function handleToUnitChange(id: string) {
+    if (id === fromUnit) {
+      setFromUnit(units.find((u) => u.id !== id)?.id ?? fromUnit)
+    }
+    setToUnit(id)
+  }
+
   const numericInput = parseFloat(inputValue)
   const result =
     inputValue !== '' && !isNaN(numericInput)
@@ -41,6 +56,12 @@ export default function UnitConverter() {
         ? result.toExponential(6)
         : parseFloat(result.toPrecision(10)).toString()
       : ''
+
+  function handleSwap() {
+    setFromUnit(toUnit)
+    setToUnit(fromUnit)
+    if (formattedResult !== '') setInputValue(formattedResult)
+  }
 
   return (
     <div className="p-4 max-w-lg mx-auto">
@@ -77,7 +98,7 @@ export default function UnitConverter() {
             placeholder="0"
             className="flex-1 min-w-0"
           />
-          <Select value={fromUnit} onValueChange={setFromUnit}>
+          <Select value={fromUnit} onValueChange={handleFromUnitChange}>
             <SelectTrigger className="w-auto">
               <SelectValue />
             </SelectTrigger>
@@ -93,7 +114,15 @@ export default function UnitConverter() {
 
         <div className="flex items-center gap-2 text-muted-foreground text-sm">
           <span className="flex-1 border-t border-border" />
-          <span>equals</span>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleSwap}
+            aria-label="Swap units"
+            className="shrink-0"
+          >
+            <ArrowLeftRight className="h-4 w-4" />
+          </Button>
           <span className="flex-1 border-t border-border" />
         </div>
 
@@ -106,7 +135,7 @@ export default function UnitConverter() {
             placeholder="—"
             className="flex-1 min-w-0 bg-muted text-muted-foreground"
           />
-          <Select value={toUnit} onValueChange={setToUnit}>
+          <Select value={toUnit} onValueChange={handleToUnitChange}>
             <SelectTrigger className="w-auto">
               <SelectValue />
             </SelectTrigger>
