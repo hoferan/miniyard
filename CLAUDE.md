@@ -47,6 +47,7 @@ src/
         meta.ts                 # Module metadata (slug, title, tags, status)
         logic.ts                # Pure logic – no React, no DOM
         logic.test.ts           # Vitest unit tests
+        messages.ts             # (optional) User-facing strings – only when error/status messages exist
     games/
       README.md                 # Category definition
       <name>/
@@ -54,6 +55,7 @@ src/
         meta.ts
         logic.ts
         logic.test.ts
+        messages.ts             # (optional) User-facing strings
   components/
     layout/                     # header.tsx, footer.tsx, nav.tsx
     module-card.tsx
@@ -83,6 +85,7 @@ tests/
 - Shared UI components go in `src/components/`
 - Pure utility functions go in `src/lib/`
 - Use `cn()` from `src/lib/utils.ts` for all conditional Tailwind classes
+- User-facing strings (error messages, status labels) live in a per-module `messages.ts` — only create this file when a module has such strings; `logic.ts` imports from it and stays string-free
 
 ---
 

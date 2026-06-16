@@ -28,6 +28,7 @@ src/modules/utilities/<name>/
   logic.ts          # Pure functions — no side effects, no network calls
   logic.test.ts     # Vitest unit tests
   index.tsx         # React UI component ('use client' if interactive)
+  messages.ts       # (optional) User-facing strings — only when the module has error/status messages
 ```
 
 ## Brainstorm questions (Claude asks these before writing any code)
