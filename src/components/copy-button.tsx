@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Copy, Check } from 'lucide-react'
 import * as Sentry from '@sentry/nextjs'
 import { cn } from '@/lib/utils'
