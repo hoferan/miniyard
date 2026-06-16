@@ -25,7 +25,7 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 
 ## Tech Stack
 
-- [Next.js 14](https://nextjs.org/) (App Router) + TypeScript
+- [Next.js 15](https://nextjs.org/) (App Router) + TypeScript
 - [React](https://react.dev/)
 - [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - [Vitest](https://vitest.dev/) – Unit testing
@@ -42,95 +42,12 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 ## Getting Started
 
 ```bash
-# Install dependencies
+git clone https://github.com/hoferan/miniyard.git
 npm install
-
-# Copy env template and fill in values
-cp .env.example .env.local
-
-# Run dev server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-### Environment Variables
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `NEXT_PUBLIC_SENTRY_DSN` | Yes | Sentry DSN for error tracking (public, safe to commit) |
-| `SENTRY_AUTH_TOKEN` | Build only | Sentry auth token for source map upload — set in Netlify dashboard, never commit |
-| `CODECOV_TOKEN` | CI only | Codecov token for coverage and bundle analysis upload — set as GitHub Actions secret |
-
----
-
-## Deployment
-
-The app is deployed on [Netlify](https://netlify.com/).
-
-| Environment | URL |
-|-------------|-----|
-| Production (`main`) | <https://miniyard.netlify.app/> |
-| PR Preview | `https://deploy-preview-{pr-number}--miniyard.netlify.app/` |
-
-Netlify auto-detects Next.js and runs `npm run build` with `@netlify/plugin-nextjs`.
-
-### Required environment variables in Netlify dashboard
-
-Set these under **Site configuration → Environment variables**:
-
-| Variable | Description |
-|----------|-------------|
-| `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN (same value as in `.env.example`) |
-| `SENTRY_AUTH_TOKEN` | Secret token for Sentry source map upload |
-
-### Required GitHub Actions secrets
-
-Set these under **Settings → Secrets and variables → Actions**:
-
-| Secret | Description |
-|--------|-------------|
-| `CODECOV_TOKEN` | Codecov repository token — get it from [app.codecov.io](https://app.codecov.io) → your repo → Settings |
-
----
-
-## Development Workflow
-
-New modules follow a structured workflow:
-
-```text
-Brainstorm → Spec (confirmed) → Tests first (TDD) → Implement → Register → Docs → PR
-```
-
-All changes go through PRs — no direct pushes to `main`.
-
-### Claude Code Slash Commands
-
-| Command | Description |
-|---------|-------------|
-| `/new-module` | New module in any category (reads category README automatically) |
-| `/new-category` | Add an entirely new module category |
-| `/bugfix` | Structured bug fix workflow |
-| `/update-docs` | Check and update all documentation |
-| `/pr-summary` | Generate PR description from git diff |
-| `/review-threads` | Interactive review of all open PR threads — CodeRabbit, human reviewers, and your own |
-
----
-
-## Project Structure
-
-```text
-src/
-  modules/
-    utilities/  # Utility tools  (meta.ts + logic.ts + logic.test.ts + index.tsx)
-    games/      # Minigames       (meta.ts + logic.ts + logic.test.ts + index.tsx)
-  app/          # Next.js App Router pages
-  components/   # Shared UI components
-  lib/          # registry.ts, types.ts, utils.ts
-tests/
-  e2e/          # Playwright E2E tests
-docs/           # Per-module documentation (complex modules only)
-```
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup details, environment variables, and development workflow.
 
 ---
 
