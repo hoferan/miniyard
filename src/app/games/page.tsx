@@ -1,11 +1,13 @@
 import { getModulesByCategory } from '@/lib/registry'
 import { ModuleCard } from '@/components/module-card'
 import { EmptyState } from '@/components/empty-state'
+import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
 
 export default function GamesPage() {
   const modules = getModulesByCategory('games')
   return (
     <main className="max-w-5xl mx-auto px-4 py-12">
+      <ModuleBreadcrumb category="games" />
       <h1 className="text-3xl font-bold mb-2">Games</h1>
       <p className="text-muted-foreground mb-8">Mini games to pass the time.</p>
       {modules.length === 0 ? (

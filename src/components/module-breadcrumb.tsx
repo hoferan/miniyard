@@ -14,9 +14,10 @@ const CATEGORY_LABELS: Record<ModuleCategory, string> = {
   games: 'Games',
 }
 
-type Props = { title: string; category: ModuleCategory }
+type Props = { category: ModuleCategory; title?: string }
 
-export function ModuleBreadcrumb({ title, category }: Props) {
+export function ModuleBreadcrumb({ category, title }: Props) {
+  const categoryLabel = CATEGORY_LABELS[category]
   return (
     <Breadcrumb className="px-4 pt-4 pb-1">
       <BreadcrumbList>
@@ -26,15 +27,23 @@ export function ModuleBreadcrumb({ title, category }: Props) {
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href={`/${category}`}>{CATEGORY_LABELS[category]}</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>{title}</BreadcrumbPage>
-        </BreadcrumbItem>
+        {title ? (
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href={`/${category}`}>{categoryLabel}</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{title}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        ) : (
+          <BreadcrumbItem>
+            <BreadcrumbPage>{categoryLabel}</BreadcrumbPage>
+          </BreadcrumbItem>
+        )}
       </BreadcrumbList>
     </Breadcrumb>
   )
