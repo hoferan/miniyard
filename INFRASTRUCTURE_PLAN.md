@@ -19,7 +19,7 @@ Update the status column as issues are completed. Use this file to orient new Cl
 |---|---|---|---|
 | 🔄 | [#84](https://github.com/hoferan/miniyard/issues/84) | ESLint 10 + eslint-config-next 16 coordinated upgrade | **Blocked** — `eslint-plugin-react@7.37.5` (latest) uses removed ESLint 10 API (`context.getFilename()`); also `@codecov/nextjs-webpack-plugin@2.0.1` caps peer dep at Next.js 15. Re-evaluate when upstream ships fixes. Dependabot PRs #29 and #52 were closed. Issue #87 created for Turbopack migration. |
 | ✅ | [#43](https://github.com/hoferan/miniyard/issues/43) | Add CONTRIBUTING.md, trim README, add `.vscode/launch.json` | Done — PR #88 |
-| ⬜ | [#35](https://github.com/hoferan/miniyard/issues/35) | Externalize user-facing strings into per-module `messages.ts` | Precursor to i18n (#36); start with Base64 module as the first adopter |
+| ✅ | [#35](https://github.com/hoferan/miniyard/issues/35) | Externalize user-facing strings into per-module `messages.ts` | Done — convention documented in CLAUDE.md + utilities README; Base64 module migrated |
 
 ---
 

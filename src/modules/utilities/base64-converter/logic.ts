@@ -1,8 +1,6 @@
-export type DecodeResult = { ok: true; value: string } | { ok: false; error: string }
+import { INVALID_BASE64_MESSAGE, INVALID_UTF8_MESSAGE } from './messages'
 
-const INVALID_BASE64_MESSAGE =
-  'Invalid Base64 input: contains characters outside the Base64 alphabet or has incorrect padding.'
-const INVALID_UTF8_MESSAGE = 'Invalid Base64 input: decoded bytes are not valid UTF-8 text.'
+export type DecodeResult = { ok: true; value: string } | { ok: false; error: string }
 
 /** UTF-8 byte length of a string. */
 export function byteLength(input: string): number {
