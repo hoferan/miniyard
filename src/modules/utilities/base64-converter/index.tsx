@@ -1,12 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Copy, Check } from 'lucide-react'
-import * as Sentry from '@sentry/nextjs'
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { CopyButton } from '@/components/copy-button'
 import { encodeBase64, decodeBase64, byteLength } from './logic'
 
 type Mode = 'encode' | 'decode'
@@ -14,7 +12,6 @@ type Mode = 'encode' | 'decode'
 export default function Base64Converter() {
   const [mode, setMode] = useState<Mode>('encode')
   const [input, setInput] = useState('')
-  const [copied, setCopied] = useState(false)
 
   const decoded = mode === 'decode' ? decodeBase64(input) : null
   const output =
@@ -31,18 +28,6 @@ export default function Base64Converter() {
     if (next === mode) return
     setMode(next)
     setInput('')
-    setCopied(false)
-  }
-
-  async function handleCopy() {
-    if (!output) return
-    try {
-      await navigator.clipboard.writeText(output)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1500)
-    } catch (error) {
-      Sentry.captureException(error)
-    }
   }
 
   return (
@@ -104,17 +89,7 @@ export default function Base64Converter() {
               rows={4}
               className="resize-y bg-muted pr-11 text-muted-foreground font-mono"
             />
-            <Button
-              type="button"
-              onClick={handleCopy}
-              disabled={!output}
-              variant="ghost"
-              size="icon"
-              aria-label="Copy result to clipboard"
-              className={cn('absolute right-2 top-2 h-8 w-8 text-muted-foreground')}
-            >
-              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            </Button>
+            <CopyButton value={output} className="absolute right-2 top-2" />
           </div>
         </div>
 
