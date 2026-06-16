@@ -26,7 +26,7 @@
     "radix-ui": "1.6.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "tailwind-merge": "2.6.1"
+    "tailwind-merge": "3.6.0"
   },
   "devDependencies": {
     "@codecov/nextjs-webpack-plugin": "2.0.1",
