@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Header } from '@/components/layout/header'
 import { Nav } from '@/components/layout/nav'
@@ -8,8 +8,15 @@ import './globals.css'
 
 const INTER_FONT = Inter({ subsets: ['latin'] })
 
+export const viewport: Viewport = {
+  themeColor: '#0f766e',
+}
+
 export const metadata: Metadata = {
-  title: 'miniyard',
+  title: {
+    default: 'miniyard',
+    template: '%s | miniyard',
+  },
   description: 'A modular playground for useful tools, mini games, and API explorers.',
 }
 
