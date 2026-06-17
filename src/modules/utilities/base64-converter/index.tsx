@@ -32,12 +32,6 @@ export default function Base64Converter() {
 
   return (
     <div className="p-4 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-1">Base64 Encoder / Decoder</h1>
-      <p className="text-sm text-muted-foreground mb-6">
-        Encode text to Base64 or decode it back. Everything runs in your browser — nothing is sent
-        anywhere.
-      </p>
-
       {/* Mode toggle */}
       <div className="flex gap-1 mb-6">
         {(['encode', 'decode'] as const).map((m) => (

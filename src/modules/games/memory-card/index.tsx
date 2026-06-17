@@ -82,9 +82,7 @@ export default function MemoryCard() {
   const elapsed = getElapsedSeconds(state, now)
 
   return (
-    <main className="max-w-lg mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6 text-center">Memory Card Matching</h1>
-
+    <main className="max-w-lg mx-auto px-4 py-4">
       <div className="flex justify-between items-center mb-4 text-sm">
         <span className="text-muted-foreground">
           Moves:{' '}

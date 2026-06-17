@@ -65,11 +65,6 @@ export default function UnitConverter() {
 
   return (
     <div className="p-4 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-1">Unit Converter</h1>
-      <p className="text-sm text-muted-foreground mb-6">
-        Convert between common units of measurement.
-      </p>
-
       {/* Category tabs */}
       <div className="flex gap-1 mb-6 flex-wrap">
         {categories.map((cat) => (

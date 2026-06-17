@@ -1,15 +1,22 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
 import { Header } from '@/components/layout/header'
-import { Nav } from '@/components/layout/nav'
-import { Footer } from '@/components/layout/footer'
+import { MobileTabBar } from '@/components/layout/mobile-tab-bar'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
-const INTER_FONT = Inter({ subsets: ['latin'] })
+const JAKARTA = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-jakarta',
+})
+
+const MONO = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+})
 
 export const viewport: Viewport = {
-  themeColor: '#0f766e',
+  themeColor: '#7c6cff',
 }
 
 export const metadata: Metadata = {
@@ -17,18 +24,24 @@ export const metadata: Metadata = {
     default: 'miniyard',
     template: '%s | miniyard',
   },
-  description: 'A modular playground for useful tools, mini games, and API explorers.',
+  description: 'A modular playground for useful tools and mini games.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={INTER_FONT.className}>
+      <body className={`${JAKARTA.variable} ${MONO.variable} font-sans`}>
         <ThemeProvider>
-          <Header />
-          <Nav />
-          {children}
-          <Footer />
+          <div className="relative min-h-screen overflow-x-hidden">
+            {/* Ambient background blobs */}
+            <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+              <div className="absolute left-1/2 -top-56 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-primary/20 blur-3xl animate-blob dark:bg-primary/30" />
+              <div className="absolute -bottom-16 -right-28 h-[340px] w-[340px] rounded-full bg-blue-400/15 blur-3xl animate-blob-2 dark:bg-blue-400/20" />
+            </div>
+            <Header />
+            <div className="pb-20 md:pb-0">{children}</div>
+            <MobileTabBar />
+          </div>
         </ThemeProvider>
       </body>
     </html>
