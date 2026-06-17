@@ -11,7 +11,7 @@ const BACK_HREF: Record<ModuleCategory, string> = {
   games: '/games',
 }
 
-type Props = { title: string; category: ModuleCategory }
+type Props = { category: ModuleCategory }
 
 export function ModuleBreadcrumb({ category }: Props) {
   return (

@@ -15,7 +15,7 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
   return (
     <>
       <div className="mx-auto max-w-lg px-4 pt-6 pb-2 sm:px-6">
-        <ModuleBreadcrumb title={mod.title} category={mod.category} />
+        <ModuleBreadcrumb category={mod.category} />
         <div className="mt-5 flex items-center gap-3">
           <span className="flex h-11 w-11 items-center justify-center rounded-[14px] border border-primary/15 bg-primary/10 text-2xl">
             {mod.icon}
