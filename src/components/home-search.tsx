@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Search } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import type { Module } from '@/lib/types'
 import { ModuleCard } from './module-card'
 
@@ -11,6 +12,7 @@ interface HomeSearchProps {
 
 export function HomeSearch({ modules }: HomeSearchProps) {
   const [query, setQuery] = useState('')
+  const t = useTranslations('home.search')
 
   const q = query.trim().toLowerCase()
   const filtered =
@@ -20,7 +22,7 @@ export function HomeSearch({ modules }: HomeSearchProps) {
           (m) =>
             m.title.toLowerCase().includes(q) ||
             m.description.toLowerCase().includes(q) ||
-            m.tags.some((t) => t.toLowerCase().includes(q)),
+            m.tags.some((tag) => tag.toLowerCase().includes(q)),
         )
 
   return (
@@ -31,8 +33,8 @@ export function HomeSearch({ modules }: HomeSearchProps) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search tools and games…"
-          aria-label="Search modules"
+          placeholder={t('placeholder')}
+          aria-label={t('ariaLabel')}
           className="w-full rounded-xl border border-border bg-white/60 py-2.5 pl-9 pr-4 text-sm text-foreground placeholder:text-muted-foreground backdrop-blur-sm transition focus:outline-none focus:ring-2 focus:ring-primary/40 dark:bg-white/[0.05]"
         />
       </div>
@@ -40,7 +42,7 @@ export function HomeSearch({ modules }: HomeSearchProps) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.length === 0 ? (
           <p className="col-span-full py-12 text-center text-muted-foreground">
-            No results for &ldquo;{query}&rdquo;
+            {t('noResults', { query })}
           </p>
         ) : (
           filtered.map((module) => (

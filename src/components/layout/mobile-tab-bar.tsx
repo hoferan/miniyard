@@ -2,10 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 
 export function MobileTabBar() {
   const pathname = usePathname()
+  const t = useTranslations('nav')
   const toolsActive = pathname.startsWith('/utilities')
   const gamesActive = pathname === '/games' || pathname.startsWith('/games/')
 
@@ -19,7 +21,7 @@ export function MobileTabBar() {
         )}
       >
         <span className="text-xl">🧰</span>
-        <span className="text-[10px] font-semibold">Tools</span>
+        <span className="text-[10px] font-semibold">{t('tools')}</span>
       </Link>
       <Link
         href="/games"
@@ -29,7 +31,7 @@ export function MobileTabBar() {
         )}
       >
         <span className="text-xl">🎮</span>
-        <span className="text-[10px] font-semibold">Games</span>
+        <span className="text-[10px] font-semibold">{t('games')}</span>
       </Link>
     </div>
   )

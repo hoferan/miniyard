@@ -1,17 +1,19 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { CopyButton } from '@/components/copy-button'
-import { encodeBase64, decodeBase64, byteLength } from './logic'
+import { encodeBase64, decodeBase64, byteLength, type Base64ErrorCode } from './logic'
 
 type Mode = 'encode' | 'decode'
 
 export default function Base64Converter() {
   const [mode, setMode] = useState<Mode>('encode')
   const [input, setInput] = useState('')
+  const t = useTranslations('modules.base64-converter')
 
   const decoded = mode === 'decode' ? decodeBase64(input) : null
   const output =
@@ -22,7 +24,8 @@ export default function Base64Converter() {
         : decoded && decoded.ok
           ? decoded.value
           : ''
-  const error = mode === 'decode' && input !== '' && decoded && !decoded.ok ? decoded.error : null
+  const errorCode: Base64ErrorCode | null =
+    mode === 'decode' && input !== '' && decoded && !decoded.ok ? decoded.error : null
 
   function handleModeChange(next: Mode) {
     if (next === mode) return
@@ -32,7 +35,6 @@ export default function Base64Converter() {
 
   return (
     <div className="p-4 max-w-lg mx-auto">
-      {/* Mode toggle */}
       <div className="flex gap-1 mb-6">
         {(['encode', 'decode'] as const).map((m) => (
           <Button
@@ -40,38 +42,39 @@ export default function Base64Converter() {
             onClick={() => handleModeChange(m)}
             variant={mode === m ? 'default' : 'secondary'}
             size="sm"
-            className="capitalize"
           >
-            {m}
+            {m === 'encode' ? t('encode') : t('decode')}
           </Button>
         ))}
       </div>
 
       <div className="space-y-4">
-        {/* Input */}
         <div>
           <div className="flex items-baseline justify-between mb-1.5">
-            <Label htmlFor="base64-input">{mode === 'encode' ? 'Plain text' : 'Base64'}</Label>
+            <Label htmlFor="base64-input">
+              {mode === 'encode' ? t('plainText') : t('base64Label')}
+            </Label>
             <span className="text-xs text-muted-foreground">
-              {input.length} chars · {byteLength(input)} bytes
+              {t('charsBytesLabel', { chars: input.length, bytes: byteLength(input) })}
             </span>
           </div>
           <Textarea
             id="base64-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={mode === 'encode' ? 'Type or paste text…' : 'Paste a Base64 string…'}
+            placeholder={mode === 'encode' ? t('placeholderEncode') : t('placeholderDecode')}
             rows={4}
             className="resize-y font-mono"
           />
         </div>
 
-        {/* Output */}
         <div>
           <div className="flex items-baseline justify-between mb-1.5">
-            <Label htmlFor="base64-output">{mode === 'encode' ? 'Base64' : 'Plain text'}</Label>
+            <Label htmlFor="base64-output">
+              {mode === 'encode' ? t('base64Label') : t('plainText')}
+            </Label>
             <span className="text-xs text-muted-foreground">
-              {output.length} chars · {byteLength(output)} bytes
+              {t('charsBytesLabel', { chars: output.length, bytes: byteLength(output) })}
             </span>
           </div>
           <div className="relative">
@@ -87,10 +90,9 @@ export default function Base64Converter() {
           </div>
         </div>
 
-        {/* Error */}
-        {error && (
+        {errorCode && (
           <p className="text-sm text-destructive" role="alert">
-            {error}
+            {t(`errors.${errorCode}`)}
           </p>
         )}
       </div>

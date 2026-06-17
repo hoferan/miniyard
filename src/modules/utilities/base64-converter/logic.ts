@@ -1,6 +1,6 @@
-import { INVALID_BASE64_MESSAGE, INVALID_UTF8_MESSAGE } from './messages'
+export type Base64ErrorCode = 'INVALID_BASE64' | 'INVALID_UTF8'
 
-export type DecodeResult = { ok: true; value: string } | { ok: false; error: string }
+export type DecodeResult = { ok: true; value: string } | { ok: false; error: Base64ErrorCode }
 
 /** UTF-8 byte length of a string. */
 export function byteLength(input: string): number {
@@ -32,7 +32,7 @@ export function decodeBase64(input: string): DecodeResult {
   if (cleaned === '') return { ok: true, value: '' }
 
   if (!isValidBase64(cleaned)) {
-    return { ok: false, error: INVALID_BASE64_MESSAGE }
+    return { ok: false, error: 'INVALID_BASE64' }
   }
 
   const binary = atob(cleaned)
@@ -42,6 +42,6 @@ export function decodeBase64(input: string): DecodeResult {
     const value = new TextDecoder('utf-8', { fatal: true }).decode(bytes)
     return { ok: true, value }
   } catch {
-    return { ok: false, error: INVALID_UTF8_MESSAGE }
+    return { ok: false, error: 'INVALID_UTF8' }
   }
 }
