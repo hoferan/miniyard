@@ -10,6 +10,7 @@ Update the status column as issues are completed. Use this file to orient new Cl
 | ⬜ | Not started |
 | 🔄 | In progress |
 | ✅ | Done |
+| ❌ | Won't fix / closed as not planned |
 
 ---
 
@@ -17,9 +18,10 @@ Update the status column as issues are completed. Use this file to orient new Cl
 
 | Status | Issue | Title | Notes |
 |---|---|---|---|
-| 🔄 | [#84](https://github.com/hoferan/miniyard/issues/84) | ESLint 10 + eslint-config-next 16 coordinated upgrade | **Blocked** — `eslint-plugin-react@7.37.5` (latest) uses removed ESLint 10 API (`context.getFilename()`); also `@codecov/nextjs-webpack-plugin@2.0.1` caps peer dep at Next.js 15. Re-evaluate when upstream ships fixes. Dependabot PRs #29 and #52 were closed. Issue #87 created for Turbopack migration. |
+| 🔄 | [#84](https://github.com/hoferan/miniyard/issues/84) | ESLint 10 + eslint-config-next 16 coordinated upgrade | **Blocked** — two upstream blockers confirmed: (1) `eslint-plugin-react@7.37.5` calls `context.getFilename()` removed in ESLint 10; (2) `@codecov/nextjs-webpack-plugin@2.0.1` caps peer dep at Next.js 15. Re-evaluate when both upstream packages ship fixes. Dependabot PRs #29 and #52 were closed. See also #87. |
+| 🔄 | [#87](https://github.com/hoferan/miniyard/issues/87) | Migrate from Webpack to Turbopack for production builds | **Blocked** — `@codecov/nextjs-webpack-plugin` has no Turbopack equivalent yet. Small effort once unblocked: remove `--webpack` flag and Webpack config block from `next.config.ts`. Monitor Codecov releases. |
 | ✅ | [#43](https://github.com/hoferan/miniyard/issues/43) | Add CONTRIBUTING.md, trim README, add `.vscode/launch.json` | Done — PR #88 |
-| ✅ | [#35](https://github.com/hoferan/miniyard/issues/35) | Externalize user-facing strings into per-module `messages.ts` | Done — convention documented in CLAUDE.md + utilities README; Base64 module migrated |
+| ✅ | [#35](https://github.com/hoferan/miniyard/issues/35) | Externalize user-facing strings into per-module `messages.ts` | Done — PR #89; convention documented in CLAUDE.md + utilities README; Base64 module migrated |
 
 ---
 
@@ -27,10 +29,10 @@ Update the status column as issues are completed. Use this file to orient new Cl
 
 | Status | Issue | Title | Notes |
 |---|---|---|---|
-| ~~#28~~ | [#28](https://github.com/hoferan/miniyard/issues/28) | Breadcrumbs on category listing pages | **Won't fix** — nav already highlights the active category; breadcrumb redundant at depth-2 |
-| ✅ | [#22](https://github.com/hoferan/miniyard/issues/22) | Unit Converter: swap button + prevent duplicate units | Done — swap button carries result as new input; duplicate units auto-advance the other side |
+| ❌ | [#28](https://github.com/hoferan/miniyard/issues/28) | Breadcrumbs on category listing pages | **Won't fix** — nav already highlights the active category; breadcrumb redundant at depth-2. Closed as not planned. |
+| ✅ | [#22](https://github.com/hoferan/miniyard/issues/22) | Unit Converter: swap button + prevent duplicate units | Done — PR #91; swap button carries result as new input; duplicate units auto-advance the other side |
 | ✅ | [#58](https://github.com/hoferan/miniyard/issues/58) | Brand identity — favicon, app icons, visual theme | Done — PR #92 |
-| 🔄 | [#20](https://github.com/hoferan/miniyard/issues/20) | PWA support (manifest, service worker, offline page) | In progress |
+| ✅ | [#20](https://github.com/hoferan/miniyard/issues/20) | PWA support (manifest, service worker, offline page) | Done — PR #94 |
 
 ---
 
@@ -39,7 +41,7 @@ Update the status column as issues are completed. Use this file to orient new Cl
 | Status | Issue | Title | Notes |
 |---|---|---|---|
 | ⬜ | [#83](https://github.com/hoferan/miniyard/issues/83) | Migrate Tailwind CSS v3 → v4 | Breaking change; verify shadcn/ui compatibility; own branch, own PR |
-| ⬜ | [#36](https://github.com/hoferan/miniyard/issues/36) | App-wide i18n infrastructure | Depends on #35; large scope, treat as its own sprint |
+| ⬜ | [#36](https://github.com/hoferan/miniyard/issues/36) | App-wide i18n infrastructure | Depends on #35 (done); large scope, treat as its own sprint |
 
 ---
 
@@ -48,6 +50,8 @@ Update the status column as issues are completed. Use this file to orient new Cl
 ```text
 #84 → #43 → #35 → #22 → #58 → #20 → #83 → #36
 ```
+
+Remaining as of 2026-06-17: **`#83 → #36`**. Both `#84` and `#87` are blocked on upstream; no action until their respective packages ship Turbopack / ESLint 10 support.
 
 ---
 
