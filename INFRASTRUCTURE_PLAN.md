@@ -38,7 +38,7 @@ Update the status column as issues are completed. Use this file to orient new Cl
 
 | Status | Issue | Title | Notes |
 |---|---|---|---|
-| ⬜ | [#83](https://github.com/hoferan/miniyard/issues/83) | Migrate Tailwind CSS v3 → v4 | Breaking change; verify shadcn/ui compatibility; own branch, own PR |
+| ✅ | [#83](https://github.com/hoferan/miniyard/issues/83) | Migrate Tailwind CSS v3 → v4 | Done — PR #95 |
 | ⬜ | [#36](https://github.com/hoferan/miniyard/issues/36) | App-wide i18n infrastructure | Depends on #35; large scope, treat as its own sprint |
 
 ---
