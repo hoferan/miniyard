@@ -1,15 +1,27 @@
-import Link from 'next/link'
+'use client'
+
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import { Module } from '@/lib/types'
 import { cn } from '@/lib/utils'
-
-const CATEGORY_LABEL: Record<string, string> = {
-  utilities: 'UTILITY',
-  games: 'GAME',
-}
 
 type Props = { module: Module; order?: number }
 
 export function ModuleCard({ module, order }: Props) {
+  const t = useTranslations('moduleCard')
+
+  const categoryLabel =
+    module.category === 'utilities'
+      ? t('categories.utilities')
+      : t('categories.games')
+
+  const statusLabel =
+    module.status === 'stable'
+      ? t('status.stable')
+      : module.status === 'beta'
+        ? t('status.beta')
+        : t('status.comingSoon')
+
   return (
     <Link href={`/${module.category}/${module.slug}`}>
       <div
@@ -21,7 +33,6 @@ export function ModuleCard({ module, order }: Props) {
           'hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_26px_52px_-22px_rgba(124,108,255,.5)]',
         )}
       >
-        {/* Icon row */}
         <div className="mb-4 flex items-center justify-between">
           <div className="flex h-[52px] w-[52px] items-center justify-center rounded-[15px] border border-primary/15 bg-primary/10 text-[26px]">
             {module.icon}
@@ -33,23 +44,19 @@ export function ModuleCard({ module, order }: Props) {
           )}
         </div>
 
-        {/* Category tag */}
         <div className="mb-1.5 font-mono text-[10px] tracking-[0.16em] text-primary">
-          {CATEGORY_LABEL[module.category] ?? module.category.toUpperCase()}
+          {categoryLabel}
         </div>
 
-        {/* Title */}
         <div className="mb-1.5 text-[18px] font-bold text-foreground">{module.title}</div>
 
-        {/* Description */}
         <p className="mb-4 text-[13.5px] leading-[1.5] text-muted-foreground">
           {module.description}
         </p>
 
-        {/* Status */}
         <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
-          {module.status}
+          {statusLabel}
         </div>
       </div>
     </Link>

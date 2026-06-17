@@ -9,5 +9,5 @@ test('homepage loads and shows module cards', async ({ page }) => {
 test('unit converter card navigates correctly', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('link', { name: /Unit Converter/i }).first().click()
-  await expect(page).toHaveURL('/utilities/unit-converter')
+  await expect(page).toHaveURL('/en/utilities/unit-converter')
 })
