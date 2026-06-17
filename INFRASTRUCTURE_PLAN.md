@@ -29,7 +29,7 @@ Update the status column as issues are completed. Use this file to orient new Cl
 |---|---|---|---|
 | ~~#28~~ | [#28](https://github.com/hoferan/miniyard/issues/28) | Breadcrumbs on category listing pages | **Won't fix** — nav already highlights the active category; breadcrumb redundant at depth-2 |
 | ✅ | [#22](https://github.com/hoferan/miniyard/issues/22) | Unit Converter: swap button + prevent duplicate units | Done — swap button carries result as new input; duplicate units auto-advance the other side |
-| ⬜ | [#58](https://github.com/hoferan/miniyard/issues/58) | Brand identity — favicon, app icons, visual theme | Must land **before** PWA (#20); icons are a PWA prerequisite |
+| 🔄 | [#58](https://github.com/hoferan/miniyard/issues/58) | Brand identity — favicon, app icons, visual theme | **In review** — PR #92 open |
 | ⬜ | [#20](https://github.com/hoferan/miniyard/issues/20) | PWA support (manifest, service worker, offline page) | Depends on #58 for icons |
 
 ---
