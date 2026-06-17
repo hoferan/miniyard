@@ -1,5 +1,5 @@
 const CACHE_NAME = 'miniyard-v1'
-const OFFLINE_URL = '/offline'
+const OFFLINE_URL = '/en/offline'
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

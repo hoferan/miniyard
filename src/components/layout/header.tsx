@@ -1,16 +1,16 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
+import { Link, usePathname, useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { LOCALES } from '@/i18n/config'
 
 export function Header() {
   const { resolvedTheme, setTheme } = useTheme()
   const pathname = usePathname()
+  const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const t = useTranslations('nav')
   const locale = useLocale()
@@ -22,8 +22,7 @@ export function Header() {
   }
 
   function switchLocale(next: string) {
-    document.cookie = `NEXT_LOCALE=${next}; path=/; max-age=31536000; SameSite=Lax`
-    window.location.reload()
+    router.replace(pathname, { locale: next })
   }
 
   const NAV_LINKS = [
