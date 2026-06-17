@@ -65,11 +65,6 @@ export default function UnitConverter() {
 
   return (
     <div className="p-4 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-1">Unit Converter</h1>
-      <p className="text-sm text-muted-foreground mb-6">
-        Convert between common units of measurement.
-      </p>
-
       {/* Category tabs */}
       <div className="flex gap-1 mb-6 flex-wrap">
         {categories.map((cat) => (
@@ -96,10 +91,11 @@ export default function UnitConverter() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="0"
+            aria-label="Value to convert"
             className="flex-1 min-w-0"
           />
           <Select value={fromUnit} onValueChange={handleFromUnitChange}>
-            <SelectTrigger className="w-auto">
+            <SelectTrigger className="w-auto" aria-label="From unit">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -133,10 +129,11 @@ export default function UnitConverter() {
             value={formattedResult}
             readOnly
             placeholder="—"
+            aria-label="Converted result"
             className="flex-1 min-w-0 bg-muted text-muted-foreground"
           />
           <Select value={toUnit} onValueChange={handleToUnitChange}>
-            <SelectTrigger className="w-auto">
+            <SelectTrigger className="w-auto" aria-label="To unit">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

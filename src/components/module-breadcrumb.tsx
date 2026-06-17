@@ -1,41 +1,25 @@
 import Link from 'next/link'
 import { ModuleCategory } from '@/lib/types'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
 
-const CATEGORY_LABELS: Record<ModuleCategory, string> = {
-  utilities: 'Utilities',
-  games: 'Games',
+const BACK_LABEL: Record<ModuleCategory, string> = {
+  utilities: 'Back to tools',
+  games: 'Back to games',
 }
 
-type Props = { title: string; category: ModuleCategory }
+const BACK_HREF: Record<ModuleCategory, string> = {
+  utilities: '/utilities',
+  games: '/games',
+}
 
-export function ModuleBreadcrumb({ title, category }: Props) {
+type Props = { category: ModuleCategory }
+
+export function ModuleBreadcrumb({ category }: Props) {
   return (
-    <Breadcrumb className="px-4 pt-4 pb-1">
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href="/">miniyard</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href={`/${category}`}>{CATEGORY_LABELS[category]}</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>{title}</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
+    <Link
+      href={BACK_HREF[category]}
+      className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
+    >
+      ← {BACK_LABEL[category]}
+    </Link>
   )
 }
