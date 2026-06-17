@@ -63,7 +63,7 @@ export default function OpengraphImage() {
           <span
             style={{
               fontSize: 28,
-              color: '#5eead4',
+              color: '#0f766e',
               fontFamily: 'sans-serif',
             }}
           >

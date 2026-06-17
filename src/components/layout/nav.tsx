@@ -20,6 +20,7 @@ export function Nav() {
           <Link
             key={link.href}
             href={link.href}
+            aria-current={isActive ? 'page' : undefined}
             className={cn(
               'transition-colors',
               isActive ? 'text-primary font-medium' : 'text-muted-foreground hover:text-foreground',
