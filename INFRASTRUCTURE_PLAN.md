@@ -18,6 +18,7 @@ Update the status column as issues are completed. Use this file to orient new Cl
 | Status | Issue | Title | Notes |
 |---|---|---|---|
 | 🔄 | [#84](https://github.com/hoferan/miniyard/issues/84) | ESLint 10 + eslint-config-next 16 coordinated upgrade | **Blocked** — `eslint-plugin-react@7.37.5` (latest) uses removed ESLint 10 API (`context.getFilename()`); also `@codecov/nextjs-webpack-plugin@2.0.1` caps peer dep at Next.js 15. Re-evaluate when upstream ships fixes. Dependabot PRs #29 and #52 were closed. Issue #87 created for Turbopack migration. |
+| 🔄 | [#87](https://github.com/hoferan/miniyard/issues/87) | Migrate Webpack → Turbopack for production builds | **Blocked** — `@codecov/nextjs-webpack-plugin` has no Turbopack equivalent yet; `@sentry/nextjs` already supports Turbopack. Remove `--webpack` flag once Codecov ships support. |
 | ✅ | [#43](https://github.com/hoferan/miniyard/issues/43) | Add CONTRIBUTING.md, trim README, add `.vscode/launch.json` | Done — PR #88 |
 | ✅ | [#35](https://github.com/hoferan/miniyard/issues/35) | Externalize user-facing strings into per-module `messages.ts` | Done — convention documented in CLAUDE.md + utilities README; Base64 module migrated |
 
@@ -30,7 +31,7 @@ Update the status column as issues are completed. Use this file to orient new Cl
 | ~~#28~~ | [#28](https://github.com/hoferan/miniyard/issues/28) | Breadcrumbs on category listing pages | **Won't fix** — nav already highlights the active category; breadcrumb redundant at depth-2 |
 | ✅ | [#22](https://github.com/hoferan/miniyard/issues/22) | Unit Converter: swap button + prevent duplicate units | Done — swap button carries result as new input; duplicate units auto-advance the other side |
 | ✅ | [#58](https://github.com/hoferan/miniyard/issues/58) | Brand identity — favicon, app icons, visual theme | Done — PR #92 |
-| 🔄 | [#20](https://github.com/hoferan/miniyard/issues/20) | PWA support (manifest, service worker, offline page) | In progress |
+| ✅ | [#20](https://github.com/hoferan/miniyard/issues/20) | PWA support (manifest, service worker, offline page) | Done — PR #94 |
 
 ---
 
@@ -46,8 +47,9 @@ Update the status column as issues are completed. Use this file to orient new Cl
 ## Suggested execution order
 
 ```text
-#84 → #43 → #35 → #22 → #58 → #20 → #83 → #36
+#84 → #87 → #43 → #35 → #22 → #58 → #20 → #83 → #36
 ```
+All items up to and including #83 are done. Only #84, #87 (both blocked upstream), and #36 remain.
 
 ---
 
