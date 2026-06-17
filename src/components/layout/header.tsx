@@ -19,7 +19,6 @@ export function Header() {
   useEffect(() => setMounted(true), [])
 
   function isActive(href: string) {
-    if (href === '/utilities') return pathname === '/' || pathname.startsWith('/utilities')
     return pathname === href || pathname.startsWith(href + '/')
   }
 

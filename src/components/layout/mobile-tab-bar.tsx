@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 
 export function MobileTabBar() {
   const pathname = usePathname()
-  const toolsActive = pathname === '/' || pathname.startsWith('/utilities')
+  const toolsActive = pathname.startsWith('/utilities')
   const gamesActive = pathname === '/games' || pathname.startsWith('/games/')
 
   return (

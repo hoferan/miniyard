@@ -1,5 +1,5 @@
 import { registry } from '@/lib/registry'
-import { ModuleCard } from '@/components/module-card'
+import { HomeSearch } from '@/components/home-search'
 
 export default function HomePage() {
   return (
@@ -25,12 +25,7 @@ export default function HomePage() {
         </p>
       </div>
 
-      {/* Module grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {registry.map((module, index) => (
-          <ModuleCard key={module.slug} module={module} order={index} />
-        ))}
-      </div>
+      <HomeSearch modules={registry} />
     </div>
   )
 }
