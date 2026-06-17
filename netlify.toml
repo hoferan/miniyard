@@ -11,3 +11,8 @@
 
 [context.deploy-preview.environment]
   NEXT_PUBLIC_SENTRY_ENVIRONMENT = "staging"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

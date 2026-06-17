@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
 import { Header } from '@/components/layout/header'
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar'
+import { SwRegister } from '@/components/sw-register'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
@@ -25,6 +26,11 @@ export const metadata: Metadata = {
     template: '%s | miniyard',
   },
   description: 'A modular playground for useful tools and mini games.',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'miniyard',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -41,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Header />
             <div className="pb-20 md:pb-0">{children}</div>
             <MobileTabBar />
+            <SwRegister />
           </div>
         </ThemeProvider>
       </body>
