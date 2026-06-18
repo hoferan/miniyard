@@ -1,12 +1,11 @@
 import type { MetadataRoute } from 'next'
-import { DEFAULT_LOCALE } from '@/i18n/config'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'miniyard',
     short_name: 'miniyard',
     description: 'A modular playground for useful tools and mini games.',
-    start_url: `/${DEFAULT_LOCALE}/`,
+    start_url: '/',
     scope: '/',
     display: 'standalone',
     background_color: '#ffffff',
