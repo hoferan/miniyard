@@ -133,7 +133,7 @@ npm test / cargo test / pytest / go test ./...
 
 ### Report
 
-```
+```text
 Worktree ready at <full-path>
 Tests passing (<N> tests, 0 failures)
 Ready to implement <feature-name>

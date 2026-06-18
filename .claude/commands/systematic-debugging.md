@@ -15,7 +15,7 @@ Random fixes waste time and create new bugs. Quick patches mask underlying issue
 
 ## The Iron Law
 
-```
+```text
 NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
 ```
 

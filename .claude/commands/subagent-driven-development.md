@@ -269,7 +269,7 @@ a ledger file, not only in todos.
 
 ## Example Workflow
 
-```
+```text
 You: I'm using Subagent-Driven Development to execute this plan.
 
 [Read plan file once: docs/superpowers/plans/feature-plan.md]
