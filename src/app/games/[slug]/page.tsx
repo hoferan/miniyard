@@ -2,9 +2,11 @@ import { getModuleBySlug } from '@/lib/registry'
 import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
 import { notFound } from 'next/navigation'
 import MemoryCard from '@/modules/games/memory-card'
+import TypingSpeedTest from '@/modules/games/typing-speed-test'
 
 const componentMap: Record<string, React.ComponentType> = {
   'memory-card': MemoryCard,
+  'typing-speed-test': TypingSpeedTest,
 }
 
 export default async function GamePage({ params }: { params: Promise<{ slug: string }> }) {

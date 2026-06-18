@@ -29,6 +29,7 @@ src/modules/games/<name>/
   logic.ts          # Pure game logic — state transitions, win/lose, score
   logic.test.ts     # Vitest unit tests (no DOM, no React)
   index.tsx         # Game loop, rendering, event handling ('use client')
+  messages.ts       # (optional) User-facing strings — only when the game has status/UI copy
 ```
 
 ## Brainstorm questions (Claude asks these before writing any code)

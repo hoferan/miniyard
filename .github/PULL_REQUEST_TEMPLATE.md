@@ -52,6 +52,7 @@ Closes #<!-- issue number, e.g. 42 -->
 - [ ] Module registered in `src/lib/registry.ts`
 - [ ] Module added to `componentMap` in `src/app/[category]/[slug]/page.tsx`
 - [ ] Tests written and all green (`npm run test`)
+- [ ] E2E test written and green (`npm run test:e2e`)
 - [ ] TypeScript check passes (`npm run typecheck`)
 - [ ] Build passes (`npm run build`)
 - [ ] Netlify preview checked
