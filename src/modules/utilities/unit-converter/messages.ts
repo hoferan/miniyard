@@ -1,5 +1,13 @@
 import type { UnitCategoryId } from './logic'
 
+export const ARIA = {
+  valueToConvert: 'Value to convert',
+  fromUnit: 'From unit',
+  toUnit: 'To unit',
+  swapUnits: 'Swap units',
+  convertedResult: 'Converted result',
+}
+
 export const CATEGORY_LABELS: Record<UnitCategoryId, string> = {
   length: 'Length',
   weight: 'Weight',

@@ -1,8 +1,8 @@
-import { registry, getModulesByCategory } from '@/lib/registry'
+import { getModulesByCategory, getModuleOrder } from '@/lib/registry'
 import { ModuleCard } from '@/components/module-card'
 
 export default function UtilitiesPage() {
-  const orderBySlug = Object.fromEntries(registry.map((m, i) => [m.slug, i]))
+  const orderBySlug = getModuleOrder()
   const modules = getModulesByCategory('utilities')
 
   return (

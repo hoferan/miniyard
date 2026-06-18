@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { convert, getCategories, getUnits, UnitCategoryId } from './logic'
+import { ARIA } from './messages'
 
 export default function UnitConverter() {
   const categories = getCategories()
@@ -86,11 +87,11 @@ export default function UnitConverter() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="0"
-            aria-label="Value to convert"
+            aria-label={ARIA.valueToConvert}
             className="flex-1 min-w-0"
           />
           <Select value={fromUnit} onValueChange={handleFromUnitChange}>
-            <SelectTrigger className="w-auto" aria-label="From unit">
+            <SelectTrigger className="w-auto" aria-label={ARIA.fromUnit}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -109,7 +110,7 @@ export default function UnitConverter() {
             variant="outline"
             size="icon"
             onClick={handleSwap}
-            aria-label="Swap units"
+            aria-label={ARIA.swapUnits}
             className="shrink-0"
           >
             <ArrowLeftRight className="h-4 w-4" />
@@ -123,11 +124,11 @@ export default function UnitConverter() {
             value={formattedResult}
             readOnly
             placeholder="—"
-            aria-label="Converted result"
+            aria-label={ARIA.convertedResult}
             className="flex-1 min-w-0 bg-muted text-muted-foreground"
           />
           <Select value={toUnit} onValueChange={handleToUnitChange}>
-            <SelectTrigger className="w-auto" aria-label="To unit">
+            <SelectTrigger className="w-auto" aria-label={ARIA.toUnit}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

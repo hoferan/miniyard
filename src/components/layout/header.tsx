@@ -4,7 +4,9 @@ import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { Sun, Moon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 
 export function Header() {
   const { resolvedTheme, setTheme } = useTheme()
@@ -53,14 +55,15 @@ export function Header() {
         </nav>
 
         {mounted && (
-          <button
+          <Button
+            variant="ghost"
             onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-            className="flex items-center gap-2 rounded-full border border-border bg-background/60 px-4 py-2 text-sm font-bold text-muted-foreground backdrop-blur-sm transition-colors hover:text-foreground dark:bg-white/[0.06]"
+            className="rounded-full border border-border bg-background/60 px-4 py-2 text-sm font-bold text-muted-foreground backdrop-blur-sm hover:bg-transparent hover:text-foreground dark:bg-white/[0.06]"
             aria-label="Toggle theme"
           >
-            <span className="text-base">{resolvedTheme === 'dark' ? '☀️' : '🌙'}</span>
+            {resolvedTheme === 'dark' ? <Sun /> : <Moon />}
             <span>{resolvedTheme === 'dark' ? 'Light' : 'Dark'}</span>
-          </button>
+          </Button>
         )}
       </div>
     </header>

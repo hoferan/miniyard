@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Search } from 'lucide-react'
+import { Input } from '@/components/ui/input'
 import type { Module } from '@/lib/types'
 import { ModuleCard } from './module-card'
 
@@ -27,13 +28,13 @@ export function HomeSearch({ modules }: HomeSearchProps) {
     <>
       <div className="relative mx-auto mb-8 max-w-sm">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-        <input
+        <Input
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search tools and games…"
           aria-label="Search modules"
-          className="w-full rounded-xl border border-border bg-white/60 py-2.5 pl-9 pr-4 text-sm text-foreground placeholder:text-muted-foreground backdrop-blur-sm transition focus:outline-none focus:ring-2 focus:ring-primary/40 dark:bg-white/[0.05]"
+          className="rounded-xl border-border bg-white/60 py-2.5 pl-9 pr-4 text-foreground backdrop-blur-sm focus-visible:ring-primary/40 dark:bg-white/[0.05]"
         />
       </div>
 
