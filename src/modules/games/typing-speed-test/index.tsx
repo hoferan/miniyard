@@ -32,24 +32,30 @@ function newGame(): GameState {
 }
 
 export default function TypingSpeedTest() {
-  const [state, setState] = useState<GameState>(newGame)
+  // null until first client render — avoids SSR/client hydration mismatch from Math.random()
+  const [state, setState] = useState<GameState | null>(null)
   const [now, setNow] = useState(() => Date.now())
   const [personalBest, setPersonalBest] = useState(0)
   const [isNewBest, setIsNewBest] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  // Prevents onInput from double-processing when onKeyDown already handled the keystroke
+  const keydownHandled = useRef(false)
 
   useEffect(() => {
+    setState(newGame())
     setPersonalBest(loadPersonalBest())
   }, [])
 
+  const phase = state?.phase ?? 'idle'
+
   // Tick every 100 ms while playing to update countdown and detect expiry
   useEffect(() => {
-    if (state.phase === 'playing') {
+    if (phase === 'playing') {
       timerRef.current = setInterval(() => {
         const currentNow = Date.now()
         setNow(currentNow)
-        setState((prev) => tick(prev, currentNow))
+        setState((prev) => (prev ? tick(prev, currentNow) : prev))
       }, 100)
     } else {
       if (timerRef.current) clearInterval(timerRef.current)
@@ -57,11 +63,11 @@ export default function TypingSpeedTest() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
     }
-  }, [state.phase])
+  }, [phase])
 
   // Save personal best when game finishes
   useEffect(() => {
-    if (state.phase !== 'finished' || state.startedAt === null) return
+    if (!state || state.phase !== 'finished' || state.startedAt === null) return
     const results = getResults(state, now)
     const pb = loadPersonalBest()
     if (results.wpm > pb) {
@@ -70,7 +76,7 @@ export default function TypingSpeedTest() {
       setIsNewBest(true)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.phase])
+  }, [phase])
 
   const focusInput = useCallback(() => {
     inputRef.current?.focus()
@@ -78,28 +84,36 @@ export default function TypingSpeedTest() {
 
   // Desktop: reliable keydown gives us exact key names including Backspace
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (state.phase === 'finished') return
+    keydownHandled.current = false
+    if (!state || state.phase === 'finished') return
     if (
       e.key === 'Backspace' ||
       (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey)
     ) {
       e.preventDefault()
+      keydownHandled.current = true
       const currentNow = Date.now()
       setNow(currentNow)
-      setState((prev) => handleKeypress(prev, e.key, currentNow))
+      setState((prev) => (prev ? handleKeypress(prev, e.key, currentNow) : prev))
     }
-  }, [state.phase])
+  }, [state])
 
-  // Mobile fallback: InputEvent.data carries the typed character; null signals deletion
+  // Mobile fallback: InputEvent.data carries the typed character; null signals deletion.
+  // Skipped when onKeyDown already handled the event to prevent double-processing.
   const handleInput = useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    if (keydownHandled.current) {
+      keydownHandled.current = false
+      e.currentTarget.value = ''
+      return
+    }
     const currentNow = Date.now()
     const native = e.nativeEvent as InputEvent
     if (native.inputType === 'deleteContentBackward') {
       setNow(currentNow)
-      setState((prev) => handleKeypress(prev, 'Backspace', currentNow))
+      setState((prev) => (prev ? handleKeypress(prev, 'Backspace', currentNow) : prev))
     } else if (native.data) {
       setNow(currentNow)
-      setState((prev) => handleKeypress(prev, native.data as string, currentNow))
+      setState((prev) => (prev ? handleKeypress(prev, native.data as string, currentNow) : prev))
     }
     // Reset to keep the input visually empty
     e.currentTarget.value = ''
@@ -112,10 +126,12 @@ export default function TypingSpeedTest() {
     setTimeout(() => inputRef.current?.focus(), 0)
   }, [])
 
+  if (!state) return null
+
   const elapsed = state.startedAt !== null ? (state.endedAt ?? now) - state.startedAt : 0
   const remaining = Math.max(0, 60 - Math.floor(elapsed / 1000))
-  const results = state.phase === 'finished' ? getResults(state, now) : null
-  const liveResults = state.phase === 'playing' && elapsed > 0 ? getResults(state, now) : null
+  const results = phase === 'finished' ? getResults(state, now) : null
+  const liveResults = phase === 'playing' && elapsed > 0 ? getResults(state, now) : null
 
   return (
     <main className="mx-auto max-w-2xl px-4 py-6">
@@ -124,14 +140,14 @@ export default function TypingSpeedTest() {
         <span
           className={cn(
             'tabular-nums font-medium',
-            state.phase === 'playing' && remaining <= 10
+            phase === 'playing' && remaining <= 10
               ? 'text-destructive font-bold'
               : 'text-muted-foreground'
           )}
         >
-          {state.phase === 'idle' && MESSAGES.timerIdle}
-          {state.phase === 'playing' && MESSAGES.countdown(remaining)}
-          {state.phase === 'finished' && MESSAGES.timerDone}
+          {phase === 'idle' && MESSAGES.timerIdle}
+          {phase === 'playing' && MESSAGES.countdown(remaining)}
+          {phase === 'finished' && MESSAGES.timerDone}
         </span>
         <div className="flex gap-4 text-muted-foreground">
           {liveResults !== null && (
@@ -144,7 +160,7 @@ export default function TypingSpeedTest() {
       </div>
 
       {/* Passage display */}
-      {state.phase !== 'finished' && (
+      {phase !== 'finished' && (
         <div
           role="button"
           tabIndex={0}
@@ -155,7 +171,7 @@ export default function TypingSpeedTest() {
           onClick={focusInput}
           onKeyDown={(e) => e.key === 'Enter' && focusInput()}
         >
-          {state.phase === 'idle' && (
+          {phase === 'idle' && (
             <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-card/90 backdrop-blur-[2px]">
               <span className="text-sm text-muted-foreground">{MESSAGES.clickToStart}</span>
             </div>
@@ -197,7 +213,7 @@ export default function TypingSpeedTest() {
       )}
 
       {/* Results card */}
-      {state.phase === 'finished' && results && (
+      {phase === 'finished' && results && (
         <div className="rounded-xl border bg-card p-8 shadow-sm">
           <h2 className="mb-6 text-center text-xl font-bold">{MESSAGES.resultsHeading}</h2>
           <div className="mb-6 grid grid-cols-2 gap-3">
