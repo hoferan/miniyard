@@ -4,7 +4,7 @@
 
 if git diff --cached --name-only --diff-filter=ACM -z | grep -qz '\.md$'; then
   echo "→ Markdown lint..."
-  git diff --cached --name-only --diff-filter=ACM -z | grep -z '\.md$' | xargs -0 npx markdownlint-cli2
+  git diff --cached --name-only --diff-filter=ACM -z | grep -z '\.md$' | grep -zv '^\.claude/commands/' | xargs -0 npx markdownlint-cli2 --
 fi
 
 if git diff --cached --name-only --diff-filter=ACM -z | grep -qzE '\.(ts|tsx)$'; then

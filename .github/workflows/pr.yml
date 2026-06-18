@@ -34,7 +34,7 @@ jobs:
         run: npm run lint
 
       - name: Lint Markdown
-        run: npx --yes markdownlint-cli2 "**/*.md" "#node_modules"
+        run: npm run lint:md
 
       - name: Type check
         run: npm run typecheck

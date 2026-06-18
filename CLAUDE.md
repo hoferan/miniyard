@@ -122,109 +122,95 @@ New task received
        │         └─ YES → /issue #[n] (reads issue, classifies, runs correct workflow, opens PR)
        │
        ├─ New module (any category)?
-       │         └─ YES → /new-module (reads category README, then Workflow A)
+       │         └─ YES → /new-module → Workflow A
        │
        ├─ New category?
        │         └─ YES → /new-category command
        │
        ├─ Bug fix?
-       │         └─ YES → Workflow B (Analyse → Fix → Test → PR)
+       │         └─ YES → Workflow B (/systematic-debugging → fix → /verification-before-completion)
        │
        ├─ UI adjustment / styling?
-       │         └─ YES → Workflow C (Direct → PR)
+       │         └─ YES → Workflow C (change → /verification-before-completion)
        │
        └─ Refactor / cleanup?
-                 └─ YES → Workflow C (Change, keep tests green → PR)
+                 └─ YES → Workflow C (change → /verification-before-completion)
 ```
 
 ---
 
 ## Workflow A: New Module (mandatory)
 
-Always start with `/new-module`. Claude reads `src/modules/[category]/README.md` first to understand the category context and derive the right brainstorm questions.
+Superpowers skills drive this workflow. Invoke them in order — do not skip or reorder.
 
-### Step 1 – Brainstorm
-**Before writing any line of code**, Claude reads the category README and asks its defined questions. Additional generic questions:
-- Are there similar modules in the project that can be reused?
-- Mobile-first: How does the user interact on a smartphone?
+1. **`/brainstorming`** — Read `src/modules/[category]/README.md` first. Ask category-specific questions plus:
+   - Are there similar modules that can be reused?
+   - Mobile-first: how does the user interact on a smartphone?
+   No code before design is approved.
 
-Claude waits for answers. No assumptions.
+2. **`/writing-plans`** — Write the spec. The plan must include:
 
-### Step 2 – Spec (confirm in writing)
-Claude summarises the requirements and waits for confirmation:
+   ```text
+   ## Spec: [Module Name]
+   Category: [utilities / games / ...]
+   Function: [1–2 sentences]
+   Inputs: [list with type and validation]
+   Outputs: [list]
+   Logic / Algorithm: [core formula or flow]
+   Edge Cases: [list]
+   New files:
+     - src/modules/[category]/[name]/meta.ts
+     - src/modules/[category]/[name]/logic.ts
+     - src/modules/[category]/[name]/logic.test.ts
+     - src/modules/[category]/[name]/index.tsx
+   Registration:
+     - src/lib/registry.ts
+     - src/app/[category]/[slug]/page.tsx  (componentMap)
+   Documentation:
+     - README.md update (module list)
+     - docs/[category]/[name].md if complex
+   ```
 
-```text
-## Spec: [Module Name]
-Category: [utilities / games / ...]
-Function: [1–2 sentences]
-Inputs: [list with type and validation]
-Outputs: [list]
-Logic / Algorithm: [core formula or flow]
-Edge Cases: [list]
-New files:
-  - src/modules/[category]/[name]/meta.ts
-  - src/modules/[category]/[name]/logic.ts
-  - src/modules/[category]/[name]/logic.test.ts
-  - src/modules/[category]/[name]/index.tsx
-Registration:
-  - src/lib/registry.ts
-  - src/app/[category]/[slug]/page.tsx  (componentMap)
-Documentation:
-  - README.md update (module list)
-  - docs/[category]/[name].md if complex
-```
+3. **`/test-driven-development`** — Write `logic.test.ts` completely before `logic.ts` exists. Tests must be red first.
 
-**No implementation without explicit spec confirmation.**
+4. **`/executing-plans`** — Implement in this order:
+   1. `meta.ts` — module metadata
+   2. `logic.ts` — pure functions until all tests are green
+   3. `index.tsx` — Tailwind, shadcn/ui, mobile-first, no inline styles
+   4. Register in `src/lib/registry.ts`
+   5. Add to `componentMap` in `src/app/[category]/[slug]/page.tsx`
 
-### Step 3 – Tests first (TDD, non-negotiable)
-Claude writes `logic.test.ts` completely **before** `logic.ts` exists:
-- Happy path (normal case)
-- Edge cases (0, negative, empty string, null/undefined)
-- Error cases / invalid inputs
-- Boundary values
+5. **`/update-docs`** — Add module to README.md list; create `docs/[category]/[name].md` only for complex logic.
 
-Tests are **red** – that is correct and intentional.
-
-### Step 4 – Implementation
-1. Create `meta.ts` with module metadata
-2. Implement `logic.ts` until all tests are green
-3. Create `index.tsx`: Tailwind, shadcn/ui components, mobile-first, no inline styles
-4. Register module in `src/lib/registry.ts`
-5. Add to `componentMap` in `src/app/[category]/[slug]/page.tsx`
-
-### Step 5 – Update documentation (mandatory)
-Run `/update-docs`. It checks all documentation surfaces and applies what is missing:
-- **`README.md`**: Add module to the appropriate category list
-- **`docs/[category]/[name].md`**: Only for complex logic
-- Code comments if the logic is not self-explanatory
-
-### Step 6 – Review checklist
-Claude checks before the PR:
-- [ ] All unit tests green (`npm run test`)
-- [ ] No hardcoded values in `logic.ts`
-- [ ] No unnecessary npm packages
-- [ ] Mobile view works (Tailwind responsive)
-- [ ] Module registered in `src/lib/registry.ts`
-- [ ] Module added to `componentMap` in `src/app/[category]/[slug]/page.tsx`
-- [ ] `/update-docs` run — no pending doc updates
-- [ ] TypeScript check passes (`npm run typecheck`)
-- [ ] Build passes (`npm run build`)
+6. **`/verification-before-completion`** — Confirm before the PR:
+   - [ ] All unit tests green (`npm run test`)
+   - [ ] No hardcoded values in `logic.ts`
+   - [ ] No unnecessary npm packages
+   - [ ] Mobile view works (Tailwind responsive)
+   - [ ] Module registered in `src/lib/registry.ts`
+   - [ ] Module added to `componentMap` in `src/app/[category]/[slug]/page.tsx`
+   - [ ] `/update-docs` run — no pending doc updates
+   - [ ] TypeScript check passes (`npm run typecheck`)
+   - [ ] Build passes (`npm run build`)
 
 ---
 
 ## Workflow B: Bug Fix
 
-1. Read the affected file, **name the root cause** before fixing
-2. If `logic.ts` is affected: write a failing test for the bug, **then** fix it
-3. Minimal fix – no unnecessary changes to other files
-4. Run `/update-docs` — verify no doc surface is stale after the fix
-5. PR description: cause + fix + affected tests
+1. **`/systematic-debugging`** — name the root cause before touching any code
+2. **`/test-driven-development`** — if `logic.ts` is affected, write a failing test first
+3. Minimal fix — no unnecessary changes to other files
+4. **`/update-docs`** — verify no doc surface is stale
+5. **`/verification-before-completion`** — before creating the PR
+6. PR description: cause + fix + affected tests
 
 ---
 
 ## Workflow C: Direct Change (styling, config, docs)
 
-No spec needed. Change directly, run `/update-docs`, create PR, short description.
+1. Change directly — no spec needed
+2. **`/update-docs`** — verify no doc surface is stale
+3. **`/verification-before-completion`** — before creating the PR
 
 ---
 
@@ -409,6 +395,8 @@ If the raw URL returns a 404, browse `https://github.com/shadcn-ui/ui/tree/main/
 
 ## Claude Code Slash Commands
 
+### Project commands
+
 | Command | Description |
 |---|---|
 | `/new-module` | New module in any category (reads category README automatically) |
@@ -421,6 +409,27 @@ If the raw URL returns a 404, browse `https://github.com/shadcn-ui/ui/tree/main/
 | `/github-issue` | Create a GitHub issue via natural language — detects template, asks questions, proposes content for approval |
 | `/create-pr` | Create a pull request — reads the diff, fills the template, asks only what it can't infer, proposes for approval |
 | `/add-shadcn` | Add a shadcn/ui component by fetching it directly from GitHub (cloud-safe alternative to `npx shadcn add`) |
+
+### Superpowers skills (obra/superpowers)
+
+These skills govern HOW work is done. They take precedence over default behaviour. Project-specific rules above (file structure, naming, registration) define WHAT to build — superpowers defines the process.
+
+| Command | Trigger point |
+|---|---|
+| `/brainstorming` | Before any feature, component, or behaviour change — design gate |
+| `/writing-plans` | After brainstorm, before touching code on multi-step tasks |
+| `/executing-plans` | Running a written plan with review checkpoints |
+| `/test-driven-development` | Before writing implementation code (Workflow A Step 3) |
+| `/systematic-debugging` | Before proposing any fix for a bug (Workflow B Step 1) |
+| `/verification-before-completion` | Before claiming work is done or creating a PR |
+| `/requesting-code-review` | After completing a feature, before merging |
+| `/receiving-code-review` | Before implementing any review feedback |
+| `/finishing-a-development-branch` | When all tests pass and ready to integrate |
+| `/subagent-driven-development` | Parallel tasks within one session |
+| `/dispatching-parallel-agents` | Two or more independent tasks across separate agents |
+| `/using-git-worktrees` | Isolated feature work that must not affect current workspace |
+| `/using-superpowers` | Session start — discovers and bootstraps all skills |
+| `/writing-skills` | Creating or editing skill files |
 
 ---
 
