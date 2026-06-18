@@ -12,6 +12,7 @@ import {
   handleKeypress,
   tick,
 } from './logic'
+import { MESSAGES } from './messages'
 
 const PASSAGE_WORD_COUNT = 90
 const PERSONAL_BEST_KEY = 'typing-speed-test:personal-best'
@@ -128,16 +129,16 @@ export default function TypingSpeedTest() {
               : 'text-muted-foreground'
           )}
         >
-          {state.phase === 'idle' && '60 s'}
-          {state.phase === 'playing' && `${remaining} s`}
-          {state.phase === 'finished' && 'Done'}
+          {state.phase === 'idle' && MESSAGES.timerIdle}
+          {state.phase === 'playing' && MESSAGES.countdown(remaining)}
+          {state.phase === 'finished' && MESSAGES.timerDone}
         </span>
         <div className="flex gap-4 text-muted-foreground">
           {liveResults !== null && (
-            <span className="tabular-nums">{Math.round(liveResults.wpm)} WPM</span>
+            <span className="tabular-nums">{MESSAGES.liveWpm(Math.round(liveResults.wpm))}</span>
           )}
           {personalBest > 0 && (
-            <span className="tabular-nums">Best: {personalBest} WPM</span>
+            <span className="tabular-nums">{MESSAGES.personalBest(personalBest)}</span>
           )}
         </div>
       </div>
@@ -147,7 +148,7 @@ export default function TypingSpeedTest() {
         <div
           role="button"
           tabIndex={0}
-          aria-label="Typing area — click to focus and start typing"
+          aria-label={MESSAGES.typingAreaLabel}
           className={cn(
             'relative cursor-text select-none rounded-xl border bg-card p-6 font-mono text-base leading-8 shadow-sm focus-within:ring-2 focus-within:ring-ring sm:text-lg',
           )}
@@ -156,7 +157,7 @@ export default function TypingSpeedTest() {
         >
           {state.phase === 'idle' && (
             <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-card/90 backdrop-blur-[2px]">
-              <span className="text-sm text-muted-foreground">Click here and start typing</span>
+              <span className="text-sm text-muted-foreground">{MESSAGES.clickToStart}</span>
             </div>
           )}
           {state.passage.split('').map((char, i) => {
@@ -198,36 +199,36 @@ export default function TypingSpeedTest() {
       {/* Results card */}
       {state.phase === 'finished' && results && (
         <div className="rounded-xl border bg-card p-8 shadow-sm">
-          <h2 className="mb-6 text-center text-xl font-bold">Results</h2>
+          <h2 className="mb-6 text-center text-xl font-bold">{MESSAGES.resultsHeading}</h2>
           <div className="mb-6 grid grid-cols-2 gap-3">
             <div className="rounded-lg bg-muted/50 p-4 text-center">
               <div className="text-4xl font-extrabold text-primary tabular-nums">
                 {Math.round(results.wpm)}
               </div>
-              <div className="mt-1 text-sm text-muted-foreground">WPM</div>
+              <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statWpm}</div>
             </div>
             <div className="rounded-lg bg-muted/50 p-4 text-center">
               <div className="text-4xl font-extrabold tabular-nums">
                 {Math.round(results.accuracy)}%
               </div>
-              <div className="mt-1 text-sm text-muted-foreground">Accuracy</div>
+              <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statAccuracy}</div>
             </div>
             <div className="rounded-lg bg-muted/50 p-4 text-center">
               <div className="text-4xl font-extrabold tabular-nums">{results.charsTyped}</div>
-              <div className="mt-1 text-sm text-muted-foreground">Characters</div>
+              <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statCharacters}</div>
             </div>
             <div className="rounded-lg bg-muted/50 p-4 text-center">
               <div className="text-4xl font-extrabold tabular-nums">{results.errorCount}</div>
-              <div className="mt-1 text-sm text-muted-foreground">Errors</div>
+              <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statErrors}</div>
             </div>
           </div>
           {isNewBest && (
             <p className="mb-4 text-center text-sm font-semibold text-primary">
-              New personal best!
+              {MESSAGES.newPersonalBest}
             </p>
           )}
           <Button className="w-full" onClick={handleRestart}>
-            Try again
+            {MESSAGES.tryAgain}
           </Button>
         </div>
       )}
