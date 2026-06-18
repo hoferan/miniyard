@@ -1,6 +1,6 @@
 // Compiled by @serwist/next via webpack — type-checked via tsconfig.worker.json
 import type { PrecacheEntry, SerwistGlobalConfig } from 'serwist'
-import { Serwist } from 'serwist'
+import { Serwist, NetworkFirst } from 'serwist'
 import { defaultCache } from '@serwist/next/worker'
 
 declare global {
@@ -16,7 +16,18 @@ const serwist = new Serwist({
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  runtimeCaching: defaultCache,
+  runtimeCaching: [
+    // Explicit NetworkFirst for all HTML navigation requests so Chrome's
+    // PWA installability check sees the SW calling event.respondWith() for
+    // start_url. Without this, defaultCache silently passes navigation
+    // requests through without responding, and Chrome considers the SW as
+    // not handling the page — blocking the install prompt.
+    {
+      matcher: ({ request }) => request.destination === 'document',
+      handler: new NetworkFirst({ cacheName: 'pages', networkTimeoutSeconds: 10 }),
+    },
+    ...defaultCache,
+  ],
   fallbacks: {
     entries: [
       {
