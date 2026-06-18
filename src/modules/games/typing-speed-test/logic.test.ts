@@ -160,6 +160,14 @@ describe('handleKeypress – backspace', () => {
     expect(next.phase).toBe('idle')
   })
 
+  it('is a no-op when already at index 0 while playing with a pending char', () => {
+    const state = createInitialState('abc')
+    const wrong = handleKeypress(state, 'z', 100)       // starts game, marks incorrect
+    const cleared = handleKeypress(wrong, 'Backspace', 200) // clears to pending
+    const noOp = handleKeypress(cleared, 'Backspace', 300)  // line 98 — nothing to do
+    expect(noOp).toBe(cleared)
+  })
+
   it('does not count backspace in totalAttempts', () => {
     const state = createInitialState('a')
     const wrong = handleKeypress(state, 'z', 100)

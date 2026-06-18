@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import {
@@ -188,27 +188,29 @@ export default function TypingSpeedTest() {
           {wordTokens.map(({ word, start }, wi) => {
             const spaceIdx = start + word.length
             return (
-              <span key={start} className="inline-block">
-                {word.split('').map((char, ci) => {
-                  const idx = start + ci
-                  const charState = state.charStates[idx]
-                  const isCurrent = idx === state.currentIndex
-                  return (
-                    <span
-                      key={idx}
-                      className={cn(
-                        isCurrent && charState === 'pending' && 'border-l-2 border-foreground animate-pulse',
-                        charState === 'correct' && 'text-green-600 dark:text-green-400',
-                        charState === 'incorrect' &&
-                          'text-red-500 dark:text-red-400 bg-red-100 dark:bg-red-900/30 rounded-sm',
-                        charState === 'pending' && !isCurrent && 'text-muted-foreground/50',
-                        isCurrent && charState === 'pending' && 'text-foreground',
-                      )}
-                    >
-                      {char}
-                    </span>
-                  )
-                })}
+              <Fragment key={start}>
+                <span className="inline-block">
+                  {word.split('').map((char, ci) => {
+                    const idx = start + ci
+                    const charState = state.charStates[idx]
+                    const isCurrent = idx === state.currentIndex
+                    return (
+                      <span
+                        key={idx}
+                        className={cn(
+                          isCurrent && charState === 'pending' && 'border-l-2 border-foreground animate-pulse',
+                          charState === 'correct' && 'text-green-600 dark:text-green-400',
+                          charState === 'incorrect' &&
+                            'text-red-500 dark:text-red-400 bg-red-100 dark:bg-red-900/30 rounded-sm',
+                          charState === 'pending' && !isCurrent && 'text-muted-foreground/50',
+                          isCurrent && charState === 'pending' && 'text-foreground',
+                        )}
+                      >
+                        {char}
+                      </span>
+                    )
+                  })}
+                </span>
                 {wi < wordTokens.length - 1 && (
                   <span
                     className={cn(
@@ -227,7 +229,7 @@ export default function TypingSpeedTest() {
                     {' '}
                   </span>
                 )}
-              </span>
+              </Fragment>
             )
           })}
           {/* Hidden input captures all keyboard input (including mobile soft keyboard) */}
