@@ -1,4 +1,4 @@
-const CACHE_NAME = 'miniyard-v2'
+const CACHE_NAME = 'miniyard-d0e3534'
 const OFFLINE_URL = '/en/offline'
 
 self.addEventListener('install', (event) => {

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "node scripts/build-sw.mjs",
     "start": "next start",
     "lint": "next lint",
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#.next\"",
