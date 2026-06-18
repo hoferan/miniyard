@@ -69,7 +69,7 @@ jobs:
               const url = r.url.replace('http://localhost:3000', '') || '/'
               const s = r.summary
               const report = links[r.url] ? `[Report](${links[r.url]})` : '—'
-              return `| \`${url}\` | ${icon(s.performance, 0.8)}${fmt(s.performance)} | ${icon(s.accessibility, 0.9)}${fmt(s.accessibility)} | ${icon(s['best-practices'], 0.9)}${fmt(s['best-practices'])} | ${icon(s.seo, 0.9)}${fmt(s.seo)} | ${icon(s.pwa, 0.9)}${fmt(s.pwa)} | ${report} |`
+              return `| \`${url}\` | ${icon(s.performance, 0.8)}${fmt(s.performance)} | ${icon(s.accessibility, 0.9)}${fmt(s.accessibility)} | ${icon(s['best-practices'], 0.9)}${fmt(s['best-practices'])} | ${icon(s.seo, 0.9)}${fmt(s.seo)} | ${icon(s.pwa ?? 0, 0.9)}${fmt(s.pwa ?? 0)} | ${report} |`
             })
             const body = [
               '## Lighthouse Results',

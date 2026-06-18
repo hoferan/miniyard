@@ -1,8 +1,8 @@
-// Compiled by @serwist/next via webpack — not type-checked by the main tsconfig
-// (ServiceWorkerGlobalScope is incompatible with the DOM lib used in tsconfig.json)
+// Compiled by @serwist/next via webpack — type-checked via tsconfig.worker.json
 import type { PrecacheEntry, SerwistGlobalConfig } from 'serwist'
 import { Serwist } from 'serwist'
 import { defaultCache } from '@serwist/next/worker'
+import { DEFAULT_LOCALE } from '@/i18n/config'
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -21,7 +21,7 @@ const serwist = new Serwist({
   fallbacks: {
     entries: [
       {
-        url: '/en/offline',
+        url: `/${DEFAULT_LOCALE}/offline`,
         matcher({ request }) {
           return request.destination === 'document'
         },
