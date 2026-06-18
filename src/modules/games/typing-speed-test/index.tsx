@@ -37,6 +37,8 @@ export default function TypingSpeedTest() {
   const [now, setNow] = useState(() => Date.now())
   const [personalBest, setPersonalBest] = useState(0)
   const [isNewBest, setIsNewBest] = useState(false)
+  // null = not counting; 3/2/1 = counting; 0 = showing GO!
+  const [countdown, setCountdown] = useState<number | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   // Prevents onInput from double-processing when onKeyDown already handled the keystroke
@@ -48,6 +50,20 @@ export default function TypingSpeedTest() {
   }, [])
 
   const phase = state?.phase ?? 'idle'
+
+  // Drive the 3-2-1-GO! countdown; focus input once GO! fades out
+  useEffect(() => {
+    if (countdown === null) return
+    if (countdown === 0) {
+      const t = setTimeout(() => {
+        setCountdown(null)
+        inputRef.current?.focus()
+      }, 500)
+      return () => clearTimeout(t)
+    }
+    const t = setTimeout(() => setCountdown((c) => (c !== null ? c - 1 : null)), 1000)
+    return () => clearTimeout(t)
+  }, [countdown])
 
   // Tick every 100 ms while playing to update countdown and detect expiry
   useEffect(() => {
@@ -78,13 +94,17 @@ export default function TypingSpeedTest() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase])
 
-  const focusInput = useCallback(() => {
-    inputRef.current?.focus()
-  }, [])
+  // Start the 3-2-1 countdown when the user clicks the passage area from idle
+  const handleStart = useCallback(() => {
+    if (phase !== 'idle' || countdown !== null) return
+    setCountdown(3)
+  }, [phase, countdown])
 
   // Desktop: reliable keydown gives us exact key names including Backspace
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     keydownHandled.current = false
+    // Block all input while counting down
+    if (countdown !== null) return
     if (!state || state.phase === 'finished') return
     if (
       e.key === 'Backspace' ||
@@ -96,13 +116,18 @@ export default function TypingSpeedTest() {
       setNow(currentNow)
       setState((prev) => (prev ? handleKeypress(prev, e.key, currentNow) : prev))
     }
-  }, [state])
+  }, [state, countdown])
 
   // Mobile fallback: InputEvent.data carries the typed character; null signals deletion.
   // Skipped when onKeyDown already handled the event to prevent double-processing.
   const handleInput = useCallback((e: React.FormEvent<HTMLInputElement>) => {
     if (keydownHandled.current) {
       keydownHandled.current = false
+      e.currentTarget.value = ''
+      return
+    }
+    // Block all input while counting down
+    if (countdown !== null) {
       e.currentTarget.value = ''
       return
     }
@@ -117,12 +142,13 @@ export default function TypingSpeedTest() {
     }
     // Reset to keep the input visually empty
     e.currentTarget.value = ''
-  }, [])
+  }, [countdown])
 
   const handleRestart = useCallback(() => {
     setState(newGame())
     setNow(Date.now())
     setIsNewBest(false)
+    setCountdown(null)
     setTimeout(() => inputRef.current?.focus(), 0)
   }, [])
 
@@ -177,12 +203,24 @@ export default function TypingSpeedTest() {
           className={cn(
             'relative cursor-text select-none rounded-xl border bg-card p-6 font-mono text-base leading-8 shadow-sm focus-within:ring-2 focus-within:ring-ring sm:text-lg min-h-[10rem]',
           )}
-          onClick={focusInput}
-          onKeyDown={(e) => e.key === 'Enter' && focusInput()}
+          onClick={handleStart}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleStart()
+            if (e.key === 'Escape' && countdown !== null) setCountdown(null)
+          }}
         >
-          {phase === 'idle' && (
+          {/* Idle overlay */}
+          {phase === 'idle' && countdown === null && (
             <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-card/90 backdrop-blur-[2px]">
               <span className="text-sm text-muted-foreground">{MESSAGES.clickToStart}</span>
+            </div>
+          )}
+          {/* Countdown overlay */}
+          {countdown !== null && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-card/90 backdrop-blur-[2px]">
+              <span className="text-7xl font-bold tabular-nums text-foreground select-none">
+                {countdown === 0 ? MESSAGES.countdownGo : countdown}
+              </span>
             </div>
           )}
           {wordTokens.map(({ word, start }, wi) => {

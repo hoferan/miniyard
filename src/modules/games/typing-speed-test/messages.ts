@@ -7,6 +7,7 @@ export const MESSAGES = {
 
   typingAreaLabel: 'Typing area — click to focus and start typing',
   clickToStart: 'Click here and start typing',
+  countdownGo: 'GO!',
 
   resultsHeading: 'Results',
   statWpm: 'WPM',
