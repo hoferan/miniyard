@@ -2,8 +2,14 @@ import type { NextConfig } from 'next'
 import { withSentryConfig } from '@sentry/nextjs'
 import { codecovNextJSWebpackPlugin } from '@codecov/nextjs-webpack-plugin'
 import createNextIntlPlugin from 'next-intl/plugin'
+import withSerwist from '@serwist/next'
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
+
+const withSerwistConfig = withSerwist({
+  swSrc: 'src/sw.ts',
+  swDest: 'public/sw.js',
+})
 
 const nextConfig: NextConfig = {
   webpack: (config, options) => {
@@ -19,7 +25,7 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withNextIntl(withSentryConfig(nextConfig, {
+export default withSerwistConfig(withNextIntl(withSentryConfig(nextConfig, {
   org: 'hoferan',
   project: 'miniyard',
   silent: !process.env.CI,
@@ -27,4 +33,4 @@ export default withNextIntl(withSentryConfig(nextConfig, {
   sourcemaps: {
     deleteSourcemapsAfterUpload: true,
   },
-}))
+})))
