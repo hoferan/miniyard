@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { ArrowLeftRight } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -15,11 +14,7 @@ import {
 } from '@/components/ui/select'
 import { convert, getCategories, getUnits, UnitCategoryId } from './logic'
 
-type CategoryKey = keyof IntlMessages['modules']['unit-converter']['categories']
-type UnitKey = keyof IntlMessages['modules']['unit-converter']['units']
-
 export default function UnitConverter() {
-  const t = useTranslations('modules.unit-converter')
   const categories = getCategories()
   const [activeCategory, setActiveCategory] = useState<UnitCategoryId>('length')
   const units = getUnits(activeCategory)
@@ -79,7 +74,7 @@ export default function UnitConverter() {
             size="sm"
             className={cn(activeCategory !== cat.id && 'bg-muted text-muted-foreground')}
           >
-            {t(`categories.${cat.id}` as `categories.${CategoryKey}`)}
+            {cat.label}
           </Button>
         ))}
       </div>
@@ -91,17 +86,17 @@ export default function UnitConverter() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="0"
-            aria-label={t('ariaValueToConvert')}
+            aria-label="Value to convert"
             className="flex-1 min-w-0"
           />
           <Select value={fromUnit} onValueChange={handleFromUnitChange}>
-            <SelectTrigger className="w-auto" aria-label={t('ariaFromUnit')}>
+            <SelectTrigger className="w-auto" aria-label="From unit">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               {units.map((u) => (
                 <SelectItem key={u.id} value={u.id}>
-                  {t(`units.${u.id}` as `units.${UnitKey}`)}
+                  {u.label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -114,7 +109,7 @@ export default function UnitConverter() {
             variant="outline"
             size="icon"
             onClick={handleSwap}
-            aria-label={t('ariaSwapUnits')}
+            aria-label="Swap units"
             className="shrink-0"
           >
             <ArrowLeftRight className="h-4 w-4" />
@@ -128,17 +123,17 @@ export default function UnitConverter() {
             value={formattedResult}
             readOnly
             placeholder="—"
-            aria-label={t('ariaConvertedResult')}
+            aria-label="Converted result"
             className="flex-1 min-w-0 bg-muted text-muted-foreground"
           />
           <Select value={toUnit} onValueChange={handleToUnitChange}>
-            <SelectTrigger className="w-auto" aria-label={t('ariaToUnit')}>
+            <SelectTrigger className="w-auto" aria-label="To unit">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               {units.map((u) => (
                 <SelectItem key={u.id} value={u.id}>
-                  {t(`units.${u.id}` as `units.${UnitKey}`)}
+                  {u.label}
                 </SelectItem>
               ))}
             </SelectContent>

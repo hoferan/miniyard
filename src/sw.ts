@@ -2,7 +2,6 @@
 import type { PrecacheEntry, SerwistGlobalConfig } from 'serwist'
 import { Serwist } from 'serwist'
 import { defaultCache } from '@serwist/next/worker'
-import { DEFAULT_LOCALE } from '@/i18n/config'
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -21,7 +20,7 @@ const serwist = new Serwist({
   fallbacks: {
     entries: [
       {
-        url: `/${DEFAULT_LOCALE}/offline`,
+        url: '/offline',
         matcher({ request }) {
           return request.destination === 'document'
         },

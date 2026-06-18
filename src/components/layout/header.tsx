@@ -2,18 +2,14 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { useTranslations, useLocale } from 'next-intl'
-import { Link, usePathname, useRouter } from '@/i18n/navigation'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { LOCALES } from '@/i18n/config'
 
 export function Header() {
   const { resolvedTheme, setTheme } = useTheme()
   const pathname = usePathname()
-  const router = useRouter()
   const [mounted, setMounted] = useState(false)
-  const t = useTranslations('nav')
-  const locale = useLocale()
 
   useEffect(() => setMounted(true), [])
 
@@ -21,13 +17,9 @@ export function Header() {
     return pathname === href || pathname.startsWith(href + '/')
   }
 
-  function switchLocale(next: string) {
-    router.replace(pathname, { locale: next })
-  }
-
   const NAV_LINKS = [
-    { href: '/utilities', label: t('tools') },
-    { href: '/games', label: t('games') },
+    { href: '/utilities', label: 'Tools' },
+    { href: '/games', label: 'Games' },
   ]
 
   return (
@@ -60,33 +52,14 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Language switcher */}
-        <div className="flex items-center rounded-full border border-border bg-background/60 p-0.5 font-mono text-xs font-bold backdrop-blur-sm dark:bg-white/[0.06]">
-          {LOCALES.map((l) => (
-            <button
-              key={l}
-              onClick={() => switchLocale(l)}
-              aria-pressed={locale === l}
-              className={cn(
-                'rounded-full px-2.5 py-1 uppercase transition-colors',
-                locale === l
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground',
-              )}
-            >
-              {l}
-            </button>
-          ))}
-        </div>
-
         {mounted && (
           <button
             onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
             className="flex items-center gap-2 rounded-full border border-border bg-background/60 px-4 py-2 text-sm font-bold text-muted-foreground backdrop-blur-sm transition-colors hover:text-foreground dark:bg-white/[0.06]"
-            aria-label={t('toggleTheme')}
+            aria-label="Toggle theme"
           >
             <span className="text-base">{resolvedTheme === 'dark' ? '☀️' : '🌙'}</span>
-            <span>{resolvedTheme === 'dark' ? t('light') : t('dark')}</span>
+            <span>{resolvedTheme === 'dark' ? 'Light' : 'Dark'}</span>
           </button>
         )}
       </div>

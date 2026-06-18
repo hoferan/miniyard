@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Copy, Check } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import * as Sentry from '@sentry/nextjs'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -15,7 +14,6 @@ interface CopyButtonProps {
 export function CopyButton({ value, className }: CopyButtonProps) {
   const [copied, setCopied] = useState(false)
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const t = useTranslations('copyButton')
 
   useEffect(() => {
     return () => {
@@ -56,7 +54,7 @@ export function CopyButton({ value, className }: CopyButtonProps) {
       disabled={!value}
       variant="ghost"
       size="icon"
-      aria-label={copied ? t('copied') : t('copy')}
+      aria-label={copied ? 'Copied!' : 'Copy'}
       className={cn('h-8 w-8 text-muted-foreground', className)}
     >
       {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}

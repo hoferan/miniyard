@@ -1,4 +1,4 @@
-import { Link } from '@/i18n/navigation'
+import Link from 'next/link'
 
 type Props = { label: string; href: string }
 

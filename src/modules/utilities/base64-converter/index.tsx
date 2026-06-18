@@ -1,19 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { CopyButton } from '@/components/copy-button'
 import { encodeBase64, decodeBase64, byteLength, type Base64ErrorCode } from './logic'
+import { ERROR_MESSAGES } from './messages'
 
 type Mode = 'encode' | 'decode'
 
 export default function Base64Converter() {
   const [mode, setMode] = useState<Mode>('encode')
   const [input, setInput] = useState('')
-  const t = useTranslations('modules.base64-converter')
 
   const decoded = mode === 'decode' ? decodeBase64(input) : null
   const output =
@@ -43,7 +42,7 @@ export default function Base64Converter() {
             variant={mode === m ? 'default' : 'secondary'}
             size="sm"
           >
-            {m === 'encode' ? t('encode') : t('decode')}
+            {m === 'encode' ? 'Encode' : 'Decode'}
           </Button>
         ))}
       </div>
@@ -52,17 +51,17 @@ export default function Base64Converter() {
         <div>
           <div className="flex items-baseline justify-between mb-1.5">
             <Label htmlFor="base64-input">
-              {mode === 'encode' ? t('plainText') : t('base64Label')}
+              {mode === 'encode' ? 'Plain text' : 'Base64'}
             </Label>
             <span className="text-xs text-muted-foreground">
-              {t('charsBytesLabel', { chars: input.length, bytes: byteLength(input) })}
+              {input.length} chars · {byteLength(input)} bytes
             </span>
           </div>
           <Textarea
             id="base64-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={mode === 'encode' ? t('placeholderEncode') : t('placeholderDecode')}
+            placeholder={mode === 'encode' ? 'Type or paste text…' : 'Paste a Base64 string…'}
             rows={4}
             className="resize-y font-mono"
           />
@@ -71,10 +70,10 @@ export default function Base64Converter() {
         <div>
           <div className="flex items-baseline justify-between mb-1.5">
             <Label htmlFor="base64-output">
-              {mode === 'encode' ? t('base64Label') : t('plainText')}
+              {mode === 'encode' ? 'Base64' : 'Plain text'}
             </Label>
             <span className="text-xs text-muted-foreground">
-              {t('charsBytesLabel', { chars: output.length, bytes: byteLength(output) })}
+              {output.length} chars · {byteLength(output)} bytes
             </span>
           </div>
           <div className="relative">
@@ -92,7 +91,7 @@ export default function Base64Converter() {
 
         {errorCode && (
           <p className="text-sm text-destructive" role="alert">
-            {t(`errors.${errorCode}`)}
+            {ERROR_MESSAGES[errorCode]}
           </p>
         )}
       </div>
