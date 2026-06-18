@@ -133,6 +133,15 @@ export default function TypingSpeedTest() {
   const results = phase === 'finished' ? getResults(state, now) : null
   const liveResults = phase === 'playing' && elapsed > 0 ? getResults(state, now) : null
 
+  // Group passage characters by word so line-breaks only happen at word boundaries
+  const wordTokens = state.passage.split(' ').reduce<{ word: string; start: number }[]>(
+    (acc, word, i) => {
+      const start = i === 0 ? 0 : acc[i - 1].start + acc[i - 1].word.length + 1
+      return [...acc, { word, start }]
+    },
+    []
+  )
+
   return (
     <main className="mx-auto max-w-2xl px-4 py-6">
       {/* Stats bar */}
@@ -166,7 +175,7 @@ export default function TypingSpeedTest() {
           tabIndex={0}
           aria-label={MESSAGES.typingAreaLabel}
           className={cn(
-            'relative cursor-text select-none rounded-xl border bg-card p-6 font-mono text-base leading-8 shadow-sm focus-within:ring-2 focus-within:ring-ring sm:text-lg',
+            'relative cursor-text select-none rounded-xl border bg-card p-6 font-mono text-base leading-8 shadow-sm focus-within:ring-2 focus-within:ring-ring sm:text-lg min-h-[10rem]',
           )}
           onClick={focusInput}
           onKeyDown={(e) => e.key === 'Enter' && focusInput()}
@@ -176,22 +185,48 @@ export default function TypingSpeedTest() {
               <span className="text-sm text-muted-foreground">{MESSAGES.clickToStart}</span>
             </div>
           )}
-          {state.passage.split('').map((char, i) => {
-            const charState = state.charStates[i]
-            const isCurrent = i === state.currentIndex
+          {wordTokens.map(({ word, start }, wi) => {
+            const spaceIdx = start + word.length
             return (
-              <span
-                key={i}
-                className={cn(
-                  isCurrent && charState === 'pending' && 'border-l-2 border-foreground animate-pulse',
-                  charState === 'correct' && 'text-green-600 dark:text-green-400',
-                  charState === 'incorrect' &&
-                    'text-red-500 dark:text-red-400 bg-red-100 dark:bg-red-900/30 rounded-sm',
-                  charState === 'pending' && !isCurrent && 'text-muted-foreground/50',
-                  isCurrent && charState === 'pending' && 'text-foreground',
+              <span key={start} className="inline-block">
+                {word.split('').map((char, ci) => {
+                  const idx = start + ci
+                  const charState = state.charStates[idx]
+                  const isCurrent = idx === state.currentIndex
+                  return (
+                    <span
+                      key={idx}
+                      className={cn(
+                        isCurrent && charState === 'pending' && 'border-l-2 border-foreground animate-pulse',
+                        charState === 'correct' && 'text-green-600 dark:text-green-400',
+                        charState === 'incorrect' &&
+                          'text-red-500 dark:text-red-400 bg-red-100 dark:bg-red-900/30 rounded-sm',
+                        charState === 'pending' && !isCurrent && 'text-muted-foreground/50',
+                        isCurrent && charState === 'pending' && 'text-foreground',
+                      )}
+                    >
+                      {char}
+                    </span>
+                  )
+                })}
+                {wi < wordTokens.length - 1 && (
+                  <span
+                    className={cn(
+                      spaceIdx === state.currentIndex && state.charStates[spaceIdx] === 'pending' && 'border-l-2 border-foreground animate-pulse',
+                      state.charStates[spaceIdx] === 'correct' && 'text-green-600 dark:text-green-400',
+                      state.charStates[spaceIdx] === 'incorrect' &&
+                        'text-red-500 dark:text-red-400 bg-red-100 dark:bg-red-900/30 rounded-sm',
+                      state.charStates[spaceIdx] === 'pending' &&
+                        spaceIdx !== state.currentIndex &&
+                        'text-muted-foreground/50',
+                      spaceIdx === state.currentIndex &&
+                        state.charStates[spaceIdx] === 'pending' &&
+                        'text-foreground',
+                    )}
+                  >
+                    {' '}
+                  </span>
                 )}
-              >
-                {char === ' ' ? ' ' : char}
               </span>
             )
           })}

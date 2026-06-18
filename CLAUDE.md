@@ -163,6 +163,8 @@ Superpowers skills drive this workflow. Invoke them in order — do not skip or 
      - src/modules/[category]/[name]/logic.ts
      - src/modules/[category]/[name]/logic.test.ts
      - src/modules/[category]/[name]/index.tsx
+     - src/modules/[category]/[name]/messages.ts  (optional — only when the module has user-facing strings)
+     - tests/e2e/[name].spec.ts
    Registration:
      - src/lib/registry.ts
      - src/app/[category]/[slug]/page.tsx  (componentMap)
@@ -176,14 +178,18 @@ Superpowers skills drive this workflow. Invoke them in order — do not skip or 
 4. **`/executing-plans`** — Implement in this order:
    1. `meta.ts` — module metadata
    2. `logic.ts` — pure functions until all tests are green
-   3. `index.tsx` — Tailwind, shadcn/ui, mobile-first, no inline styles
-   4. Register in `src/lib/registry.ts`
-   5. Add to `componentMap` in `src/app/[category]/[slug]/page.tsx`
+   3. `messages.ts` — user-facing strings (only when the module has UI copy / status text)
+   4. `index.tsx` — Tailwind, shadcn/ui, mobile-first, no inline styles
+   5. Register in `src/lib/registry.ts`
+   6. Add to `componentMap` in `src/app/[category]/[slug]/page.tsx`
+   7. `tests/e2e/[name].spec.ts` — E2E test covering the main user flow; include a `page.screenshot()` call to produce a visual artifact
 
 5. **`/update-docs`** — Add module to README.md list; create `docs/[category]/[name].md` only for complex logic.
 
 6. **`/verification-before-completion`** — Confirm before the PR:
    - [ ] All unit tests green (`npm run test`)
+   - [ ] E2E test written and green (`npm run test:e2e`) — covers the main user flow
+   - [ ] Screenshot from E2E test reviewed — confirms the module looks correct in its default state
    - [ ] No hardcoded values in `logic.ts`
    - [ ] No unnecessary npm packages
    - [ ] Mobile view works (Tailwind responsive)
