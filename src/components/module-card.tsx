@@ -1,26 +1,20 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/navigation'
+import Link from 'next/link'
 import { Module } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 type Props = { module: Module; order?: number }
 
 export function ModuleCard({ module, order }: Props) {
-  const t = useTranslations('moduleCard')
-
-  const categoryLabel =
-    module.category === 'utilities'
-      ? t('categories.utilities')
-      : t('categories.games')
+  const categoryLabel = module.category === 'utilities' ? 'UTILITY' : 'GAME'
 
   const statusLabel =
     module.status === 'stable'
-      ? t('status.stable')
+      ? 'stable'
       : module.status === 'beta'
-        ? t('status.beta')
-        : t('status.comingSoon')
+        ? 'beta'
+        : 'coming soon'
 
   return (
     <Link href={`/${module.category}/${module.slug}`}>

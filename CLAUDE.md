@@ -85,7 +85,7 @@ tests/
 - Shared UI components go in `src/components/`
 - Pure utility functions go in `src/lib/`
 - Use `cn()` from `src/lib/utils.ts` for all conditional Tailwind classes
-- User-facing strings (error messages, status labels) live in a per-module `messages.ts` — only create this file when a module has such strings; `logic.ts` imports from it and stays string-free
+- User-facing strings (error messages, status labels, UI copy) live in a per-module `messages.ts` — only create this file when a module has such strings. `logic.ts` imports from it and stays string-free. `index.tsx` may also import directly when the strings are display-only and not needed by the conversion/game logic.
 
 ---
 

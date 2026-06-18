@@ -1,3 +1,5 @@
+import { CATEGORY_LABELS, UNIT_LABELS } from './messages'
+
 export type UnitCategoryId = 'length' | 'weight' | 'temperature' | 'volume'
 
 export type UnitDefinition = {
@@ -13,42 +15,42 @@ export type CategoryDefinition = {
 }
 
 const CATEGORIES: CategoryDefinition[] = [
-  { id: 'length', label: 'Length' },
-  { id: 'weight', label: 'Weight' },
-  { id: 'temperature', label: 'Temperature' },
-  { id: 'volume', label: 'Volume' },
+  { id: 'length', label: CATEGORY_LABELS.length },
+  { id: 'weight', label: CATEGORY_LABELS.weight },
+  { id: 'temperature', label: CATEGORY_LABELS.temperature },
+  { id: 'volume', label: CATEGORY_LABELS.volume },
 ]
 
 /** Base unit: meter */
 const LENGTH_UNITS: UnitDefinition[] = [
-  { id: 'm', label: 'Meter (m)', factor: 1 },
-  { id: 'km', label: 'Kilometer (km)', factor: 1000 },
-  { id: 'cm', label: 'Centimeter (cm)', factor: 0.01 },
-  { id: 'mi', label: 'Mile (mi)', factor: 1609.344 },
-  { id: 'ft', label: 'Foot (ft)', factor: 0.3048 },
-  { id: 'in', label: 'Inch (in)', factor: 0.0254 },
+  { id: 'm', label: UNIT_LABELS.m, factor: 1 },
+  { id: 'km', label: UNIT_LABELS.km, factor: 1000 },
+  { id: 'cm', label: UNIT_LABELS.cm, factor: 0.01 },
+  { id: 'mi', label: UNIT_LABELS.mi, factor: 1609.344 },
+  { id: 'ft', label: UNIT_LABELS.ft, factor: 0.3048 },
+  { id: 'in', label: UNIT_LABELS.in, factor: 0.0254 },
 ]
 
 /** Base unit: gram */
 const WEIGHT_UNITS: UnitDefinition[] = [
-  { id: 'g', label: 'Gram (g)', factor: 1 },
-  { id: 'kg', label: 'Kilogram (kg)', factor: 1000 },
-  { id: 'lb', label: 'Pound (lb)', factor: 453.59237 },
-  { id: 'oz', label: 'Ounce (oz)', factor: 28.349523125 },
+  { id: 'g', label: UNIT_LABELS.g, factor: 1 },
+  { id: 'kg', label: UNIT_LABELS.kg, factor: 1000 },
+  { id: 'lb', label: UNIT_LABELS.lb, factor: 453.59237 },
+  { id: 'oz', label: UNIT_LABELS.oz, factor: 28.349523125 },
 ]
 
 const TEMPERATURE_UNITS: UnitDefinition[] = [
-  { id: 'c', label: 'Celsius (°C)' },
-  { id: 'f', label: 'Fahrenheit (°F)' },
-  { id: 'k', label: 'Kelvin (K)' },
+  { id: 'c', label: UNIT_LABELS.c },
+  { id: 'f', label: UNIT_LABELS.f },
+  { id: 'k', label: UNIT_LABELS.k },
 ]
 
 /** Base unit: milliliter */
 const VOLUME_UNITS: UnitDefinition[] = [
-  { id: 'ml', label: 'Milliliter (ml)', factor: 1 },
-  { id: 'l', label: 'Liter (l)', factor: 1000 },
-  { id: 'cup', label: 'Cup', factor: 236.5882365 },
-  { id: 'fl_oz', label: 'Fl. Ounce (fl oz)', factor: 29.5735295625 },
+  { id: 'ml', label: UNIT_LABELS.ml, factor: 1 },
+  { id: 'l', label: UNIT_LABELS.l, factor: 1000 },
+  { id: 'cup', label: UNIT_LABELS.cup, factor: 236.5882365 },
+  { id: 'fl_oz', label: UNIT_LABELS.fl_oz, factor: 29.5735295625 },
 ]
 
 const UNITS_MAP: Record<UnitCategoryId, UnitDefinition[]> = {

@@ -1,11 +1,10 @@
 import { test, expect } from '@playwright/test'
-import { DEFAULT_LOCALE } from '../../src/i18n/config'
 
-test('manifest.webmanifest is valid and has locale start_url', async ({ request }) => {
+test('manifest.webmanifest is valid and has root start_url', async ({ request }) => {
   const response = await request.get('/manifest.webmanifest')
   expect(response.status()).toBe(200)
   const manifest = await response.json()
-  expect(manifest.start_url).toMatch(new RegExp(`^\\/${DEFAULT_LOCALE}\\/`))
+  expect(manifest.start_url).toBe('/')
   expect(manifest.display).toBe('standalone')
   expect(manifest.icons.length).toBeGreaterThan(0)
 })
@@ -17,7 +16,7 @@ test('service worker script is accessible', async ({ request }) => {
 })
 
 test('offline page returns 200', async ({ request }) => {
-  const response = await request.get(`/${DEFAULT_LOCALE}/offline`)
+  const response = await request.get('/offline')
   expect(response.status()).toBe(200)
 })
 

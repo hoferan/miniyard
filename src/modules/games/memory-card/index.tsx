@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import {
@@ -13,6 +12,7 @@ import {
   getElapsedSeconds,
   shuffleEmojis,
 } from './logic'
+import { MESSAGES } from './messages'
 
 const BEST_SCORE_KEY = 'memory-card:best-score'
 
@@ -32,7 +32,6 @@ function saveBestScore(moves: number): number | null {
 }
 
 export default function MemoryCard() {
-  const t = useTranslations('modules.memory-card')
   const [state, setState] = useState<GameState>(() =>
     createInitialState(shuffleEmojis(EMOJIS))
   )
@@ -87,17 +86,17 @@ export default function MemoryCard() {
     <main className="max-w-lg mx-auto px-4 py-4">
       <div className="flex justify-between items-center mb-4 text-sm">
         <span className="text-muted-foreground">
-          {t('movesLabel')}{' '}
+          {MESSAGES.movesLabel}{' '}
           <span className="font-bold text-foreground">{state.moves}</span>
         </span>
         <span className="text-muted-foreground">
-          {t('timeLabel')}{' '}
-          <span className="font-bold text-foreground">{t('elapsed', { elapsed })}</span>
+          {MESSAGES.timeLabel}{' '}
+          <span className="font-bold text-foreground">{MESSAGES.elapsed(elapsed)}</span>
         </span>
         {bestScore !== null && (
           <span className="text-muted-foreground">
-            {t('bestLabel')}{' '}
-            <span className="font-bold text-foreground">{t('bestMoves', { moves: bestScore })}</span>
+            {MESSAGES.bestLabel}{' '}
+            <span className="font-bold text-foreground">{MESSAGES.bestMoves(bestScore)}</span>
           </span>
         )}
       </div>
@@ -108,7 +107,7 @@ export default function MemoryCard() {
             key={card.id}
             onClick={() => handleCardClick(card.id)}
             disabled={card.status !== 'hidden' || state.isLocked}
-            aria-label={card.status !== 'hidden' ? card.emoji : t('hiddenCard')}
+            aria-label={card.status !== 'hidden' ? card.emoji : MESSAGES.hiddenCard}
             className={cn(
               'aspect-square rounded-xl text-3xl sm:text-4xl flex items-center justify-center transition-all duration-200 select-none font-emoji',
               card.status === 'hidden' &&
@@ -125,7 +124,7 @@ export default function MemoryCard() {
 
       <div className="flex justify-center">
         <Button onClick={handleNewGame} variant="outline">
-          {t('newGame')}
+          {MESSAGES.newGame}
         </Button>
       </div>
 
@@ -133,15 +132,15 @@ export default function MemoryCard() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-background rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
             <div className="text-5xl mb-4">🎉</div>
-            <h2 className="text-2xl font-bold mb-2">{t('youWon')}</h2>
+            <h2 className="text-2xl font-bold mb-2">{MESSAGES.youWon}</h2>
             <p className="text-muted-foreground mb-2">
-              {t('summary', { moves: state.moves, elapsed })}
+              {MESSAGES.summary(state.moves, elapsed)}
             </p>
             {isNewBest && (
-              <p className="text-green-500 font-semibold mb-4">{t('newBest')}</p>
+              <p className="text-green-500 font-semibold mb-4">{MESSAGES.newBest}</p>
             )}
             <Button onClick={handleNewGame} className="w-full mt-4">
-              {t('playAgain')}
+              {MESSAGES.playAgain}
             </Button>
           </div>
         </div>
