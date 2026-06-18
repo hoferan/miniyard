@@ -18,5 +18,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next|_vercel|icon-192|icon-512|.*\\..*).*)', '/'],
+  matcher: ['/((?!_next|_vercel|icon|apple-icon|.*\\..*).*)', '/'],
 }
