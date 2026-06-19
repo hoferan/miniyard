@@ -22,6 +22,7 @@ export function Header() {
   const NAV_LINKS = [
     { href: '/utilities', label: 'Tools' },
     { href: '/games', label: 'Games' },
+    { href: '/features', label: 'Labs' },
   ]
 
   return (
