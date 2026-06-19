@@ -1,8 +1,7 @@
-import { getModulesByCategory, getModuleOrder } from '@/lib/registry'
+import { getModulesByCategory } from '@/lib/registry'
 import { ModuleCard } from '@/components/module-card'
 
 export default function UtilitiesPage() {
-  const orderBySlug = getModuleOrder()
   const modules = getModulesByCategory('utilities')
 
   return (
@@ -11,7 +10,7 @@ export default function UtilitiesPage() {
       <p className="mb-8 text-muted-foreground">Handy tools for everyday tasks.</p>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {modules.map((module) => (
-          <ModuleCard key={module.slug} module={module} order={orderBySlug[module.slug]} />
+          <ModuleCard key={module.slug} module={module} />
         ))}
       </div>
     </main>

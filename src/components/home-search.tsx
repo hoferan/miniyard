@@ -48,7 +48,6 @@ export function HomeSearch({ modules }: HomeSearchProps) {
             <ModuleCard
               key={module.slug}
               module={module}
-              order={modules.indexOf(module)}
             />
           ))
         )}

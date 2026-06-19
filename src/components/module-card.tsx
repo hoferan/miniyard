@@ -2,19 +2,13 @@
 
 import Link from 'next/link'
 import { Module } from '@/lib/types'
-import { cn } from '@/lib/utils'
+import { cn, isNew } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 
-type Props = { module: Module; order?: number }
+type Props = { module: Module }
 
-export function ModuleCard({ module, order }: Props) {
+export function ModuleCard({ module }: Props) {
   const categoryLabel = module.category === 'utilities' ? 'UTILITY' : 'GAME'
-
-  const statusLabel =
-    module.status === 'stable'
-      ? 'stable'
-      : module.status === 'beta'
-        ? 'beta'
-        : 'coming soon'
 
   return (
     <Link href={`/${module.category}/${module.slug}`}>
@@ -27,16 +21,9 @@ export function ModuleCard({ module, order }: Props) {
           'hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_26px_52px_-22px_rgba(124,108,255,.5)]',
         )}
       >
-        <div className="mb-4 flex items-center justify-between">
-          <div className="flex h-[52px] w-[52px] items-center justify-center rounded-[15px] border border-primary/15 bg-primary/10 text-[26px]">
-            {module.icon}
-          </div>
-          {order !== undefined && (
-            <span className="font-mono text-xs text-muted-foreground/60">
-              {String(order + 1).padStart(2, '0')}
-            </span>
-          )}
-        </div>
+        {isNew(module.createdAt) && (
+          <Badge className="absolute right-4 top-4 bg-primary text-primary-foreground">NEW</Badge>
+        )}
 
         <div className="mb-1.5 font-mono text-[10px] tracking-[0.16em] text-primary">
           {categoryLabel}
@@ -44,14 +31,7 @@ export function ModuleCard({ module, order }: Props) {
 
         <div className="mb-1.5 text-[18px] font-bold text-foreground">{module.title}</div>
 
-        <p className="mb-4 text-[13.5px] leading-[1.5] text-muted-foreground">
-          {module.description}
-        </p>
-
-        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
-          {statusLabel}
-        </div>
+        <p className="text-[13.5px] leading-[1.5] text-muted-foreground">{module.description}</p>
       </div>
     </Link>
   )

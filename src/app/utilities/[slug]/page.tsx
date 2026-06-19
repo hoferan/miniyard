@@ -19,13 +19,8 @@ export default async function UtilityPage({ params }: { params: Promise<{ slug: 
     <>
       <div className="mx-auto max-w-lg px-4 pt-6 pb-2 sm:px-6">
         <ModuleBreadcrumb label="Back to tools" href="/utilities" />
-        <div className="mt-5 flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-[14px] border border-primary/15 bg-primary/10 text-2xl">
-            {mod.icon}
-          </span>
-          <h1 className="text-[1.75rem] font-extrabold tracking-tight text-foreground">{mod.title}</h1>
-        </div>
-        <p className="mt-1 pl-[56px] text-sm text-muted-foreground">{mod.description}</p>
+        <h1 className="mt-5 text-[1.75rem] font-extrabold tracking-tight text-foreground">{mod.title}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{mod.description}</p>
       </div>
       <Component />
     </>
