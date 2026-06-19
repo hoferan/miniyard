@@ -6,5 +6,5 @@ export const unitConverterMeta: Module = {
   description: 'Convert between common units: length, weight, temperature, and volume.',
   category: 'utilities',
   tags: ['units', 'conversion', 'math'],
-  createdAt: '2025-01-10',
+  createdAt: '2026-06-07',
 }

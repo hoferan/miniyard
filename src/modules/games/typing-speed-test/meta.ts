@@ -7,5 +7,5 @@ export const typingSpeedTestMeta: Module = {
     'Type a random passage as fast and accurately as you can in 60 seconds. Track your WPM and accuracy.',
   category: 'games',
   tags: ['typing', 'speed', 'wpm', 'keyboard'],
-  createdAt: '2025-05-01',
+  createdAt: '2026-06-18',
 }
