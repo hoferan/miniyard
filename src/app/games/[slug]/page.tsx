@@ -1,19 +1,12 @@
-import dynamic from 'next/dynamic'
 import { getModuleBySlug } from '@/lib/registry'
 import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
-import { ModuleSkeleton } from '@/components/module-skeleton'
 import { notFound } from 'next/navigation'
-
-const componentMap: Record<string, React.ComponentType> = {
-  'memory-card': dynamic(() => import('@/modules/games/memory-card'), { loading: ModuleSkeleton }),
-  'typing-speed-test': dynamic(() => import('@/modules/games/typing-speed-test'), { loading: ModuleSkeleton }),
-}
+import { GamesModuleContent } from './module-content'
 
 export default async function GamePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const mod = getModuleBySlug(slug)
-  const Component = componentMap[slug]
-  if (!mod || !Component) return notFound()
+  if (!mod) return notFound()
 
   return (
     <>
@@ -22,7 +15,7 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
         <h1 className="mt-5 text-[1.75rem] font-extrabold tracking-tight text-foreground">{mod.title}</h1>
         <p className="mt-1 text-sm text-muted-foreground">{mod.description}</p>
       </div>
-      <Component />
+      <GamesModuleContent slug={slug} />
     </>
   )
 }
