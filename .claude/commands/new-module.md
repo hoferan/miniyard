@@ -64,7 +64,7 @@ Invoke `/test-driven-development` — write `logic.test.ts` completely before `l
 
 ## Step 6 – Implementation
 
-1. `meta.ts` — module metadata (slug, title, description, icon, tags, status)
+1. `meta.ts` — module metadata (slug, title, description, tags, createdAt)
 2. `logic.ts` — implement until all tests are green
 3. `messages.ts` — user-facing strings (only when the module has UI copy, error messages, or status text)
 4. `index.tsx` — Tailwind, shadcn/ui, mobile-first, `'use client'` only if needed

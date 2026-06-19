@@ -25,7 +25,7 @@ Browser-based mini games — simple, fun, mobile-first. Self-contained, no backe
 
 ```text
 src/modules/games/<name>/
-  meta.ts           # Metadata: slug, title, description, icon, tags, status
+  meta.ts           # Metadata: slug, title, description, tags, createdAt
   logic.ts          # Pure game logic — state transitions, win/lose, score
   logic.test.ts     # Vitest unit tests (no DOM, no React)
   index.tsx         # Game loop, rendering, event handling ('use client')
