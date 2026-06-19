@@ -70,7 +70,7 @@ export function TagFilter({ modules, emptyState }: Props) {
         </div>
       ) : (
         <p className="text-sm text-muted-foreground">
-          No modules match the &ldquo;{activeTag}&rdquo; tag.
+          No modules match the &ldquo;{activeTag ?? ''}&rdquo; tag.
         </p>
       )}
     </div>
