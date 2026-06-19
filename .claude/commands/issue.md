@@ -79,44 +79,25 @@ Confirm the branch is active before writing any code.
 
 ### Workflow A — New module (`/new-module`)
 
-Follow the full `/new-module` workflow:
+Invoke `/new-module`. Pass the issue body as context so brainstorm questions can be pre-answered from the issue where possible — but still run the full workflow (brainstorming, planning, TDD, implementation, docs, verification).
 
-1. **Read the category README** — determine category from the issue (utilities, games, etc.). Read `src/modules/[category]/README.md` in full.
-2. **Brainstorm** — ask every category-specific question from the README plus any issue-specific details not already answered in the issue body. Derive answers from the issue body where possible; only ask for what is genuinely missing.
-3. **Spec** — write the spec block and wait for explicit confirmation before writing any code:
+Context to pass from the issue:
+- Module name / idea: from issue title
+- Category: from issue labels or body
+- Functional requirements, inputs, outputs: from issue body
+- Any specified algorithms or constraints: from issue body
 
-```text
-## Spec: [Module Name]
-Category: [category]
-Function: [1–2 sentences]
-Inputs: [list with type and validation]
-Outputs: [list]
-Logic / Algorithm: [core formula or flow]
-Edge Cases: [list]
-New files:
-  - src/modules/[category]/[name]/meta.ts
-  - src/modules/[category]/[name]/logic.ts
-  - src/modules/[category]/[name]/logic.test.ts
-  - src/modules/[category]/[name]/index.tsx
-Registration:
-  - src/lib/registry.ts
-  - src/app/[category]/[slug]/page.tsx  (componentMap)
-```
-
-**No implementation without explicit spec confirmation.**
-
-1. **Tests first (TDD)** — write `logic.test.ts` completely before `logic.ts` exists. Tests must be red. Cover: happy path, edge cases, boundary values, invalid inputs.
-2. **Implementation** — `meta.ts` → `logic.ts` (until green) → `index.tsx` → register in `registry.ts` → add to `componentMap`.
-3. **Documentation** — run `/update-docs`.
+Do not skip or shortcut any `/new-module` step — the issue provides answers, not exemptions.
 
 ### Workflow B — Bug fix (`/bugfix`)
 
-Follow the full `/bugfix` workflow:
+Invoke `/bugfix` with the following context from the issue:
+- Problem: from issue title and body
+- File / Component: if specified in the issue
+- Expected behaviour: from issue body
+- Actual behaviour: from issue body
 
-1. Read the affected file(s) and name the root cause explicitly before touching anything.
-2. Write a failing Vitest test that reproduces the bug (if `logic.ts` or `api.ts` is involved).
-3. Apply the minimal fix — no unrelated changes.
-4. Run `/update-docs`.
+The `/bugfix` workflow handles root-cause investigation, TDD, the minimal fix, docs update, and verification.
 
 ### Workflow C — Feature / Improvement / CI/CD
 

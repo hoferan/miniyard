@@ -1,50 +1,40 @@
 ---
 name: new-module
-description: Starts the full workflow for a new module in any category (Brainstorm → Spec → TDD → Implement → Register → Docs)
+description: Starts the full workflow for a new module in any category (Brainstorm → Spec → TDD → Implement → Register → Docs). Also triggered by "let's build a", "add a new tool", "create a module", "I want a calculator / converter / game".
 argument-hint: "[module idea or name]"
 ---
 
 # /new-module
 
-Generic entry point for any new module. Claude reads the target category's README to understand context and asks the right questions automatically.
+Generic entry point for any new module. Follows Workflow A — delegates to superpowers skills at each step.
 
-## Flow
+## Step 1 – Choose category
 
-### Step 1 – Choose category
+Read `src/modules/` and list the available categories with one-line descriptions from each `README.md`.
 
-List the available categories by reading `src/modules/` and show them with one-line descriptions taken from each `README.md`:
-
-```text
-src/modules/
-  utilities/   → src/modules/utilities/README.md
-  games/       → src/modules/games/README.md
-  ...
-```
-
-Ask the user: **"Which category should this module go in?"**
+Ask: **"Which category should this module go in?"**
 
 **If the user names a category that does not exist in `src/modules/`:**
 
-Stop immediately. Do not proceed. Reply with:
-
-> "The category `[name]` does not exist yet. Please run `/new-category` first to set it up (this creates the category README, app pages, and type definitions). Once that is done, come back and run `/new-module` again."
+Stop and reply:
+> "The category `[name]` does not exist yet. Please run `/new-category` first to set it up (creates the category README, app pages, and type definitions). Once done, run `/new-module` again."
 
 Do not attempt to create the category inline, do not continue the module workflow, do not make assumptions.
 
-### Step 2 – Read the category README
+## Step 2 – Read the category README
 
-Read `src/modules/[category]/README.md` in full. This file defines:
+Read `src/modules/[category]/README.md` in full. This defines:
 - What belongs in this category
 - Category-specific brainstorm questions
 - Module conventions and constraints
 
-### Step 3 – Brainstorm
+## Step 3 – Brainstorm
 
-Ask the category-specific brainstorm questions from the README. Do not skip any. Wait for all answers before proceeding.
+Invoke `/brainstorming` — use the category README's brainstorm questions as the starting context. Ask one question at a time. Do not write any code until the design is approved.
 
-### Step 4 – Spec (confirm in writing)
+## Step 4 – Spec
 
-Summarise and wait for confirmation:
+Invoke `/writing-plans` — write the implementation plan using this required structure:
 
 ```text
 ## Spec: [Module Name]
@@ -59,6 +49,8 @@ New files:
   - src/modules/[category]/[name]/logic.ts
   - src/modules/[category]/[name]/logic.test.ts
   - src/modules/[category]/[name]/index.tsx
+  - src/modules/[category]/[name]/messages.ts  (only when user-facing strings exist)
+  - tests/e2e/[name].spec.ts
 Registration:
   - src/lib/registry.ts
   - src/app/[category]/[slug]/page.tsx  (componentMap)
@@ -66,40 +58,31 @@ Registration:
 
 **No implementation without explicit confirmation.**
 
-### Step 5 – Tests first (TDD)
+## Step 5 – Tests first
 
-Write `logic.test.ts` completely before `logic.ts` exists:
-- Happy path
-- All edge cases from the spec
-- Invalid / boundary inputs
+Invoke `/test-driven-development` — write `logic.test.ts` completely before `logic.ts` exists. Tests must be red.
 
-Tests are **red** — that is correct and intentional.
-
-### Step 6 – Implementation
+## Step 6 – Implementation
 
 1. `meta.ts` — module metadata (slug, title, description, icon, tags, status)
 2. `logic.ts` — implement until all tests are green
-3. `index.tsx` — Tailwind, shadcn/ui, mobile-first, `'use client'` only if needed
-4. Register in `src/lib/registry.ts`
-5. Add to `componentMap` in `src/app/[category]/[slug]/page.tsx`
+3. `messages.ts` — user-facing strings (only when the module has UI copy, error messages, or status text)
+4. `index.tsx` — Tailwind, shadcn/ui, mobile-first, `'use client'` only if needed
+5. Register in `src/lib/registry.ts`
+6. Add to `componentMap` in `src/app/[category]/[slug]/page.tsx`
+7. `tests/e2e/[name].spec.ts` — E2E test covering the main user flow; include `page.screenshot()` to produce a visual artifact
 
-### Step 7 – Documentation
+## Step 7 – Documentation
 
-Run `/update-docs`. It checks all documentation surfaces and applies what is missing:
+Run `/update-docs` — checks all documentation surfaces and applies what is missing:
 - `README.md` — add module to the correct category table
 - `docs/[category]/[name].md` — only if logic is complex
 - Code comments where non-obvious
 
-### Step 8 – Review checklist
+## Step 8 – Verify and complete
 
-- [ ] All tests green (`npm run test`)
-- [ ] No hardcoded values in `logic.ts`
-- [ ] Module registered in `registry.ts` and `componentMap`
-- [ ] Mobile view works
-- [ ] TypeScript check passes (`npm run typecheck`)
-- [ ] Build passes (`npm run build`)
-- [ ] `/update-docs` run — no pending doc updates
+Invoke `/verification-before-completion` — confirm all checks pass before creating the PR.
 
-### Step 9 – PR description
+## Step 9 – PR description
 
 Output finished PR description from `.github/PULL_REQUEST_TEMPLATE.md`.
