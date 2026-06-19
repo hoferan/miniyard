@@ -28,6 +28,7 @@ test-report.junit.xml
 # Playwright test artifacts (screenshots, traces, reports)
 test-results/
 playwright-report/
+tests/e2e/screenshots/
 
 # nyc test coverage
 .nyc_output
