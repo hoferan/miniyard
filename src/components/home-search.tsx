@@ -49,17 +49,19 @@ export function HomeSearch({ modules }: HomeSearchProps) {
 
   return (
     <>
-      <div className="relative mx-auto mb-8 max-w-sm">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          ref={inputRef}
-          type="search"
-          value={query}
-          onChange={(e) => handleChange(e.target.value)}
-          placeholder="Search tools and games…"
-          aria-label="Search modules"
-          className="rounded-xl border-border bg-white/60 py-2.5 pl-9 pr-4 text-foreground backdrop-blur-sm focus-visible:ring-primary/40 dark:bg-white/[0.05]"
-        />
+      <div className="relative mx-auto mb-10 max-w-xl">
+        <div className="flex items-center rounded-2xl border border-white/90 bg-white/70 shadow-[0_10px_26px_-14px_rgba(90,70,160,.45)] backdrop-blur-md transition-all focus-within:shadow-[0_10px_40px_-10px_rgba(124,108,255,.45)] dark:border-white/10 dark:bg-white/[0.04] dark:focus-within:shadow-[0_10px_40px_-10px_rgba(124,108,255,.3)]">
+          <Search className="pointer-events-none ml-4 h-4 w-4 shrink-0 text-muted-foreground" />
+          <Input
+            ref={inputRef}
+            type="search"
+            value={query}
+            onChange={(e) => handleChange(e.target.value)}
+            placeholder="Search tools and games…"
+            aria-label="Search modules"
+            className="h-12 border-0 bg-transparent pl-3 pr-4 text-base shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
