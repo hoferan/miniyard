@@ -1,12 +1,12 @@
+import dynamic from 'next/dynamic'
 import { getModuleBySlug } from '@/lib/registry'
 import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
-import UnitConverter from '@/modules/utilities/unit-converter'
-import Base64Converter from '@/modules/utilities/base64-converter'
+import { ModuleSkeleton } from '@/components/module-skeleton'
 import { notFound } from 'next/navigation'
 
 const componentMap: Record<string, React.ComponentType> = {
-  'unit-converter': UnitConverter,
-  'base64-converter': Base64Converter,
+  'unit-converter': dynamic(() => import('@/modules/utilities/unit-converter'), { loading: ModuleSkeleton }),
+  'base64-converter': dynamic(() => import('@/modules/utilities/base64-converter'), { loading: ModuleSkeleton }),
 }
 
 export default async function UtilityPage({ params }: { params: Promise<{ slug: string }> }) {

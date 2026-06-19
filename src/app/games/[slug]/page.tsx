@@ -1,12 +1,12 @@
+import dynamic from 'next/dynamic'
 import { getModuleBySlug } from '@/lib/registry'
 import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
+import { ModuleSkeleton } from '@/components/module-skeleton'
 import { notFound } from 'next/navigation'
-import MemoryCard from '@/modules/games/memory-card'
-import TypingSpeedTest from '@/modules/games/typing-speed-test'
 
 const componentMap: Record<string, React.ComponentType> = {
-  'memory-card': MemoryCard,
-  'typing-speed-test': TypingSpeedTest,
+  'memory-card': dynamic(() => import('@/modules/games/memory-card'), { loading: ModuleSkeleton }),
+  'typing-speed-test': dynamic(() => import('@/modules/games/typing-speed-test'), { loading: ModuleSkeleton }),
 }
 
 export default async function GamePage({ params }: { params: Promise<{ slug: string }> }) {
