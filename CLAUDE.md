@@ -356,6 +356,54 @@ npm run test:e2e:ui   # Run Playwright with UI
 
 ---
 
+## Experimental Features
+
+miniyard uses a lightweight, localStorage-based feature flag system to ship experimental functionality safely. All experimental features are opt-in — users enable them on the `/features` (Labs) page. Settings persist per browser; production and deploy previews always run the same code.
+
+### System files
+
+| File | Role |
+|---|---|
+| `src/lib/features.ts` | Central registry — defines every experimental feature (`id`, `title`, `description`, `defaultEnabled`) |
+| `src/components/features-provider.tsx` | React context — reads localStorage on mount, exposes `useFeatureFlag(id)` to any client component |
+| `src/app/features/page.tsx` | The `/features` (Labs) page — lists all features with toggle switches automatically |
+
+### How to add a new experimental feature
+
+1. Add an entry to `FEATURES` in `src/lib/features.ts`:
+
+   ```ts
+   {
+     id: 'my-feature',
+     title: 'Human-readable title',
+     description: 'One sentence explaining what this does.',
+     defaultEnabled: false,
+   }
+   ```
+
+2. Gate the new behaviour in the relevant client component with `useFeatureFlag`:
+
+   ```tsx
+   import { useFeatureFlag } from '@/components/features-provider'
+
+   const myFeatureEnabled = useFeatureFlag('my-feature')
+   ```
+
+3. The feature automatically appears on `/features` — no page edits needed.
+
+### Graduating a feature to stable
+
+When a feature is ready to ship to everyone: remove its entry from `FEATURES` in `src/lib/features.ts` and remove the `useFeatureFlag` guard from the component. Do not leave dead flags in the registry.
+
+### Conventions
+
+- All new features have `defaultEnabled: false`
+- Feature `id` values are `kebab-case`
+- Descriptions are one sentence, present tense, user-facing (e.g. "Adds tag chips to category pages.")
+- Never use env vars to gate experimental features — localStorage keeps prod and preview identical
+
+---
+
 ## Context Management
 
 Monitor session length actively. Long sessions degrade response quality.
