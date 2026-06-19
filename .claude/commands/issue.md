@@ -18,6 +18,12 @@ End-to-end workflow: read a GitHub issue → classify it → run the right sub-w
 
 ---
 
+## Step 0 – Bootstrap superpowers
+
+Invoke `/using-superpowers` before anything else. This ensures all skills are loaded and available for the sub-workflows that follow.
+
+---
+
 ## Step 1 – Read the issue
 
 Parse the issue number from the argument (strip the leading `#` if present).
