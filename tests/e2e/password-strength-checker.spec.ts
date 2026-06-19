@@ -1,0 +1,40 @@
+import { test, expect } from '@playwright/test'
+
+test.describe('Password Strength Checker', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/utilities/password-strength-checker')
+  })
+
+  test('loads with empty input and no strength bar', async ({ page }) => {
+    await expect(page.getByLabel('Password')).toBeVisible()
+    await expect(page.getByRole('progressbar')).not.toBeVisible()
+    await page.screenshot({ path: 'test-results/password-strength-checker-idle.png' })
+  })
+
+  test('shows strength bar and label after typing', async ({ page }) => {
+    await page.getByLabel('Password').fill('hello')
+    await expect(page.getByRole('progressbar')).toBeVisible()
+    await expect(page.getByText('Very Weak')).toBeVisible()
+  })
+
+  test('shows green bar and no feedback for a strong password', async ({ page }) => {
+    await page.getByLabel('Password').fill('Xzwvutsrqp1!')
+    await expect(page.getByText('Very Strong')).toBeVisible()
+    await expect(page.getByText('How to improve:')).not.toBeVisible()
+  })
+
+  test('shows feedback bullets for a weak password', async ({ page }) => {
+    await page.getByLabel('Password').fill('hello')
+    await expect(page.getByText('How to improve:')).toBeVisible()
+    await expect(page.getByText('Use at least 8 characters')).toBeVisible()
+  })
+
+  test('show/hide toggle changes input type', async ({ page }) => {
+    const input = page.getByLabel('Password')
+    await expect(input).toHaveAttribute('type', 'password')
+    await page.getByRole('button', { name: 'Show password' }).click()
+    await expect(input).toHaveAttribute('type', 'text')
+    await page.getByRole('button', { name: 'Hide password' }).click()
+    await expect(input).toHaveAttribute('type', 'password')
+  })
+})
