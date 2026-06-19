@@ -14,6 +14,7 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 |------|-------------|
 | [Unit Converter](src/modules/utilities/unit-converter) | Convert between common units: length, weight, temperature, and volume. |
 | [Base64 Encoder / Decoder](src/modules/utilities/base64-converter) | Encode text to Base64 or decode Base64 back to text — fully client-side. |
+| [Password Strength Checker](src/modules/utilities/password-strength-checker) | Score any password against six security rules with instant color-coded feedback — fully client-side. |
 
 ### 🎮 Games
 <!-- Add games here as they are built -->
