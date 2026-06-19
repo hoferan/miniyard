@@ -282,11 +282,15 @@ export default function [Category]Page() {
 
 `src/app/[category]/[slug]/page.tsx`:
 ```tsx
+import dynamic from 'next/dynamic'
 import { getModuleBySlug } from '@/lib/registry'
+import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
+import { ModuleSkeleton } from '@/components/module-skeleton'
 import { notFound } from 'next/navigation'
 
 const componentMap: Record<string, React.ComponentType> = {
-  // Add module components here as they are created
+  // Add module components here using next/dynamic for per-chunk lazy loading:
+  // '[slug]': dynamic(() => import('@/modules/[category]/[slug]'), { loading: ModuleSkeleton }),
 }
 
 export default async function [Category]ModulePage({ params }: { params: Promise<{ slug: string }> }) {
