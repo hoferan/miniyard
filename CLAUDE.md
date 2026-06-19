@@ -395,7 +395,7 @@ miniyard uses a lightweight, localStorage-based feature flag system to ship expe
 
 When a feature is ready to ship to everyone: remove its entry from `FEATURES` in `src/lib/features.ts` and remove the `useFeatureFlag` guard from the component. Do not leave dead flags in the registry.
 
-### Conventions
+### Flag conventions
 
 - All new features have `defaultEnabled: false`
 - Feature `id` values are `kebab-case`

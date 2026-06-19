@@ -675,7 +675,7 @@ git commit -m "test: add E2E tests for experimental tag-filter feature flag"
 
 Insert the following section after the `## Testing` section (before `## Context Management`):
 
-```markdown
+````markdown
 ## Experimental Features
 
 miniyard uses a lightweight, localStorage-based feature flag system to ship experimental functionality safely. All experimental features are opt-in — users enable them on the `/features` (Labs) page. Settings persist per browser; production and deploy previews always run the same code.
@@ -721,7 +721,7 @@ When a feature is ready to ship to everyone: remove its entry from `FEATURES` in
 - Feature `id` values are `kebab-case`
 - Descriptions are one sentence, present tense, user-facing (e.g. "Adds tag chips to category pages.")
 - Never use env vars to gate experimental features — localStorage keeps prod and preview identical
-```
+````
 
 - [ ] **Step 2: Run the markdown linter**
 

@@ -1,2 +1,5 @@
 # Upstream skill files from obra/superpowers — not project-authored docs
 .claude/commands/
+
+# Git internal files (task briefs, reports, review packages)
+.git/
