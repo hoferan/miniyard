@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import {
   EMOJIS,
@@ -130,19 +131,21 @@ export default function MemoryCard() {
 
       {state.phase === 'won' && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-background rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
-            <div className="text-5xl mb-4">🎉</div>
-            <h2 className="text-2xl font-bold mb-2">{MESSAGES.youWon}</h2>
-            <p className="text-muted-foreground mb-2">
-              {MESSAGES.summary(state.moves, elapsed)}
-            </p>
-            {isNewBest && (
-              <p className="text-green-500 font-semibold mb-4">{MESSAGES.newBest}</p>
-            )}
-            <Button onClick={handleNewGame} className="w-full mt-4">
-              {MESSAGES.playAgain}
-            </Button>
-          </div>
+          <Card className="max-w-sm w-full text-center rounded-2xl shadow-2xl gap-0 py-0">
+            <CardContent className="p-8 flex flex-col items-center">
+              <div className="text-5xl mb-4">🎉</div>
+              <h2 className="text-2xl font-bold mb-2">{MESSAGES.youWon}</h2>
+              <p className="text-muted-foreground mb-2">
+                {MESSAGES.summary(state.moves, elapsed)}
+              </p>
+              {isNewBest && (
+                <p className="text-green-500 font-semibold mb-4">{MESSAGES.newBest}</p>
+              )}
+              <Button onClick={handleNewGame} className="w-full mt-4">
+                {MESSAGES.playAgain}
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       )}
     </main>
