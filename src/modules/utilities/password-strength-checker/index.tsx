@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { LabeledInput } from '@/components/ui/labeled-input'
 import { checkPassword, type StrengthLevel } from './logic'
 import { STRENGTH_LABELS, FEEDBACK, UI } from './messages'
 
@@ -25,7 +25,31 @@ export default function PasswordStrengthChecker() {
 
   return (
     <div className="p-4 max-w-lg mx-auto space-y-5">
-      {/* Bar is always rendered so the input stays anchored at the bottom on mobile */}
+      <LabeledInput label={UI.inputLabel} htmlFor="password-input">
+        <div className="relative">
+          <Input
+            id="password-input"
+            type={visible ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder={UI.placeholder}
+            className="pr-10"
+            autoComplete="new-password"
+          />
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="absolute right-0 top-0 h-9 w-9 text-muted-foreground hover:text-foreground"
+            onClick={() => setVisible((v) => !v)}
+            aria-label={visible ? UI.hidePassword : UI.showPassword}
+          >
+            {visible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+          </Button>
+        </div>
+      </LabeledInput>
+
+      {/* Bar is always rendered so it doesn't jump when typing starts */}
       <div className="space-y-1.5">
         <div className="flex items-center justify-between min-h-[1.25rem]">
           {!isEmpty && (
@@ -67,31 +91,6 @@ export default function PasswordStrengthChecker() {
           </ul>
         </div>
       )}
-
-      <div className="space-y-2">
-        <Label htmlFor="password-input">{UI.inputLabel}</Label>
-        <div className="relative">
-          <Input
-            id="password-input"
-            type={visible ? 'text' : 'password'}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder={UI.placeholder}
-            className="pr-10"
-            autoComplete="new-password"
-          />
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="absolute right-0 top-0 h-9 w-9 text-muted-foreground hover:text-foreground"
-            onClick={() => setVisible((v) => !v)}
-            aria-label={visible ? UI.hidePassword : UI.showPassword}
-          >
-            {visible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-          </Button>
-        </div>
-      </div>
     </div>
   )
 }
