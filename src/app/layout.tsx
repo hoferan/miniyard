@@ -5,6 +5,7 @@ import { MobileTabBar } from '@/components/layout/mobile-tab-bar'
 import { SwRegister } from '@/components/sw-register'
 import { ThemeProvider } from '@/components/theme-provider'
 import { FeaturesProvider } from '@/components/features-provider'
+import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
 const JAKARTA = Plus_Jakarta_Sans({
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <MobileTabBar />
               <SwRegister />
             </div>
+            <Toaster />
           </FeaturesProvider>
         </ThemeProvider>
       </body>

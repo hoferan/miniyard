@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { ModuleCard } from '@/components/module-card'
 import { useFeatureFlag } from '@/components/features-provider'
 import type { Module } from '@/lib/types'
@@ -43,22 +43,18 @@ export function TagFilter({ modules, emptyState }: Props) {
       {tagFilterEnabled && allTags.length > 0 && (
         <div className="mb-6 flex flex-wrap gap-2">
           {allTags.map((tag) => (
-            <button
+            <Button
               key={tag}
               type="button"
+              variant={activeTag === tag ? 'default' : 'outline'}
               onClick={() => selectTag(tag)}
-              className="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className={cn(
+                'h-auto rounded-md px-2.5 py-0.5 text-xs font-semibold select-none',
+                activeTag !== tag && 'hover:bg-secondary',
+              )}
             >
-              <Badge
-                variant={activeTag === tag ? 'default' : 'outline'}
-                className={cn(
-                  'cursor-pointer select-none',
-                  activeTag !== tag && 'hover:bg-secondary',
-                )}
-              >
-                {tag}
-              </Badge>
-            </button>
+              {tag}
+            </Button>
           ))}
         </div>
       )}
