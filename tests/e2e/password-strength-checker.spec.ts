@@ -5,13 +5,14 @@ test.describe('Password Strength Checker', () => {
     await page.goto('/utilities/password-strength-checker')
   })
 
-  test('loads with empty input and no strength bar', async ({ page }) => {
+  test('loads with empty input — bar visible but no label', async ({ page }) => {
     await expect(page.getByLabel('Password')).toBeVisible()
-    await expect(page.getByRole('progressbar')).not.toBeVisible()
+    await expect(page.getByRole('progressbar')).toBeVisible()
+    await expect(page.getByText('Very Weak')).not.toBeVisible()
     await page.screenshot({ path: 'test-results/password-strength-checker-idle.png' })
   })
 
-  test('shows strength bar and label after typing', async ({ page }) => {
+  test('shows strength label after typing', async ({ page }) => {
     await page.getByLabel('Password').fill('hello')
     await expect(page.getByRole('progressbar')).toBeVisible()
     await expect(page.getByText('Very Weak')).toBeVisible()

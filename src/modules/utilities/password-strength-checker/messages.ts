@@ -23,4 +23,7 @@ export const UI = {
   showPassword: 'Show password',
   hidePassword: 'Hide password',
   feedbackHeading: 'How to improve:',
+  progressbarLabel: 'Password strength',
+  scoreFormat: (score: number) => `${score} / 6`,
+  failedCheckIcon: '✕',
 }

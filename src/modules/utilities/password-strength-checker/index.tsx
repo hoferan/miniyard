@@ -25,7 +25,50 @@ export default function PasswordStrengthChecker() {
 
   return (
     <div className="p-4 max-w-lg mx-auto space-y-5">
+      {/* Bar is always rendered so the input stays anchored at the bottom on mobile */}
       <div className="space-y-1.5">
+        <div className="flex items-center justify-between min-h-[1.25rem]">
+          {!isEmpty && (
+            <>
+              <span className="text-sm font-medium">{STRENGTH_LABELS[result.level]}</span>
+              <span className="text-xs text-muted-foreground">{UI.scoreFormat(result.score)}</span>
+            </>
+          )}
+        </div>
+        <div
+          className="flex gap-1"
+          role="progressbar"
+          aria-label={UI.progressbarLabel}
+          aria-valuenow={result.level}
+          aria-valuemin={0}
+          aria-valuemax={4}
+        >
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div
+              key={i}
+              className={`h-2 flex-1 rounded-full transition-colors duration-200 ${
+                !isEmpty && i <= result.level ? BAR_COLORS[result.level] : 'bg-muted'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {!isEmpty && result.failedChecks.length > 0 && (
+        <div>
+          <p className="text-sm font-medium mb-2">{UI.feedbackHeading}</p>
+          <ul className="space-y-1">
+            {result.failedChecks.map((key) => (
+              <li key={key} className="flex items-start gap-2 text-sm text-muted-foreground">
+                <span className="mt-0.5 text-destructive" aria-hidden="true">{UI.failedCheckIcon}</span>
+                {FEEDBACK[key]}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="space-y-2">
         <Label htmlFor="password-input">{UI.inputLabel}</Label>
         <div className="relative">
           <Input
@@ -49,41 +92,6 @@ export default function PasswordStrengthChecker() {
           </Button>
         </div>
       </div>
-
-      {!isEmpty && (
-        <>
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">{STRENGTH_LABELS[result.level]}</span>
-              <span className="text-xs text-muted-foreground">{result.score} / 6</span>
-            </div>
-            <div className="flex gap-1" role="progressbar" aria-label="Password strength" aria-valuenow={result.level} aria-valuemin={0} aria-valuemax={4}>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-2 flex-1 rounded-full transition-colors duration-200 ${
-                    i <= result.level ? BAR_COLORS[result.level] : 'bg-muted'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {result.failedChecks.length > 0 && (
-            <div>
-              <p className="text-sm font-medium mb-2">{UI.feedbackHeading}</p>
-              <ul className="space-y-1">
-                {result.failedChecks.map((key) => (
-                  <li key={key} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="mt-0.5 text-destructive" aria-hidden="true">✕</span>
-                    {FEEDBACK[key]}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </>
-      )}
     </div>
   )
 }
