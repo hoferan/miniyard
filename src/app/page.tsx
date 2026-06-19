@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { registry } from '@/lib/registry'
 import { HomeSearch } from '@/components/home-search'
 
@@ -22,7 +23,9 @@ export default function HomePage() {
         </p>
       </div>
 
-      <HomeSearch modules={registry} />
+      <Suspense>
+        <HomeSearch modules={registry} />
+      </Suspense>
     </div>
   )
 }
