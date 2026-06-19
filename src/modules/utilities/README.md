@@ -24,7 +24,7 @@ Calculators, converters, text tools, and math functions — anything that takes 
 
 ```text
 src/modules/utilities/<name>/
-  meta.ts           # Metadata: slug, title, description, icon, tags, status
+  meta.ts           # Metadata: slug, title, description, tags, createdAt
   logic.ts          # Pure functions — no side effects, no network calls
   logic.test.ts     # Vitest unit tests
   index.tsx         # React UI component ('use client' if interactive)

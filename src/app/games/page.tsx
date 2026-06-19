@@ -1,9 +1,8 @@
-import { getModulesByCategory, getModuleOrder } from '@/lib/registry'
+import { getModulesByCategory } from '@/lib/registry'
 import { ModuleCard } from '@/components/module-card'
 import { EmptyState } from '@/components/empty-state'
 
 export default function GamesPage() {
-  const orderBySlug = getModuleOrder()
   const modules = getModulesByCategory('games')
 
   return (
@@ -23,7 +22,7 @@ export default function GamesPage() {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {modules.map((module) => (
-            <ModuleCard key={module.slug} module={module} order={orderBySlug[module.slug]} />
+            <ModuleCard key={module.slug} module={module} />
           ))}
         </div>
       )}

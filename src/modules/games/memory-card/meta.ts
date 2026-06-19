@@ -5,7 +5,6 @@ export const memoryCardMeta: Module = {
   title: 'Memory Card Matching',
   description: 'Flip cards two at a time to find all 8 emoji pairs. Beat your best move count!',
   category: 'games',
-  icon: '🃏',
   tags: ['memory', 'cards', 'puzzle'],
-  status: 'stable',
+  createdAt: '2026-06-15',
 }

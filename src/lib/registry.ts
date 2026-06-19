@@ -14,6 +14,3 @@ export function getModuleBySlug(slug: string) {
   return registry.find((m) => m.slug === slug)
 }
 
-export function getModuleOrder(): Record<string, number> {
-  return Object.fromEntries(registry.map((m, i) => [m.slug, i]))
-}

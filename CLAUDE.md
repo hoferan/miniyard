@@ -44,7 +44,7 @@ src/
       README.md                 # Category definition – what belongs here, brainstorm questions
       <name>/
         index.tsx               # React UI component
-        meta.ts                 # Module metadata (slug, title, tags, status)
+        meta.ts                 # Module metadata (slug, title, tags, createdAt)
         logic.ts                # Pure logic – no React, no DOM
         logic.test.ts           # Vitest unit tests
         messages.ts             # (optional) User-facing strings – only when error/status messages exist
