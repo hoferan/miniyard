@@ -57,7 +57,7 @@ export default function PasswordStrengthChecker() {
               <span className="text-sm font-medium">{STRENGTH_LABELS[result.level]}</span>
               <span className="text-xs text-muted-foreground">{result.score} / 6</span>
             </div>
-            <div className="flex gap-1" role="progressbar" aria-valuenow={result.level} aria-valuemin={0} aria-valuemax={4}>
+            <div className="flex gap-1" role="progressbar" aria-label="Password strength" aria-valuenow={result.level} aria-valuemin={0} aria-valuemax={4}>
               {Array.from({ length: 5 }).map((_, i) => (
                 <div
                   key={i}

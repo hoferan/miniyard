@@ -109,6 +109,21 @@ describe('checkPassword — NO_COMMON_PATTERN', () => {
     const { failedChecks } = checkPassword('letmein99')
     expect(failedChecks).toContain('NO_COMMON_PATTERN')
   })
+
+  it('fails when "321" is present', () => {
+    const { failedChecks } = checkPassword('Xzwvuts321!')
+    expect(failedChecks).toContain('NO_COMMON_PATTERN')
+  })
+
+  it('fails when "abc" is present', () => {
+    const { failedChecks } = checkPassword('Xzwvuts_abc!')
+    expect(failedChecks).toContain('NO_COMMON_PATTERN')
+  })
+
+  it('fails when "iloveyou" is present', () => {
+    const { failedChecks } = checkPassword('iloveyou99!')
+    expect(failedChecks).toContain('NO_COMMON_PATTERN')
+  })
 })
 
 describe('checkPassword — score to level mapping', () => {
