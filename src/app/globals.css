@@ -63,7 +63,8 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce),
+       :root[data-reduce-motion] {
   :root {
     --animate-blob: none;
     --animate-blob-2: none;

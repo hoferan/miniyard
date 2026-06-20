@@ -30,6 +30,15 @@ export function FeaturesProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
+  useEffect(() => {
+    const el = document.documentElement
+    if (flags['reduce-motion']) {
+      el.setAttribute('data-reduce-motion', '')
+    } else {
+      el.removeAttribute('data-reduce-motion')
+    }
+  }, [flags])
+
   function setFlag(id: string, enabled: boolean) {
     setFlags((prev) => {
       const next = { ...prev, [id]: enabled }
