@@ -64,21 +64,21 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :root {
-    --animate-blob: none;
-    --animate-blob-2: none;
-    --animate-blink: none;
-    --animate-bob: none;
-    --animate-pop-in: none;
+  .animate-blob,
+  .animate-blob-2,
+  .animate-blink,
+  .animate-bob,
+  .animate-pop-in {
+    animation: none;
   }
 }
 
-:root[data-reduce-motion] {
-  --animate-blob: none;
-  --animate-blob-2: none;
-  --animate-blink: none;
-  --animate-bob: none;
-  --animate-pop-in: none;
+:root[data-reduce-motion] .animate-blob,
+:root[data-reduce-motion] .animate-blob-2,
+:root[data-reduce-motion] .animate-blink,
+:root[data-reduce-motion] .animate-bob,
+:root[data-reduce-motion] .animate-pop-in {
+  animation: none;
 }
 
 @layer base {
