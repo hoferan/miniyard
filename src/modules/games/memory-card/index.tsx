@@ -135,7 +135,7 @@ export default function MemoryCard() {
       >
         <DialogContent className="max-w-sm">
           <DialogHeader>
-            <div className="text-5xl">🎉</div>
+            <div className="text-5xl" aria-hidden="true">🎉</div>
             <DialogTitle>{MESSAGES.youWon}</DialogTitle>
             <DialogDescription>{MESSAGES.summary(state.moves, elapsed)}</DialogDescription>
           </DialogHeader>

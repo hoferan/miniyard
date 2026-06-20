@@ -54,7 +54,7 @@ export function HomeSearch({ modules }: HomeSearchProps) {
           <Search className="pointer-events-none ml-4 h-4 w-4 shrink-0 text-muted-foreground" />
           <Input
             ref={inputRef}
-            type="search"
+            type="text"
             value={query}
             onChange={(e) => handleChange(e.target.value)}
             placeholder="Search tools and games…"
