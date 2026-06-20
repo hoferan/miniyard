@@ -20,7 +20,7 @@ export function MobileTabBar() {
         )}
       >
         <span className="text-xl">🧰</span>
-        <span className="text-[10px] font-semibold">Tools</span>
+        <span className="text-[10px] font-semibold">Utilities</span>
       </Link>
       <Link
         href="/games"
