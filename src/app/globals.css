@@ -63,6 +63,16 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animate-blob: none;
+    --animate-blob-2: none;
+    --animate-blink: none;
+    --animate-bob: none;
+    --animate-pop-in: none;
+  }
+}
+
 @layer base {
   :root {
     --background: 248 33% 97%;
