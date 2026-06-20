@@ -61,6 +61,17 @@ export function HomeSearch({ modules }: HomeSearchProps) {
             aria-label="Search modules"
             className="h-12 border-0 bg-transparent pl-3 pr-4 text-base shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
           />
+          {query && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleClear}
+              aria-label="Clear search"
+              className="mr-2 h-8 w-8 shrink-0 text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       </div>
 
