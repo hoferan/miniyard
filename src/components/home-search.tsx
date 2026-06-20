@@ -34,7 +34,7 @@ export function HomeSearch({ modules }: HomeSearchProps) {
     window.history.replaceState(null, '', url.toString())
   }, [])
 
-  const handleClear = () => handleChange('')
+  const handleClear = useCallback(() => handleChange(''), [handleChange])
 
   const q = query.trim().toLowerCase()
   const filtered =

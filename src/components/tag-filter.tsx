@@ -50,7 +50,7 @@ export function TagFilter({ modules, emptyState }: Props) {
               onClick={() => selectTag(tag)}
               className={cn(
                 'h-auto rounded-md px-2.5 py-0.5 text-xs font-semibold select-none',
-                activeTag !== tag && 'hover:bg-secondary',
+                activeTag !== tag && 'hover:bg-secondary hover:text-secondary-foreground',
               )}
             >
               {tag}
