@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { LabeledInput } from '@/components/ui/labeled-input'
+import { Label } from '@/components/ui/label'
 import { checkPassword, type StrengthLevel } from './logic'
 import { STRENGTH_LABELS, FEEDBACK, UI } from './messages'
 
@@ -25,7 +25,8 @@ export default function PasswordStrengthChecker() {
 
   return (
     <div className="p-4 max-w-lg mx-auto space-y-5">
-      <LabeledInput label={UI.inputLabel} htmlFor="password-input">
+      <div className="space-y-2">
+        <Label htmlFor="password-input">{UI.inputLabel}</Label>
         <div className="relative">
           <Input
             id="password-input"
@@ -47,7 +48,7 @@ export default function PasswordStrengthChecker() {
             {visible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </Button>
         </div>
-      </LabeledInput>
+      </div>
 
       {/* Bar is always rendered so it doesn't jump when typing starts */}
       <div className="space-y-1.5">

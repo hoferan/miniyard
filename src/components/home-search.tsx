@@ -34,7 +34,7 @@ export function HomeSearch({ modules }: HomeSearchProps) {
     window.history.replaceState(null, '', url.toString())
   }, [])
 
-  const handleClear = () => handleChange('')
+  const handleClear = useCallback(() => handleChange(''), [handleChange])
 
   const q = query.trim().toLowerCase()
   const filtered =
@@ -54,13 +54,24 @@ export function HomeSearch({ modules }: HomeSearchProps) {
           <Search className="pointer-events-none ml-4 h-4 w-4 shrink-0 text-muted-foreground" />
           <Input
             ref={inputRef}
-            type="search"
+            type="text"
             value={query}
             onChange={(e) => handleChange(e.target.value)}
             placeholder="Search tools and games…"
             aria-label="Search modules"
             className="h-12 border-0 bg-transparent pl-3 pr-4 text-base shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
           />
+          {query && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleClear}
+              aria-label="Clear search"
+              className="mr-2 h-8 w-8 shrink-0 text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       </div>
 

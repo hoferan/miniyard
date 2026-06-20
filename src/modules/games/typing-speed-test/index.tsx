@@ -2,6 +2,7 @@
 
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import {
   GameState,
@@ -289,39 +290,43 @@ export default function TypingSpeedTest() {
 
       {/* Results card */}
       {phase === 'finished' && results && (
-        <div className="rounded-xl border bg-card p-8 shadow-sm">
-          <h2 className="mb-6 text-center text-xl font-bold">{MESSAGES.resultsHeading}</h2>
-          <div className="mb-6 grid grid-cols-2 gap-3">
-            <div className="rounded-lg bg-muted/50 p-4 text-center">
-              <div className="text-4xl font-extrabold text-primary tabular-nums">
-                {Math.round(results.wpm)}
+        <Card>
+          <CardHeader className="pb-0 text-center">
+            <CardTitle className="text-xl">{MESSAGES.resultsHeading}</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-6">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-lg bg-muted/50 p-4 text-center">
+                <div className="text-4xl font-extrabold text-primary tabular-nums">
+                  {Math.round(results.wpm)}
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statWpm}</div>
               </div>
-              <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statWpm}</div>
-            </div>
-            <div className="rounded-lg bg-muted/50 p-4 text-center">
-              <div className="text-4xl font-extrabold tabular-nums">
-                {Math.round(results.accuracy)}%
+              <div className="rounded-lg bg-muted/50 p-4 text-center">
+                <div className="text-4xl font-extrabold tabular-nums">
+                  {Math.round(results.accuracy)}%
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statAccuracy}</div>
               </div>
-              <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statAccuracy}</div>
+              <div className="rounded-lg bg-muted/50 p-4 text-center">
+                <div className="text-4xl font-extrabold tabular-nums">{results.charsTyped}</div>
+                <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statCharacters}</div>
+              </div>
+              <div className="rounded-lg bg-muted/50 p-4 text-center">
+                <div className="text-4xl font-extrabold tabular-nums">{results.errorCount}</div>
+                <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statErrors}</div>
+              </div>
             </div>
-            <div className="rounded-lg bg-muted/50 p-4 text-center">
-              <div className="text-4xl font-extrabold tabular-nums">{results.charsTyped}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statCharacters}</div>
-            </div>
-            <div className="rounded-lg bg-muted/50 p-4 text-center">
-              <div className="text-4xl font-extrabold tabular-nums">{results.errorCount}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{MESSAGES.statErrors}</div>
-            </div>
-          </div>
-          {isNewBest && (
-            <p className="mb-4 text-center text-sm font-semibold text-primary">
-              {MESSAGES.newPersonalBest}
-            </p>
-          )}
-          <Button className="w-full" onClick={handleRestart}>
-            {MESSAGES.tryAgain}
-          </Button>
-        </div>
+            {isNewBest && (
+              <p className="text-center text-sm font-semibold text-primary">
+                {MESSAGES.newPersonalBest}
+              </p>
+            )}
+            <Button className="w-full" onClick={handleRestart}>
+              {MESSAGES.tryAgain}
+            </Button>
+          </CardContent>
+        </Card>
       )}
     </main>
   )

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
 import {
   EMOJIS,
@@ -128,23 +129,26 @@ export default function MemoryCard() {
         </Button>
       </div>
 
-      {state.phase === 'won' && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-background rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
-            <div className="text-5xl mb-4">🎉</div>
-            <h2 className="text-2xl font-bold mb-2">{MESSAGES.youWon}</h2>
-            <p className="text-muted-foreground mb-2">
-              {MESSAGES.summary(state.moves, elapsed)}
-            </p>
-            {isNewBest && (
-              <p className="text-green-500 font-semibold mb-4">{MESSAGES.newBest}</p>
-            )}
-            <Button onClick={handleNewGame} className="w-full mt-4">
+      <Dialog
+        open={state.phase === 'won'}
+        onOpenChange={(open) => { if (!open) handleNewGame() }}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <div className="text-5xl" aria-hidden="true">🎉</div>
+            <DialogTitle>{MESSAGES.youWon}</DialogTitle>
+            <DialogDescription>{MESSAGES.summary(state.moves, elapsed)}</DialogDescription>
+          </DialogHeader>
+          {isNewBest && (
+            <p className="text-center text-sm font-semibold text-green-500">{MESSAGES.newBest}</p>
+          )}
+          <DialogFooter>
+            <Button onClick={handleNewGame} className="w-full">
               {MESSAGES.playAgain}
             </Button>
-          </div>
-        </div>
-      )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </main>
   )
 }
