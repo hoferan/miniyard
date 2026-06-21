@@ -30,7 +30,9 @@ test.describe('Reaction Time Test', () => {
     // Wait up to 5 s for green screen (max delay is 4 s)
     await expect(page.getByRole('button', { name: 'Click!' })).toBeVisible({ timeout: 5000 })
     await page.getByRole('button', { name: 'Click!' }).click()
-    await expect(page.getByText(/\d+ ms/)).toBeVisible()
+    // Match the main result paragraph (e.g. "247 ms") — use first() to avoid strict-mode violation
+    // when the same value also appears in personal best and history
+    await expect(page.getByText(/\d+ ms/).first()).toBeVisible()
     await page.screenshot({ path: 'test-results/reaction-time-test-result.png' })
   })
 })
