@@ -18,7 +18,9 @@ const PERSONAL_BEST_KEY = 'reaction-time-test:personal-best'
 function loadPersonalBest(): number | null {
   try {
     const stored = localStorage.getItem(PERSONAL_BEST_KEY)
-    return stored !== null ? parseInt(stored, 10) : null
+    if (stored === null) return null
+    const parsed = parseInt(stored, 10)
+    return Number.isFinite(parsed) ? parsed : null
   } catch {
     return null
   }
@@ -74,8 +76,10 @@ export default function ReactionTimeTest() {
       return
     }
     if (state.phase === 'ready') {
+      const now = Date.now()
       setState((prev) => {
-        const next = recordResult(prev, Date.now())
+        if (prev.phase !== 'ready') return prev
+        const next = recordResult(prev, now)
         if (next.personalBest !== null) savePersonalBest(next.personalBest)
         return next
       })
@@ -152,7 +156,7 @@ export default function ReactionTimeTest() {
           <div className="flex gap-2 flex-wrap justify-center">
             {state.history.map((ms, i) => (
               <span
-                key={i}
+                key={`${i}-${ms}`}
                 className={cn(
                   'px-3 py-1 rounded-full text-sm font-mono',
                   i === 0 && state.phase === 'result'
