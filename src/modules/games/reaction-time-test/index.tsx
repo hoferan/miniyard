@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import {
   GameState,
@@ -89,86 +92,96 @@ export default function ReactionTimeTest() {
   const isGreen = state.phase === 'ready'
   const isClickable = state.phase === 'waiting' || state.phase === 'ready'
 
+  const arenaBg = isGreen
+    ? 'bg-green-500'
+    : state.phase === 'waiting'
+    ? 'bg-slate-800 dark:bg-slate-900'
+    : 'bg-muted/60'
+
   return (
-    <div
-      className={cn(
-        'flex flex-col select-none touch-none transition-colors duration-100',
-        'min-h-[calc(100dvh-8rem)]',
-        isGreen ? 'bg-green-500' : 'bg-zinc-900'
-      )}
-      onClick={isClickable ? handleScreenClick : undefined}
-      role={isClickable ? 'button' : undefined}
-      aria-label={isGreen ? MESSAGES.clickNow : MESSAGES.waitForGreen}
-    >
-      <div className="flex flex-1 items-center justify-center px-6">
-        {state.phase === 'idle' && (
-          <div className="flex flex-col items-center gap-6 text-center">
-            {falseStart && (
-              <p className="text-yellow-400 text-lg font-semibold">{MESSAGES.tooEarly}</p>
-            )}
-            <Button
-              size="lg"
-              onClick={beginWaiting}
-              className="px-10 py-6 text-xl font-bold"
-            >
-              {MESSAGES.tapToStart}
-            </Button>
-          </div>
-        )}
-
-        {state.phase === 'waiting' && (
-          <p className="text-zinc-400 text-2xl font-semibold pointer-events-none">
-            {MESSAGES.waitForGreen}
-          </p>
-        )}
-
-        {state.phase === 'ready' && (
-          <p className="text-white text-5xl font-extrabold drop-shadow-lg pointer-events-none">
-            {MESSAGES.clickNow}
-          </p>
-        )}
-
-        {state.phase === 'result' && state.reactionTime !== null && (
-          <div className="flex flex-col items-center gap-4 text-center">
-            <p className="text-7xl font-extrabold text-white tabular-nums">
-              {MESSAGES.ms(state.reactionTime)}
-            </p>
-            {state.personalBest !== null && (
-              <p className="text-zinc-400 text-sm">
-                {MESSAGES.personalBestLabel}:{' '}
-                <span className="font-semibold text-white">
-                  {MESSAGES.ms(state.personalBest)}
-                </span>
-              </p>
-            )}
-            <Button size="lg" onClick={beginWaiting} className="mt-2 px-10 font-bold">
-              {MESSAGES.tryAgain}
-            </Button>
-          </div>
-        )}
-      </div>
-
-      {state.history.length > 0 && (
-        <div className="px-4 pb-6 flex flex-col items-center gap-2">
-          <p className="text-xs text-zinc-500 uppercase tracking-widest">
-            {MESSAGES.historyLabel}
-          </p>
-          <div className="flex gap-2 flex-wrap justify-center">
-            {state.history.map((ms, i) => (
-              <span
-                key={`${i}-${ms}`}
-                className={cn(
-                  'px-3 py-1 rounded-full text-sm font-mono',
-                  i === 0 && state.phase === 'result'
-                    ? 'bg-green-500/20 text-green-400'
-                    : 'bg-zinc-800 text-zinc-300'
-                )}
-              >
-                {MESSAGES.ms(ms)}
-              </span>
-            ))}
-          </div>
+    <div className="mx-auto max-w-lg px-4 pb-8">
+      <Card className="overflow-hidden py-0 gap-0">
+        {/* Info bar: instructions + personal best */}
+        <div className="flex items-center justify-between px-6 py-4">
+          <p className="text-sm text-muted-foreground">Tap when green — react as fast as you can</p>
+          {state.personalBest !== null && (
+            <Badge variant="outline" className="ml-4 shrink-0">
+              {MESSAGES.personalBestLabel}: {MESSAGES.ms(state.personalBest)}
+            </Badge>
+          )}
         </div>
+        <Separator />
+
+        {/* Arena */}
+        <div
+          role={isClickable ? 'button' : undefined}
+          aria-label={
+            isGreen ? MESSAGES.clickNow : isClickable ? MESSAGES.waitForGreen : undefined
+          }
+          className={cn(
+            'flex h-72 items-center justify-center select-none touch-none transition-colors duration-100',
+            isClickable && 'cursor-pointer',
+            arenaBg,
+          )}
+          onClick={isClickable ? handleScreenClick : undefined}
+        >
+          {state.phase === 'idle' && (
+            <div className="flex flex-col items-center gap-6 px-6 text-center">
+              {falseStart && (
+                <p className="text-amber-600 dark:text-yellow-400 text-base font-semibold">
+                  {MESSAGES.tooEarly}
+                </p>
+              )}
+              <Button size="lg" onClick={beginWaiting} className="px-10 py-6 text-xl font-bold">
+                {MESSAGES.tapToStart}
+              </Button>
+            </div>
+          )}
+
+          {state.phase === 'waiting' && (
+            <p className="text-slate-300 text-2xl font-semibold pointer-events-none">
+              {MESSAGES.waitForGreen}
+            </p>
+          )}
+
+          {state.phase === 'ready' && (
+            <p className="text-white text-5xl font-extrabold drop-shadow-lg pointer-events-none">
+              {MESSAGES.clickNow}
+            </p>
+          )}
+
+          {state.phase === 'result' && state.reactionTime !== null && (
+            <div className="flex flex-col items-center gap-4 text-center">
+              <p className="text-7xl font-extrabold tabular-nums text-foreground">
+                {MESSAGES.ms(state.reactionTime)}
+              </p>
+              <Button size="lg" onClick={beginWaiting} className="px-10 font-bold">
+                {MESSAGES.tryAgain}
+              </Button>
+            </div>
+          )}
+        </div>
+      </Card>
+
+      {/* History */}
+      {state.history.length > 0 && (
+        <Card className="mt-4">
+          <CardContent>
+            <p className="text-xs text-muted-foreground uppercase tracking-widest mb-3">
+              {MESSAGES.historyLabel}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {state.history.map((ms, i) => (
+                <Badge
+                  key={`${i}-${ms}`}
+                  variant={i === 0 && state.phase === 'result' ? 'default' : 'secondary'}
+                >
+                  {MESSAGES.ms(ms)}
+                </Badge>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   )
