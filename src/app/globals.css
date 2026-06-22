@@ -71,6 +71,10 @@
   .animate-pop-in {
     animation: none;
   }
+
+  .animate-blink {
+    display: none;
+  }
 }
 
 :root[data-reduce-motion] .animate-blob,
@@ -79,6 +83,10 @@
 :root[data-reduce-motion] .animate-bob,
 :root[data-reduce-motion] .animate-pop-in {
   animation: none;
+}
+
+:root[data-reduce-motion] .animate-blink {
+  display: none;
 }
 
 @layer base {

@@ -2,13 +2,19 @@ import { Suspense } from 'react'
 import { getModulesByCategory } from '@/lib/registry'
 import { TagFilter } from '@/components/tag-filter'
 import { EmptyState } from '@/components/empty-state'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { title: 'Games' }
 
 export default function GamesPage() {
   const modules = getModulesByCategory('games')
 
   return (
     <main className="mx-auto max-w-[1040px] px-4 py-8 sm:px-6">
-      <h1 className="mb-1.5 text-3xl font-extrabold tracking-tight">Games</h1>
+      <div className="mb-1.5 flex items-baseline gap-2">
+        <h1 className="text-3xl font-extrabold tracking-tight">Games</h1>
+        <span className="text-sm text-muted-foreground">{modules.length}</span>
+      </div>
       <p className="mb-8 text-muted-foreground">Mini games to pass the time.</p>
       <Suspense>
         <TagFilter

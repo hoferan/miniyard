@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Sun, Moon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { NAV_LINKS } from '@/lib/nav'
 import { Button } from '@/components/ui/button'
 
 export function Header() {
@@ -18,12 +19,6 @@ export function Header() {
   function isActive(href: string) {
     return pathname === href || pathname.startsWith(href + '/')
   }
-
-  const NAV_LINKS = [
-    { href: '/utilities', label: 'Utilities' },
-    { href: '/games', label: 'Games' },
-    { href: '/features', label: 'Labs' },
-  ]
 
   return (
     <header className="relative z-10 mx-auto flex max-w-[1180px] items-center justify-between gap-4 px-4 py-4 sm:px-6">
@@ -44,13 +39,19 @@ export function Header() {
               key={link.href}
               href={link.href}
               className={cn(
-                'rounded-xl px-4 py-2 text-sm font-semibold transition-colors',
+                'relative flex items-center rounded-xl px-4 py-2 text-sm font-semibold transition-colors',
                 isActive(link.href)
                   ? 'text-foreground'
                   : 'text-muted-foreground hover:text-foreground',
               )}
             >
               {link.label}
+              <span
+                className={cn(
+                  'absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary transition-opacity',
+                  isActive(link.href) ? 'opacity-100' : 'opacity-0',
+                )}
+              />
             </Link>
           ))}
         </nav>

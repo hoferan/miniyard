@@ -7,4 +7,5 @@ export const unitConverterMeta: Module = {
   category: 'utilities',
   tags: ['units', 'conversion', 'math'],
   createdAt: '2026-06-07',
+  icon: 'ruler',
 }
