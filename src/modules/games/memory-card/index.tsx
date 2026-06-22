@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { Trophy } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
@@ -122,7 +123,7 @@ export default function MemoryCard() {
       >
         <DialogContent className="max-w-sm">
           <DialogHeader>
-            <div className="text-5xl" aria-hidden="true">🎉</div>
+            <Trophy className="h-12 w-12 text-primary" aria-hidden="true" />
             <DialogTitle>{MESSAGES.youWon}</DialogTitle>
             <DialogDescription>{MESSAGES.summary(state.moves, elapsed)}</DialogDescription>
           </DialogHeader>

@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { Sun, Moon } from 'lucide-react'
+import { Sun, Moon, Blocks } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { NAV_LINKS } from '@/lib/nav'
 import { Button } from '@/components/ui/button'
@@ -26,8 +26,8 @@ export function Header() {
         href="/"
         className="flex items-center gap-3 text-xl font-extrabold tracking-tight text-foreground"
       >
-        <span className="flex h-8 w-8 animate-bob items-center justify-center rounded-[10px] bg-gradient-to-br from-violet-400 to-primary text-base shadow-[0_6px_16px_-6px_rgba(124,108,255,.8)]">
-          🧰
+        <span className="flex h-8 w-8 animate-bob items-center justify-center rounded-[10px] bg-gradient-to-br from-violet-400 to-primary shadow-[0_6px_16px_-6px_rgba(124,108,255,.8)]">
+          <Blocks className="h-4 w-4 text-white" />
         </span>
         miniyard
       </Link>

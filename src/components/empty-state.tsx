@@ -18,7 +18,7 @@ export function EmptyState({ icon, title, description, cta, className }: EmptySt
         className,
       )}
     >
-      <span className="text-5xl" aria-hidden="true">{icon}</span>
+      <div className="text-muted-foreground" aria-hidden="true">{icon}</div>
       <h2 className="text-xl font-semibold">{title}</h2>
       <p className="text-muted-foreground max-w-sm">{description}</p>
       {cta && (

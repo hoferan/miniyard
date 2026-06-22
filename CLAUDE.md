@@ -57,12 +57,18 @@ src/
         logic.test.ts
         messages.ts             # (optional) User-facing strings
   components/
-    layout/                     # header.tsx, footer.tsx, nav.tsx
+    layout/                     # header.tsx, footer.tsx, mobile-tab-bar.tsx
     module-card.tsx
+    module-page-layout.tsx      # Shared breadcrumb + heading layout for module detail pages
+    utilities-module-content.tsx  # componentMap + dynamic imports for utilities
+    games-module-content.tsx      # componentMap + dynamic imports for games
   lib/
     registry.ts                 # Central module registry – all modules listed here
     types.ts                    # Shared TypeScript types (Module, ModuleCategory, etc.)
     utils.ts                    # cn() and other shared utilities
+    nav.ts                      # Shared NAV_LINKS constant
+    icons.ts                    # Lucide icon name → component map (add new icons here)
+    high-score.ts               # createHighScoreStore(key) – shared localStorage utility for games
 tests/
   e2e/                          # Playwright E2E tests
 ```
@@ -70,7 +76,7 @@ tests/
 **Golden rules:**
 - Logic (`logic.ts`) is always separated from UI (`index.tsx`). Pure functions, no React import, easy to unit-test.
 - Metadata (`meta.ts`) is always separated from component and logic code.
-- Every new module must be registered in `src/lib/registry.ts` and added to `componentMap` in the relevant `src/app/[category]/[slug]/page.tsx`.
+- Every new module must be registered in `src/lib/registry.ts` and added to `componentMap` in the relevant `src/components/[category]-module-content.tsx`.
 - Every category has a `README.md` in `src/modules/[category]/README.md`. This file defines what belongs in the category and is read by Claude before creating new modules.
 
 ---
@@ -80,7 +86,7 @@ tests/
 - Every module lives in `src/modules/[category]/[name]/`
 - Every module has `index.tsx` (component), `meta.ts` (metadata), and `logic.ts` (logic)
 - New modules must be registered in `src/lib/registry.ts`
-- New modules must be added to `componentMap` in the relevant `src/app/[category]/[slug]/page.tsx`
+- New modules must be added to `componentMap` in the relevant `src/components/[category]-module-content.tsx`
 - Never put business logic in `app/` pages – pages only load modules
 - Shared UI components go in `src/components/`
 - Pure utility functions go in `src/lib/`
@@ -167,7 +173,7 @@ Superpowers skills drive this workflow. Invoke them in order — do not skip or 
      - tests/e2e/[name].spec.ts
    Registration:
      - src/lib/registry.ts
-     - src/app/[category]/[slug]/page.tsx  (componentMap)
+     - src/components/[category]-module-content.tsx  (componentMap)
    Documentation:
      - README.md update (module list)
      - docs/[category]/[name].md if complex
@@ -181,7 +187,7 @@ Superpowers skills drive this workflow. Invoke them in order — do not skip or 
    3. `messages.ts` — user-facing strings (only when the module has UI copy / status text)
    4. `index.tsx` — Tailwind, shadcn/ui, mobile-first, no inline styles
    5. Register in `src/lib/registry.ts`
-   6. Add to `componentMap` in `src/app/[category]/[slug]/page.tsx`
+   6. Add to `componentMap` in `src/components/[category]-module-content.tsx`
    7. `tests/e2e/[name].spec.ts` — E2E test covering the main user flow; include a `page.screenshot()` call to produce a visual artifact
 
 5. **`/update-docs`** — Add module to README.md list; create `docs/[category]/[name].md` only for complex logic.
@@ -236,7 +242,10 @@ Use `/new-category` or follow this checklist manually. Do **not** create a new c
 ```text
 src/app/[category]/
   page.tsx                     # Category listing page
-  [slug]/page.tsx              # Module detail page with componentMap
+  [slug]/page.tsx              # Module detail page (uses ModulePageLayout + module-content)
+
+src/components/
+  [category]-module-content.tsx  # componentMap + dynamic imports for this category
 
 src/modules/[category]/        # Empty directory (first module goes here)
 
@@ -282,22 +291,45 @@ export default function [Category]Page() {
 
 `src/app/[category]/[slug]/page.tsx`:
 ```tsx
-import dynamic from 'next/dynamic'
 import { getModuleBySlug } from '@/lib/registry'
-import { ModuleBreadcrumb } from '@/components/module-breadcrumb'
-import { ModuleSkeleton } from '@/components/module-skeleton'
 import { notFound } from 'next/navigation'
+import { [Category]ModuleContent } from '@/components/[category]-module-content'
+import { ModulePageLayout } from '@/components/module-page-layout'
+import type { Metadata } from 'next'
 
-const componentMap: Record<string, React.ComponentType> = {
-  // Add module components here using next/dynamic for per-chunk lazy loading:
-  // '[slug]': dynamic(() => import('@/modules/[category]/[slug]'), { loading: ModuleSkeleton }),
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const mod = getModuleBySlug(slug)
+  if (!mod) return {}
+  return { title: mod.title, description: mod.description }
 }
 
 export default async function [Category]ModulePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const module = getModuleBySlug(slug)
-  const Component = componentMap[slug]
-  if (!module || !Component) return notFound()
+  const mod = getModuleBySlug(slug)
+  if (!mod) return notFound()
+  return (
+    <ModulePageLayout mod={mod}>
+      <[Category]ModuleContent slug={slug} />
+    </ModulePageLayout>
+  )
+}
+```
+
+`src/components/[category]-module-content.tsx`:
+```tsx
+'use client'
+
+import dynamic from 'next/dynamic'
+import { ModuleSkeleton } from '@/components/module-skeleton'
+
+const componentMap = {
+  // '[slug]': dynamic(() => import('@/modules/[category]/[slug]'), { loading: ModuleSkeleton, ssr: false }),
+}
+
+export function [Category]ModuleContent({ slug }: { slug: string }) {
+  const Component = slug in componentMap ? componentMap[slug as keyof typeof componentMap] : null
+  if (!Component) return <p className="py-12 text-center text-muted-foreground">Module not found.</p>
   return <Component />
 }
 ```

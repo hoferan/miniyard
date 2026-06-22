@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { getModulesByCategory } from '@/lib/registry'
 import { TagFilter } from '@/components/tag-filter'
 import { EmptyState } from '@/components/empty-state'
+import { Gamepad2 } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Games' }
@@ -21,7 +22,7 @@ export default function GamesPage() {
           modules={modules}
           emptyState={
             <EmptyState
-              icon="🎮"
+              icon={<Gamepad2 className="h-12 w-12" />}
               title="No games yet"
               description="Games are on the way. Check the open issues to see what's coming or suggest a new one."
               cta={{

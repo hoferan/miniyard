@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { Home, Wrench, Gamepad2, FlaskConical } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function MobileTabBar() {
@@ -21,7 +22,7 @@ export function MobileTabBar() {
           homeActive ? 'text-primary' : 'text-muted-foreground',
         )}
       >
-        <span className="text-xl" aria-hidden="true">🏠</span>
+        <Home className="h-5 w-5" />
         <span className="text-[10px] font-semibold">Home</span>
       </Link>
       <Link
@@ -32,7 +33,7 @@ export function MobileTabBar() {
           toolsActive ? 'text-primary' : 'text-muted-foreground',
         )}
       >
-        <span className="text-xl" aria-hidden="true">🧰</span>
+        <Wrench className="h-5 w-5" />
         <span className="text-[10px] font-semibold">Utilities</span>
       </Link>
       <Link
@@ -43,7 +44,7 @@ export function MobileTabBar() {
           gamesActive ? 'text-primary' : 'text-muted-foreground',
         )}
       >
-        <span className="text-xl" aria-hidden="true">🎮</span>
+        <Gamepad2 className="h-5 w-5" />
         <span className="text-[10px] font-semibold">Games</span>
       </Link>
       <Link
@@ -54,7 +55,7 @@ export function MobileTabBar() {
           labsActive ? 'text-primary' : 'text-muted-foreground',
         )}
       >
-        <span className="text-xl" aria-hidden="true">🧪</span>
+        <FlaskConical className="h-5 w-5" />
         <span className="text-[10px] font-semibold">Labs</span>
       </Link>
     </div>
