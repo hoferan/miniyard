@@ -15,6 +15,10 @@ updates:
         update-types:
           - "minor"
           - "patch"
+    ignore:
+      # Pinned to 1.56.1 — matches chromium revision 1194 pre-installed in the
+      # Claude Code remote container. Bump only when the container is updated.
+      - dependency-name: "@playwright/test"
 
   - package-ecosystem: "github-actions"
     directory: "/"
