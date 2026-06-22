@@ -7,11 +7,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
+import type { ReactNode } from 'react'
 import type { Module } from '@/lib/types'
 
 interface Props {
   mod: Module
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function ModulePageLayout({ mod, children }: Props) {

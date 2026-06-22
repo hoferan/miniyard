@@ -12,6 +12,7 @@ export function createHighScoreStore(key: string) {
   }
 
   function save(score: number): void {
+    if (typeof window === 'undefined') return
     try {
       localStorage.setItem(key, String(score))
     } catch {
