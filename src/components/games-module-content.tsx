@@ -10,7 +10,7 @@ const componentMap = {
 }
 
 export function GamesModuleContent({ slug }: { slug: string }) {
-  const Component = componentMap[slug as keyof typeof componentMap]
-  if (!Component) return null
+  const Component = slug in componentMap ? componentMap[slug as keyof typeof componentMap] : null
+  if (!Component) return <p className="py-12 text-center text-muted-foreground">Module not found.</p>
   return <Component />
 }

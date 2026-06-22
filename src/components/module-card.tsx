@@ -2,13 +2,17 @@
 
 import Link from 'next/link'
 import { Module } from '@/lib/types'
+import { ICON_MAP } from '@/lib/icons'
 import { cn, isNew } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
+import { Box } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
 type Props = { module: Module }
 
 export function ModuleCard({ module }: Props) {
   const categoryLabel = module.category === 'utilities' ? 'UTILITY' : 'GAME'
+  const Icon: LucideIcon = (module.icon ? ICON_MAP[module.icon] : undefined) ?? Box
 
   return (
     <Link href={`/${module.category}/${module.slug}`}>
@@ -25,7 +29,11 @@ export function ModuleCard({ module }: Props) {
           <Badge className="absolute right-4 top-4 bg-primary text-primary-foreground">NEW</Badge>
         )}
 
-        <div className="mb-1.5 font-mono text-[10px] tracking-[0.16em] text-primary">
+        <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary/20 dark:bg-primary/15">
+          <Icon className="h-5 w-5" />
+        </div>
+
+        <div className="mb-1 font-mono text-[10px] tracking-[0.16em] text-primary">
           {categoryLabel}
         </div>
 
