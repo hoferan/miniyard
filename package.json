@@ -36,7 +36,7 @@
     "@codecov/nextjs-webpack-plugin": "2.0.1",
     "@eslint/eslintrc": "3.3.5",
     "@netlify/plugin-nextjs": "5.15.11",
-    "@playwright/test": "1.61.0",
+    "@playwright/test": "1.56.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@types/node": "20.19.41",
