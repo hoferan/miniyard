@@ -1,23 +1,11 @@
 import { test, expect } from '@playwright/test'
+import { registry } from '@/lib/registry'
+import { isNew } from '@/lib/utils'
 
-const MS_PER_DAY = 86_400_000
-
-function isNew(createdAt: string): boolean {
-  return Date.now() - new Date(createdAt).getTime() < 14 * MS_PER_DAY
-}
-
-// Mirror of meta.ts createdAt values — update when a module is added or its date changes
-const utilityModules = [
-  { slug: 'unit-converter', createdAt: '2026-06-07' },
-  { slug: 'base64-converter', createdAt: '2026-06-08' },
-  { slug: 'password-strength-checker', createdAt: '2026-06-19' },
-]
-
-const gameModules = [
-  { slug: 'memory-card', createdAt: '2026-06-15' },
-  { slug: 'typing-speed-test', createdAt: '2026-06-18' },
-  { slug: 'reaction-time-test', createdAt: '2026-06-21' },
-]
+// Sourced directly from the real registry so this test never drifts when a
+// module is added, removed, or its createdAt changes.
+const utilityModules = registry.filter((m) => m.category === 'utilities')
+const gameModules = registry.filter((m) => m.category === 'games')
 
 test.describe('module card UI', () => {
   test('utilities page: NEW badge matches creation date for each card', async ({ page }) => {
