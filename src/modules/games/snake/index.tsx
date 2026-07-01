@@ -161,7 +161,7 @@ export default function Snake() {
       </div>
 
       <Dialog open={state.phase === 'idle'} onOpenChange={() => {}}>
-        <DialogContent className="max-w-sm">
+        <DialogContent className="max-w-sm [&>button]:hidden" onEscapeKeyDown={(e) => e.preventDefault()}>
           <DialogHeader>
             <DialogTitle>{MESSAGES.startTitle}</DialogTitle>
             <DialogDescription>{MESSAGES.startDescription}</DialogDescription>
