@@ -23,6 +23,7 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 | [Memory Card Matching](src/modules/games/memory-card) | Flip cards two at a time to find all 8 emoji pairs. Beat your best move count! |
 | [Typing Speed Test](src/modules/games/typing-speed-test) | Type a random passage as fast and accurately as you can in 60 seconds. Track your WPM and accuracy. |
 | [Reaction Time Test](src/modules/games/reaction-time-test) | Wait for the screen to flash green, then tap as fast as you can. Track your best reaction time. |
+| [Snake](src/modules/games/snake) | Steer a growing snake around the grid to eat pellets. Avoid the walls and your own tail — beat your high score. |
 
 ---
 
