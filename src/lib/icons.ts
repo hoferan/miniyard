@@ -1,4 +1,4 @@
-import { Ruler, Code2, ShieldCheck, LayoutGrid, Keyboard, Zap } from 'lucide-react'
+import { Ruler, Code2, ShieldCheck, LayoutGrid, Keyboard, Zap, Worm } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 export const ICON_MAP: Record<string, LucideIcon> = {
@@ -8,4 +8,5 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   'layout-grid': LayoutGrid,
   'keyboard': Keyboard,
   'zap': Zap,
+  'worm': Worm,
 }
