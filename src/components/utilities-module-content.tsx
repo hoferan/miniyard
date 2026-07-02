@@ -7,6 +7,7 @@ const componentMap = {
   'unit-converter': dynamic(() => import('@/modules/utilities/unit-converter'), { loading: ModuleSkeleton, ssr: false }),
   'base64-converter': dynamic(() => import('@/modules/utilities/base64-converter'), { loading: ModuleSkeleton, ssr: false }),
   'password-strength-checker': dynamic(() => import('@/modules/utilities/password-strength-checker'), { loading: ModuleSkeleton, ssr: false }),
+  'color-converter': dynamic(() => import('@/modules/utilities/color-converter'), { loading: ModuleSkeleton, ssr: false }),
 }
 
 export function UtilitiesModuleContent({ slug }: { slug: string }) {

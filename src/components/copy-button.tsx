@@ -9,9 +9,10 @@ import { Button } from '@/components/ui/button'
 interface CopyButtonProps {
   value: string
   className?: string
+  label?: string
 }
 
-export function CopyButton({ value, className }: CopyButtonProps) {
+export function CopyButton({ value, className, label = 'Copy' }: CopyButtonProps) {
   const [copied, setCopied] = useState(false)
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -54,7 +55,7 @@ export function CopyButton({ value, className }: CopyButtonProps) {
       disabled={!value}
       variant="ghost"
       size="icon"
-      aria-label={copied ? 'Copied!' : 'Copy'}
+      aria-label={copied ? 'Copied!' : label}
       className={cn('h-8 w-8 text-muted-foreground', className)}
     >
       {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
