@@ -33,12 +33,17 @@ Solo developer. Learning and showcase project. New categories are added when nee
 src/
   app/
     page.tsx                    # Home – shows all modules
+    loading.tsx                 # Root loading boundary (CategoryPageSkeleton)
     utilities/
       page.tsx                  # Category listing page
-      [slug]/page.tsx           # Individual module page
+      loading.tsx               # Category loading boundary
+      [slug]/page.tsx           # Individual module page (statically generated)
+      [slug]/loading.tsx        # Module loading boundary
     games/
       page.tsx
+      loading.tsx
       [slug]/page.tsx
+      [slug]/loading.tsx
   modules/
     utilities/
       README.md                 # Category definition – what belongs here, brainstorm questions
@@ -60,6 +65,8 @@ src/
     layout/                     # header.tsx, footer.tsx, mobile-tab-bar.tsx
     module-card.tsx
     module-page-layout.tsx      # Shared breadcrumb + heading layout for module detail pages
+    module-page-skeleton.tsx    # Loading skeleton for module detail pages
+    category-page-skeleton.tsx  # Loading skeleton for category/home listing pages
     utilities-module-content.tsx  # componentMap + dynamic imports for utilities
     games-module-content.tsx      # componentMap + dynamic imports for games
   lib/
@@ -242,7 +249,9 @@ Use `/new-category` or follow this checklist manually. Do **not** create a new c
 ```text
 src/app/[category]/
   page.tsx                     # Category listing page
+  loading.tsx                  # Category loading boundary (CategoryPageSkeleton)
   [slug]/page.tsx              # Module detail page (uses ModulePageLayout + module-content)
+  [slug]/loading.tsx           # Module loading boundary (ModulePageSkeleton)
 
 src/components/
   [category]-module-content.tsx  # componentMap + dynamic imports for this category
@@ -291,11 +300,17 @@ export default function [Category]Page() {
 
 `src/app/[category]/[slug]/page.tsx`:
 ```tsx
-import { getModuleBySlug } from '@/lib/registry'
+import { getModuleBySlug, getModulesByCategory } from '@/lib/registry'
 import { notFound } from 'next/navigation'
 import { [Category]ModuleContent } from '@/components/[category]-module-content'
 import { ModulePageLayout } from '@/components/module-page-layout'
 import type { Metadata } from 'next'
+
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return getModulesByCategory('[category]').map((m) => ({ slug: m.slug }))
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params

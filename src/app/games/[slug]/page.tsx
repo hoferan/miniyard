@@ -1,8 +1,14 @@
-import { getModuleBySlug } from '@/lib/registry'
+import { getModuleBySlug, getModulesByCategory } from '@/lib/registry'
 import { notFound } from 'next/navigation'
 import { GamesModuleContent } from '@/components/games-module-content'
 import { ModulePageLayout } from '@/components/module-page-layout'
 import type { Metadata } from 'next'
+
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return getModulesByCategory('games').map((m) => ({ slug: m.slug }))
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
