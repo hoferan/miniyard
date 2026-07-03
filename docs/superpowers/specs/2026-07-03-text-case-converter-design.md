@@ -51,6 +51,12 @@ capitalise(word) → string
 toUpperCase(input) → input.toUpperCase()
 toLowerCase(input) → input.toLowerCase()
 toSentenceCase(input) → lowercase the whole string, then uppercase the first alphabetic character
+
+Note: toUpperCase/toLowerCase/toSentenceCase themselves are generic string
+functions that operate on whatever string they're given. convertAllCases
+passes them input.trim() (not the untrimmed raw string) so that
+whitespace-only input produces '' for these three formats too, consistent
+with the Edge Cases table below.
 toTitleCase(words) → words.map(w => capitalise(w.toLowerCase())).join(' ')
 toCamelCase(words) → first word lowercased, remaining words capitalised (lowercased first), joined with ''
 toPascalCase(words) → every word capitalised (lowercased first), joined with ''
@@ -60,7 +66,7 @@ toScreamingSnakeCase(words) → words.map(w => w.toUpperCase()).join('_')
 
 convertAllCases(input) → { upperCase, lowerCase, titleCase, sentenceCase, camelCase, pascalCase, snakeCase, kebabCase, screamingSnakeCase }
   - computes all 9 outputs from a single tokenise() call (shared for the word-based formats)
-  - upperCase/lowerCase/sentenceCase operate on the raw input string, not the tokenised words
+  - upperCase/lowerCase/sentenceCase operate on input.trim(), not the tokenised words
 ```
 
 ---
