@@ -16,6 +16,7 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 | [Base64 Encoder / Decoder](src/modules/utilities/base64-converter) | Encode text to Base64 or decode Base64 back to text — fully client-side. |
 | [Password Strength Checker](src/modules/utilities/password-strength-checker) | Score any password against six security rules with instant color-coded feedback — fully client-side. |
 | [Color Converter](src/modules/utilities/color-converter) | Convert colors between HEX, RGB, and HSL with alpha support — synced in real time with a live preview swatch. |
+| [Text Case Converter](src/modules/utilities/text-case-converter) | Convert text between UPPER CASE, camelCase, snake_case, and more — all at once. |
 
 ### 🎮 Games
 <!-- Add games here as they are built -->

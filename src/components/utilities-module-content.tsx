@@ -8,6 +8,7 @@ const componentMap = {
   'base64-converter': dynamic(() => import('@/modules/utilities/base64-converter'), { loading: ModuleSkeleton, ssr: false }),
   'password-strength-checker': dynamic(() => import('@/modules/utilities/password-strength-checker'), { loading: ModuleSkeleton, ssr: false }),
   'color-converter': dynamic(() => import('@/modules/utilities/color-converter'), { loading: ModuleSkeleton, ssr: false }),
+  'text-case-converter': dynamic(() => import('@/modules/utilities/text-case-converter'), { loading: ModuleSkeleton, ssr: false }),
 }
 
 export function UtilitiesModuleContent({ slug }: { slug: string }) {
