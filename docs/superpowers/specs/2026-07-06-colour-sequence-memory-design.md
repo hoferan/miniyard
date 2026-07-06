@@ -24,7 +24,7 @@ Follows the same conventions as the existing `snake` module:
   no DOM/React, randomness injected as a parameter (like Snake's `placeFood`)
 - `index.tsx` — client component (`'use client'`) that drives the flash
   animation, handles tap input, and renders dialogs
-- `createHighScoreStore('color-sequence-memory:high-score')` — reuses the
+- `createHighScoreStore('colour-sequence-memory:high-score')` — reuses the
   shared `src/lib/high-score.ts` utility for localStorage persistence
 
 ## Game state
@@ -63,7 +63,8 @@ interface GameState {
 
 - `createInitialState(): GameState`
 - `startGame(state: GameState, random: () => number = Math.random): GameState`
-- `submitTap(state: GameState, tileIndex: number): GameState`
+- `beginInput(state: GameState): GameState`
+- `submitTap(state: GameState, tileIndex: number, random: () => number = Math.random): GameState`
 - `getFlashIntervalMs(round: number): number` — decreasing interval as
   `round` grows, floor-clamped to a minimum
 
