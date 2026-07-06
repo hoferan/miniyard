@@ -29,6 +29,7 @@ const TILE_LABELS = ['Red', 'Blue', 'Green', 'Yellow']
 const TILE_COLORS = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-400']
 const TAP_FLASH_MS = 200
 const FLASH_ON_RATIO = 0.6
+const SEQUENCE_LEAD_IN_MS = 700
 
 export default function ColourSequenceMemory() {
   const [state, setState] = useState<GameState>(() => createInitialState())
@@ -46,16 +47,21 @@ export default function ColourSequenceMemory() {
     const intervalMs = getFlashIntervalMs(state.sequence.length)
     const timeouts: ReturnType<typeof setTimeout>[] = []
     state.sequence.forEach((tile, i) => {
-      timeouts.push(setTimeout(() => setActiveTile(tile), i * intervalMs))
       timeouts.push(
-        setTimeout(() => setActiveTile(null), i * intervalMs + intervalMs * FLASH_ON_RATIO)
+        setTimeout(() => setActiveTile(tile), SEQUENCE_LEAD_IN_MS + i * intervalMs)
+      )
+      timeouts.push(
+        setTimeout(
+          () => setActiveTile(null),
+          SEQUENCE_LEAD_IN_MS + i * intervalMs + intervalMs * FLASH_ON_RATIO
+        )
       )
     })
     timeouts.push(
       setTimeout(() => {
         setActiveTile(null)
         setState((prev) => beginInput(prev))
-      }, state.sequence.length * intervalMs)
+      }, SEQUENCE_LEAD_IN_MS + state.sequence.length * intervalMs)
     )
     return () => timeouts.forEach(clearTimeout)
   }, [state.phase, state.sequence])
@@ -105,7 +111,7 @@ export default function ColourSequenceMemory() {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-2 aspect-square select-none touch-none">
+      <div className="grid grid-cols-2 gap-3 aspect-square select-none touch-none rounded-3xl bg-muted p-3">
         {TILE_COLORS.map((color, i) => (
           <button
             key={i}
@@ -114,9 +120,11 @@ export default function ColourSequenceMemory() {
             disabled={state.phase !== 'input'}
             onClick={() => handleTileTap(i)}
             className={cn(
-              'rounded-lg transition-opacity disabled:cursor-not-allowed',
+              'rounded-2xl shadow-md transition-all duration-100 disabled:cursor-not-allowed',
               color,
-              activeTile === i ? 'opacity-100' : 'opacity-60'
+              activeTile === i
+                ? 'opacity-100 brightness-125 scale-[1.04] ring-4 ring-white/80 shadow-lg'
+                : 'opacity-40'
             )}
           />
         ))}
