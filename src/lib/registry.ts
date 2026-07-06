@@ -8,8 +8,9 @@ import { memoryCardMeta } from '@/modules/games/memory-card/meta'
 import { typingSpeedTestMeta } from '@/modules/games/typing-speed-test/meta'
 import { reactionTimeTestMeta } from '@/modules/games/reaction-time-test/meta'
 import { snakeMeta } from '@/modules/games/snake/meta'
+import { colourSequenceMemoryMeta } from '@/modules/games/colour-sequence-memory/meta'
 
-export const registry: Module[] = [unitConverterMeta, base64ConverterMeta, passwordStrengthCheckerMeta, colorConverterMeta, textCaseConverterMeta, memoryCardMeta, typingSpeedTestMeta, reactionTimeTestMeta, snakeMeta]
+export const registry: Module[] = [unitConverterMeta, base64ConverterMeta, passwordStrengthCheckerMeta, colorConverterMeta, textCaseConverterMeta, memoryCardMeta, typingSpeedTestMeta, reactionTimeTestMeta, snakeMeta, colourSequenceMemoryMeta]
 
 export function getModulesByCategory(category: ModuleCategory) {
   return registry.filter((m) => m.category === category)
