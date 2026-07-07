@@ -16,7 +16,11 @@ export default function UtilitiesPage() {
       </div>
       <p className="mb-8 text-muted-foreground">Handy tools for everyday tasks.</p>
       <Suspense>
-        <TagFilter modules={modules} />
+        <TagFilter
+          modules={modules}
+          proposeHref="https://github.com/hoferan/miniyard/issues/new?template=new_utility_tool.yml"
+          proposeLabel="Propose a new utility"
+        />
       </Suspense>
     </main>
   )
