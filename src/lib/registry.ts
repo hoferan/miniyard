@@ -20,3 +20,7 @@ export function getModuleBySlug(slug: string) {
   return registry.find((m) => m.slug === slug)
 }
 
+export function sortModulesByNewest(modules: Module[]): Module[] {
+  return [...modules].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+}
+
