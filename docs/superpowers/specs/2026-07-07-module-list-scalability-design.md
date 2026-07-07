@@ -160,9 +160,10 @@ home preview with today's counts. Per the confirmed testing approach:
   depend on crossing the 5- or 9-item thresholds, since real data doesn't
   cross them. Visual correctness of `ShowMoreCard` and "Load more" is
   confirmed via manual/dev-server check during implementation instead. Do add
-  E2E coverage for `ProposeModuleCard`: assert it's visible (with correct
-  `href`) at the end of the home page's utilities/games sections and at the
-  end of each category page, since this is reachable with real data today.
+  a dedicated E2E spec, `tests/e2e/propose-module-card.spec.ts`, asserting
+  `ProposeModuleCard` is visible (with correct `href` and `target="_blank"`)
+  at the end of the home page's utilities/games sections and at the end of
+  each category page, since this is reachable with real data today.
 - `npm run typecheck`, `npm run build`, `npm run test` must all stay green.
 
 ## New files
@@ -171,6 +172,7 @@ home preview with today's counts. Per the confirmed testing approach:
 src/components/show-more-card.tsx
 src/components/propose-module-card.tsx
 src/lib/registry.test.ts
+tests/e2e/propose-module-card.spec.ts
 ```
 
 ## Changed files
@@ -181,7 +183,6 @@ src/components/home-search.tsx  # cap + sort + ShowMoreCard + ProposeModuleCard 
 src/components/tag-filter.tsx   # + BATCH_SIZE pagination state, Load more button, + proposeHref prop / ProposeModuleCard
 src/app/utilities/page.tsx      # pass proposeHref (new_utility_tool.yml) to TagFilter
 src/app/games/page.tsx          # pass proposeHref (new_minigame.yml) to TagFilter
-tests/e2e/homepage.spec.ts      # + ProposeModuleCard visibility assertions
 ```
 
 ## Verification
