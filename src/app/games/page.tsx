@@ -20,6 +20,8 @@ export default function GamesPage() {
       <Suspense>
         <TagFilter
           modules={modules}
+          proposeHref="https://github.com/hoferan/miniyard/issues/new?template=new_minigame.yml"
+          proposeLabel="Propose a new game"
           emptyState={
             <EmptyState
               icon={<Gamepad2 className="h-12 w-12" />}
