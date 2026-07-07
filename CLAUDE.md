@@ -514,6 +514,7 @@ If the raw URL returns a 404, browse `https://github.com/shadcn-ui/ui/tree/main/
 | `/github-issue` | Create a GitHub issue via natural language — detects template, asks questions, proposes content for approval |
 | `/create-pr` | Create a pull request — reads the diff, fills the template, asks only what it can't infer, proposes for approval |
 | `/add-shadcn` | Add a shadcn/ui component by fetching it directly from GitHub (cloud-safe alternative to `npx shadcn add`) |
+| `/dependabot-pr` | Triage a Dependabot PR — diagnose CI failures, classify root cause, propose one resolution before acting |
 
 ### Superpowers skills (obra/superpowers)
 
