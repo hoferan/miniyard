@@ -6,7 +6,8 @@
         "http://localhost:3000/utilities",
         "http://localhost:3000/utilities/unit-converter",
         "http://localhost:3000/games",
-        "http://localhost:3000/games/memory-card"
+        "http://localhost:3000/games/memory-card",
+        "http://localhost:3000/apis"
       ],
       "numberOfRuns": 1
     },
