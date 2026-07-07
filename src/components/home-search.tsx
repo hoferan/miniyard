@@ -7,15 +7,38 @@ import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import type { Module, ModuleCategory } from '@/lib/types'
+import { sortModulesByNewest } from '@/lib/registry'
 import { ModuleCard } from './module-card'
+import { ShowMoreCard } from './show-more-card'
+import { ProposeModuleCard } from './propose-module-card'
 
 interface HomeSearchProps {
   modules: Module[]
 }
 
-const CATEGORIES: { key: ModuleCategory; label: string; href: string }[] = [
-  { key: 'utilities', label: 'Utilities', href: '/utilities' },
-  { key: 'games', label: 'Games', href: '/games' },
+const HOME_PREVIEW_LIMIT = 5
+
+const CATEGORIES: {
+  key: ModuleCategory
+  label: string
+  href: string
+  proposeHref: string
+  proposeLabel: string
+}[] = [
+  {
+    key: 'utilities',
+    label: 'Utilities',
+    href: '/utilities',
+    proposeHref: 'https://github.com/hoferan/miniyard/issues/new?template=new_utility_tool.yml',
+    proposeLabel: 'Propose a new utility',
+  },
+  {
+    key: 'games',
+    label: 'Games',
+    href: '/games',
+    proposeHref: 'https://github.com/hoferan/miniyard/issues/new?template=new_minigame.yml',
+    proposeLabel: 'Propose a new game',
+  },
 ]
 
 export function HomeSearch({ modules }: HomeSearchProps) {
@@ -77,9 +100,11 @@ export function HomeSearch({ modules }: HomeSearchProps) {
       <>
         {searchBox}
         <div className="space-y-10">
-          {CATEGORIES.map(({ key, label, href }) => {
+          {CATEGORIES.map(({ key, label, href, proposeHref, proposeLabel }) => {
             const categoryModules = modules.filter((m) => m.category === key)
             if (categoryModules.length === 0) return null
+            const visible = sortModulesByNewest(categoryModules).slice(0, HOME_PREVIEW_LIMIT)
+            const remaining = categoryModules.length - HOME_PREVIEW_LIMIT
             return (
               <section key={key}>
                 <div className="mb-4 flex items-baseline gap-2">
@@ -93,9 +118,11 @@ export function HomeSearch({ modules }: HomeSearchProps) {
                   </Link>
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {categoryModules.map((module) => (
+                  {visible.map((module) => (
                     <ModuleCard key={module.slug} module={module} />
                   ))}
+                  {remaining > 0 && <ShowMoreCard href={href} remaining={remaining} />}
+                  <ProposeModuleCard href={proposeHref} label={proposeLabel} />
                 </div>
               </section>
             )
