@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**miniyard** is a modular playground platform. It starts with two categories and grows over time:
+**miniyard** is a modular playground platform. It grows its set of categories over time:
 
 | Category | Description | Path |
 |---|---|---|
