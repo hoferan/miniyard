@@ -14,19 +14,10 @@ import {
   tick,
 } from './logic'
 import { MESSAGES } from './messages'
+import { createHighScoreStore } from '@/lib/high-score'
 
 const PASSAGE_WORD_COUNT = 90
-const PERSONAL_BEST_KEY = 'typing-speed-test:personal-best'
-
-function loadPersonalBest(): number {
-  if (typeof window === 'undefined') return 0
-  const stored = localStorage.getItem(PERSONAL_BEST_KEY)
-  return stored ? Number(stored) : 0
-}
-
-function savePersonalBest(wpm: number): void {
-  localStorage.setItem(PERSONAL_BEST_KEY, String(Math.round(wpm)))
-}
+const personalBestStore = createHighScoreStore('typing-speed-test:personal-best')
 
 function newGame(): GameState {
   return createInitialState(generatePassage(WORD_LIST, PASSAGE_WORD_COUNT))
@@ -36,7 +27,7 @@ export default function TypingSpeedTest() {
   // null until first client render — avoids SSR/client hydration mismatch from Math.random()
   const [state, setState] = useState<GameState | null>(null)
   const [now, setNow] = useState(() => Date.now())
-  const [personalBest, setPersonalBest] = useState(0)
+  const [personalBest, setPersonalBest] = useState<number | null>(null)
   const [isNewBest, setIsNewBest] = useState(false)
   // null = not counting; 3/2/1 = counting; 0 = showing GO!
   const [countdown, setCountdown] = useState<number | null>(null)
@@ -47,7 +38,7 @@ export default function TypingSpeedTest() {
 
   useEffect(() => {
     setState(newGame())
-    setPersonalBest(loadPersonalBest())
+    setPersonalBest(personalBestStore.load())
   }, [])
 
   const phase = state?.phase ?? 'idle'
@@ -86,9 +77,9 @@ export default function TypingSpeedTest() {
   useEffect(() => {
     if (!state || state.phase !== 'finished' || state.startedAt === null) return
     const results = getResults(state, now)
-    const pb = loadPersonalBest()
-    if (results.wpm > pb) {
-      savePersonalBest(results.wpm)
+    const pb = personalBestStore.load()
+    if (pb === null || results.wpm > pb) {
+      personalBestStore.save(Math.round(results.wpm))
       setPersonalBest(Math.round(results.wpm))
       setIsNewBest(true)
     }
@@ -189,7 +180,7 @@ export default function TypingSpeedTest() {
           {liveResults !== null && (
             <span className="tabular-nums">{MESSAGES.liveWpm(Math.round(liveResults.wpm))}</span>
           )}
-          {personalBest > 0 && (
+          {personalBest !== null && (
             <span className="tabular-nums">{MESSAGES.personalBest(personalBest)}</span>
           )}
         </div>

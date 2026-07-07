@@ -7,4 +7,5 @@ export const memoryCardMeta: Module = {
   category: 'games',
   tags: ['memory', 'cards', 'puzzle'],
   createdAt: '2026-06-15',
+  icon: 'layout-grid',
 }

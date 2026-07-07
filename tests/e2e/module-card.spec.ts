@@ -1,23 +1,15 @@
 import { test, expect } from '@playwright/test'
+import { registry, sortModulesByNewest } from '@/lib/registry'
+import { isNew } from '@/lib/utils'
 
-const MS_PER_DAY = 86_400_000
+// Sourced directly from the real registry so this test never drifts when a
+// module is added, removed, or its createdAt changes.
+const utilityModules = registry.filter((m) => m.category === 'utilities')
+const gameModules = registry.filter((m) => m.category === 'games')
 
-function isNew(createdAt: string): boolean {
-  return Date.now() - new Date(createdAt).getTime() < 14 * MS_PER_DAY
-}
-
-// Mirror of meta.ts createdAt values — update when a module is added or its date changes
-const utilityModules = [
-  { slug: 'unit-converter', createdAt: '2026-06-07' },
-  { slug: 'base64-converter', createdAt: '2026-06-08' },
-  { slug: 'password-strength-checker', createdAt: '2026-06-19' },
-]
-
-const gameModules = [
-  { slug: 'memory-card', createdAt: '2026-06-15' },
-  { slug: 'typing-speed-test', createdAt: '2026-06-18' },
-  { slug: 'reaction-time-test', createdAt: '2026-06-21' },
-]
+// Mirrors HOME_PREVIEW_LIMIT in src/components/home-search.tsx — the home
+// page only renders the 5 newest modules per category.
+const HOME_PREVIEW_LIMIT = 5
 
 test.describe('module card UI', () => {
   test('utilities page: NEW badge matches creation date for each card', async ({ page }) => {
@@ -72,10 +64,11 @@ test.describe('module card UI', () => {
 
     await expect(page.locator('a[href^="/utilities/"]').first()).toBeVisible()
 
-    const allModules = [...utilityModules, ...gameModules]
-    const newCount = allModules.filter((m) => isNew(m.createdAt)).length
+    const visibleUtilities = sortModulesByNewest(utilityModules).slice(0, HOME_PREVIEW_LIMIT)
+    const visibleGames = sortModulesByNewest(gameModules).slice(0, HOME_PREVIEW_LIMIT)
+    const newCount = [...visibleUtilities, ...visibleGames].filter((m) => isNew(m.createdAt)).length
 
-    await expect(page.getByText('NEW')).toHaveCount(newCount)
+    await expect(page.getByText('NEW', { exact: true })).toHaveCount(newCount)
 
     await page.screenshot({ path: 'test-results/module-card-homepage.png', fullPage: true })
   })

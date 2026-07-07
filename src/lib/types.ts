@@ -7,4 +7,5 @@ export type Module = {
   category: ModuleCategory
   tags: string[]
   createdAt: string
+  icon?: string
 }

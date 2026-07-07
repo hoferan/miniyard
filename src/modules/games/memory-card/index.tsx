@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { Trophy } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
@@ -14,23 +15,9 @@ import {
   shuffleEmojis,
 } from './logic'
 import { MESSAGES } from './messages'
+import { createHighScoreStore } from '@/lib/high-score'
 
-const BEST_SCORE_KEY = 'memory-card:best-score'
-
-function loadBestScore(): number | null {
-  if (typeof window === 'undefined') return null
-  const stored = localStorage.getItem(BEST_SCORE_KEY)
-  return stored !== null ? parseInt(stored, 10) : null
-}
-
-function saveBestScore(moves: number): number | null {
-  const prev = loadBestScore()
-  if (prev === null || moves < prev) {
-    localStorage.setItem(BEST_SCORE_KEY, String(moves))
-    return moves
-  }
-  return prev
-}
+const bestScoreStore = createHighScoreStore('memory-card:best-score')
 
 export default function MemoryCard() {
   const [state, setState] = useState<GameState>(() =>
@@ -42,7 +29,7 @@ export default function MemoryCard() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {
-    setBestScore(loadBestScore())
+    setBestScore(bestScoreStore.load())
   }, [])
 
   useEffect(() => {
@@ -58,9 +45,10 @@ export default function MemoryCard() {
 
   useEffect(() => {
     if (state.phase === 'won') {
-      const newBest = saveBestScore(state.moves)
-      const improved = newBest === state.moves
-      setBestScore(newBest)
+      const prev = bestScoreStore.load()
+      const improved = prev === null || state.moves < prev
+      if (improved) bestScoreStore.save(state.moves)
+      setBestScore(improved ? state.moves : prev)
       setIsNewBest(improved)
     }
   }, [state.phase, state.moves])
@@ -135,7 +123,7 @@ export default function MemoryCard() {
       >
         <DialogContent className="max-w-sm">
           <DialogHeader>
-            <div className="text-5xl" aria-hidden="true">🎉</div>
+            <Trophy className="h-12 w-12 text-primary" aria-hidden="true" />
             <DialogTitle>{MESSAGES.youWon}</DialogTitle>
             <DialogDescription>{MESSAGES.summary(state.moves, elapsed)}</DialogDescription>
           </DialogHeader>
