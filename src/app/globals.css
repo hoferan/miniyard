@@ -35,6 +35,7 @@
   --animate-blink: blink 1.1s step-end infinite;
   --animate-bob: bob 3.4s ease-in-out infinite;
   --animate-pop-in: pop-in 0.25s ease both;
+  --animate-pending-fade-in: pending-fade-in 0.15s ease 100ms both;
 }
 
 @keyframes blob-float {
@@ -63,13 +64,23 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
+@keyframes pending-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-blob,
   .animate-blob-2,
   .animate-blink,
   .animate-bob,
-  .animate-pop-in {
+  .animate-pop-in,
+  .animate-pending-fade-in {
     animation: none;
+  }
+
+  .animate-blink {
+    display: none;
   }
 }
 
@@ -77,8 +88,13 @@
 :root[data-reduce-motion] .animate-blob-2,
 :root[data-reduce-motion] .animate-blink,
 :root[data-reduce-motion] .animate-bob,
-:root[data-reduce-motion] .animate-pop-in {
+:root[data-reduce-motion] .animate-pop-in,
+:root[data-reduce-motion] .animate-pending-fade-in {
   animation: none;
+}
+
+:root[data-reduce-motion] .animate-blink {
+  display: none;
 }
 
 @layer base {

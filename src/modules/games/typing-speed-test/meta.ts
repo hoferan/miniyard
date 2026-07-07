@@ -8,4 +8,5 @@ export const typingSpeedTestMeta: Module = {
   category: 'games',
   tags: ['typing', 'speed', 'wpm', 'keyboard'],
   createdAt: '2026-06-18',
+  icon: 'keyboard',
 }

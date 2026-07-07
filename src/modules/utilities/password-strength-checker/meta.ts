@@ -7,4 +7,5 @@ export const passwordStrengthCheckerMeta: Module = {
   category: 'utilities',
   tags: ['password', 'security', 'checker', 'privacy'],
   createdAt: '2026-06-19',
+  icon: 'shield-check',
 }

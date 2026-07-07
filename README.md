@@ -15,6 +15,8 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 | [Unit Converter](src/modules/utilities/unit-converter) | Convert between common units: length, weight, temperature, and volume. |
 | [Base64 Encoder / Decoder](src/modules/utilities/base64-converter) | Encode text to Base64 or decode Base64 back to text — fully client-side. |
 | [Password Strength Checker](src/modules/utilities/password-strength-checker) | Score any password against six security rules with instant color-coded feedback — fully client-side. |
+| [Color Converter](src/modules/utilities/color-converter) | Convert colors between HEX, RGB, and HSL with alpha support — synced in real time with a live preview swatch. |
+| [Text Case Converter](src/modules/utilities/text-case-converter) | Convert text between UPPER CASE, camelCase, snake_case, and more — all at once. |
 
 ### 🎮 Games
 <!-- Add games here as they are built -->
@@ -23,6 +25,8 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 | [Memory Card Matching](src/modules/games/memory-card) | Flip cards two at a time to find all 8 emoji pairs. Beat your best move count! |
 | [Typing Speed Test](src/modules/games/typing-speed-test) | Type a random passage as fast and accurately as you can in 60 seconds. Track your WPM and accuracy. |
 | [Reaction Time Test](src/modules/games/reaction-time-test) | Wait for the screen to flash green, then tap as fast as you can. Track your best reaction time. |
+| [Snake](src/modules/games/snake) | Steer a growing snake around the grid to eat pellets. Avoid the walls and your own tail — beat your high score. |
+| [Colour Sequence Memory](src/modules/games/colour-sequence-memory) | Watch the flashing colour sequence, then repeat it by tapping the tiles in order. Each round adds one more step — how long can you remember? |
 
 ---
 

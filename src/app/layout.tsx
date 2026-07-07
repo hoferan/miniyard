@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
+import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar'
 import { SwRegister } from '@/components/sw-register'
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
               <Header />
               <div className="pb-20 md:pb-0">{children}</div>
+              <Footer />
               <MobileTabBar />
               <SwRegister />
             </div>

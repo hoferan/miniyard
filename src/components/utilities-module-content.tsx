@@ -7,10 +7,12 @@ const componentMap = {
   'unit-converter': dynamic(() => import('@/modules/utilities/unit-converter'), { loading: ModuleSkeleton, ssr: false }),
   'base64-converter': dynamic(() => import('@/modules/utilities/base64-converter'), { loading: ModuleSkeleton, ssr: false }),
   'password-strength-checker': dynamic(() => import('@/modules/utilities/password-strength-checker'), { loading: ModuleSkeleton, ssr: false }),
+  'color-converter': dynamic(() => import('@/modules/utilities/color-converter'), { loading: ModuleSkeleton, ssr: false }),
+  'text-case-converter': dynamic(() => import('@/modules/utilities/text-case-converter'), { loading: ModuleSkeleton, ssr: false }),
 }
 
 export function UtilitiesModuleContent({ slug }: { slug: string }) {
-  const Component = componentMap[slug as keyof typeof componentMap]
-  if (!Component) return null
+  const Component = slug in componentMap ? componentMap[slug as keyof typeof componentMap] : null
+  if (!Component) return <p className="py-12 text-center text-muted-foreground">Module not found.</p>
   return <Component />
 }
