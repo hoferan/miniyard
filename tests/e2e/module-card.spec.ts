@@ -63,7 +63,7 @@ test.describe('module card UI', () => {
     const allModules = [...utilityModules, ...gameModules]
     const newCount = allModules.filter((m) => isNew(m.createdAt)).length
 
-    await expect(page.getByText('NEW')).toHaveCount(newCount)
+    await expect(page.getByText('NEW', { exact: true })).toHaveCount(newCount)
 
     await page.screenshot({ path: 'test-results/module-card-homepage.png', fullPage: true })
   })
