@@ -1,15 +1,21 @@
-import Link from 'next/link'
-import { getModuleBySlug } from '@/lib/registry'
+import { getModuleBySlug, getModulesByCategory } from '@/lib/registry'
 import { notFound } from 'next/navigation'
-import { UtilitiesModuleContent } from './module-content'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
+import { UtilitiesModuleContent } from '@/components/utilities-module-content'
+import { ModulePageLayout } from '@/components/module-page-layout'
+import type { Metadata } from 'next'
+
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return getModulesByCategory('utilities').map((m) => ({ slug: m.slug }))
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const mod = getModuleBySlug(slug)
+  if (!mod) return {}
+  return { title: mod.title, description: mod.description }
+}
 
 export default async function UtilityPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -17,31 +23,8 @@ export default async function UtilityPage({ params }: { params: Promise<{ slug: 
   if (!mod) return notFound()
 
   return (
-    <>
-      <div className="mx-auto max-w-lg px-4 pt-6 pb-2 sm:px-6">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/utilities">Utilities</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{mod.title}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <h1 className="mt-5 text-[1.75rem] font-extrabold tracking-tight text-foreground">{mod.title}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">{mod.description}</p>
-      </div>
+    <ModulePageLayout mod={mod}>
       <UtilitiesModuleContent slug={slug} />
-    </>
+    </ModulePageLayout>
   )
 }

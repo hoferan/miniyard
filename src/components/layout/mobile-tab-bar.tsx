@@ -2,16 +2,29 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { Home, Wrench, Gamepad2, FlaskConical } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function MobileTabBar() {
   const pathname = usePathname()
+  const homeActive = pathname === '/'
   const toolsActive = pathname.startsWith('/utilities')
   const gamesActive = pathname === '/games' || pathname.startsWith('/games/')
   const labsActive = pathname === '/features'
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-20 flex h-[70px] items-start border-t border-border bg-background/80 px-6 pt-3 backdrop-blur-xl md:hidden dark:bg-background/70">
+      <Link
+        href="/"
+        aria-label="Home"
+        className={cn(
+          'flex flex-1 flex-col items-center gap-1 transition-colors',
+          homeActive ? 'text-primary' : 'text-muted-foreground',
+        )}
+      >
+        <Home className="h-5 w-5" />
+        <span className="text-[10px] font-semibold">Home</span>
+      </Link>
       <Link
         href="/utilities"
         aria-label="Utilities"
@@ -20,7 +33,7 @@ export function MobileTabBar() {
           toolsActive ? 'text-primary' : 'text-muted-foreground',
         )}
       >
-        <span className="text-xl" aria-hidden="true">🧰</span>
+        <Wrench className="h-5 w-5" />
         <span className="text-[10px] font-semibold">Utilities</span>
       </Link>
       <Link
@@ -31,7 +44,7 @@ export function MobileTabBar() {
           gamesActive ? 'text-primary' : 'text-muted-foreground',
         )}
       >
-        <span className="text-xl" aria-hidden="true">🎮</span>
+        <Gamepad2 className="h-5 w-5" />
         <span className="text-[10px] font-semibold">Games</span>
       </Link>
       <Link
@@ -42,7 +55,7 @@ export function MobileTabBar() {
           labsActive ? 'text-primary' : 'text-muted-foreground',
         )}
       >
-        <span className="text-xl" aria-hidden="true">🧪</span>
+        <FlaskConical className="h-5 w-5" />
         <span className="text-[10px] font-semibold">Labs</span>
       </Link>
     </div>

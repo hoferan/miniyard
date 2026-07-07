@@ -7,4 +7,5 @@ export const reactionTimeTestMeta: Module = {
   category: 'games',
   tags: ['reaction', 'speed', 'reflex'],
   createdAt: '2026-06-21',
+  icon: 'zap',
 }

@@ -15,27 +15,9 @@ import {
   handleFalseStart,
 } from './logic'
 import { MESSAGES } from './messages'
+import { createHighScoreStore } from '@/lib/high-score'
 
-const PERSONAL_BEST_KEY = 'reaction-time-test:personal-best'
-
-function loadPersonalBest(): number | null {
-  try {
-    const stored = localStorage.getItem(PERSONAL_BEST_KEY)
-    if (stored === null) return null
-    const parsed = parseInt(stored, 10)
-    return Number.isFinite(parsed) ? parsed : null
-  } catch {
-    return null
-  }
-}
-
-function savePersonalBest(ms: number): void {
-  try {
-    localStorage.setItem(PERSONAL_BEST_KEY, String(ms))
-  } catch {
-    // localStorage unavailable — silently ignore
-  }
-}
+const personalBestStore = createHighScoreStore('reaction-time-test:personal-best')
 
 export default function ReactionTimeTest() {
   const [state, setState] = useState<GameState>(() => createInitialState())
@@ -43,7 +25,7 @@ export default function ReactionTimeTest() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    const personalBest = loadPersonalBest()
+    const personalBest = personalBestStore.load()
     if (personalBest !== null) {
       setState((prev) => ({ ...prev, personalBest }))
     }
@@ -83,7 +65,7 @@ export default function ReactionTimeTest() {
       setState((prev) => {
         if (prev.phase !== 'ready') return prev
         const next = recordResult(prev, now)
-        if (next.personalBest !== null) savePersonalBest(next.personalBest)
+        if (next.personalBest !== null) personalBestStore.save(next.personalBest)
         return next
       })
     }

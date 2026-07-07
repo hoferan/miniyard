@@ -7,4 +7,5 @@ export const base64ConverterMeta: Module = {
   category: 'utilities',
   tags: ['base64', 'encoding', 'developer', 'text'],
   createdAt: '2026-06-08',
+  icon: 'code-2',
 }

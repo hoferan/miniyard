@@ -3,14 +3,43 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Search, X } from 'lucide-react'
+import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import type { Module } from '@/lib/types'
+import type { Module, ModuleCategory } from '@/lib/types'
+import { sortModulesByNewest } from '@/lib/registry'
 import { ModuleCard } from './module-card'
+import { ShowMoreCard } from './show-more-card'
+import { ProposeModuleCard } from './propose-module-card'
 
 interface HomeSearchProps {
   modules: Module[]
 }
+
+const HOME_PREVIEW_LIMIT = 5
+
+const CATEGORIES: {
+  key: ModuleCategory
+  label: string
+  href: string
+  proposeHref: string
+  proposeLabel: string
+}[] = [
+  {
+    key: 'utilities',
+    label: 'Utilities',
+    href: '/utilities',
+    proposeHref: 'https://github.com/hoferan/miniyard/issues/new?template=new_utility_tool.yml',
+    proposeLabel: 'Propose a new utility',
+  },
+  {
+    key: 'games',
+    label: 'Games',
+    href: '/games',
+    proposeHref: 'https://github.com/hoferan/miniyard/issues/new?template=new_minigame.yml',
+    proposeLabel: 'Propose a new game',
+  },
+]
 
 export function HomeSearch({ modules }: HomeSearchProps) {
   const searchParams = useSearchParams()
@@ -36,45 +65,83 @@ export function HomeSearch({ modules }: HomeSearchProps) {
 
   const handleClear = useCallback(() => handleChange(''), [handleChange])
 
+  const searchBox = (
+    <div className="relative mx-auto mb-10 max-w-xl">
+      <div className="flex items-center rounded-2xl border border-white/90 bg-white/70 shadow-[0_10px_26px_-14px_rgba(90,70,160,.45)] backdrop-blur-md transition-all focus-within:shadow-[0_10px_40px_-10px_rgba(124,108,255,.45)] dark:border-white/10 dark:bg-white/[0.04] dark:focus-within:shadow-[0_10px_40px_-10px_rgba(124,108,255,.3)]">
+        <Search className="pointer-events-none ml-4 h-4 w-4 shrink-0 text-muted-foreground" />
+        <Input
+          ref={inputRef}
+          type="text"
+          value={query}
+          onChange={(e) => handleChange(e.target.value)}
+          placeholder="Search tools and games…"
+          aria-label="Search modules"
+          className="h-12 border-0 bg-transparent pl-3 pr-4 text-base shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
+        />
+        {query && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleClear}
+            aria-label="Clear search"
+            className="mr-2 h-8 w-8 shrink-0 text-muted-foreground hover:text-foreground"
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        )}
+      </div>
+    </div>
+  )
+
   const q = query.trim().toLowerCase()
-  const filtered =
-    q === ''
-      ? modules
-      : modules.filter(
-          (m) =>
-            m.title.toLowerCase().includes(q) ||
-            m.description.toLowerCase().includes(q) ||
-            m.tags.some((tag) => tag.toLowerCase().includes(q)),
-        )
+
+  if (q === '') {
+    return (
+      <>
+        {searchBox}
+        <div className="space-y-10">
+          {CATEGORIES.map(({ key, label, href, proposeHref, proposeLabel }) => {
+            const categoryModules = modules.filter((m) => m.category === key)
+            if (categoryModules.length === 0) return null
+            const visible = sortModulesByNewest(categoryModules).slice(0, HOME_PREVIEW_LIMIT)
+            const remaining = categoryModules.length - HOME_PREVIEW_LIMIT
+            return (
+              <section key={key}>
+                <div className="mb-4 flex items-baseline gap-2">
+                  <h2 className="text-xl font-bold tracking-tight">{label}</h2>
+                  <span className="text-sm text-muted-foreground">{categoryModules.length}</span>
+                  <Link
+                    href={href}
+                    className="ml-auto text-xs text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    View all →
+                  </Link>
+                </div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {visible.map((module) => (
+                    <ModuleCard key={module.slug} module={module} />
+                  ))}
+                  {remaining > 0 && <ShowMoreCard href={href} remaining={remaining} />}
+                  <ProposeModuleCard href={proposeHref} label={proposeLabel} />
+                </div>
+              </section>
+            )
+          })}
+        </div>
+      </>
+    )
+  }
+
+  const filtered = modules.filter(
+    (m) =>
+      m.title.toLowerCase().includes(q) ||
+      m.description.toLowerCase().includes(q) ||
+      m.tags.some((tag) => tag.toLowerCase().includes(q)),
+  )
 
   return (
     <>
-      <div className="relative mx-auto mb-10 max-w-xl">
-        <div className="flex items-center rounded-2xl border border-white/90 bg-white/70 shadow-[0_10px_26px_-14px_rgba(90,70,160,.45)] backdrop-blur-md transition-all focus-within:shadow-[0_10px_40px_-10px_rgba(124,108,255,.45)] dark:border-white/10 dark:bg-white/[0.04] dark:focus-within:shadow-[0_10px_40px_-10px_rgba(124,108,255,.3)]">
-          <Search className="pointer-events-none ml-4 h-4 w-4 shrink-0 text-muted-foreground" />
-          <Input
-            ref={inputRef}
-            type="text"
-            value={query}
-            onChange={(e) => handleChange(e.target.value)}
-            placeholder="Search tools and games…"
-            aria-label="Search modules"
-            className="h-12 border-0 bg-transparent pl-3 pr-4 text-base shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0 focus-visible:ring-offset-0"
-          />
-          {query && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleClear}
-              aria-label="Clear search"
-              className="mr-2 h-8 w-8 shrink-0 text-muted-foreground hover:text-foreground"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
-      </div>
-
+      {searchBox}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.length === 0 ? (
           <div className="col-span-full flex flex-col items-center gap-3 py-12 text-center">
