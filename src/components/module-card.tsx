@@ -1,7 +1,7 @@
 'use client'
 
 import Link, { useLinkStatus } from 'next/link'
-import { Module } from '@/lib/types'
+import { CATEGORY_BADGE_LABELS, Module } from '@/lib/types'
 import { ICON_MAP } from '@/lib/icons'
 import { cn, isNew } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -11,7 +11,7 @@ import type { LucideIcon } from 'lucide-react'
 type Props = { module: Module }
 
 export function ModuleCard({ module }: Props) {
-  const categoryLabel = module.category === 'utilities' ? 'UTILITY' : 'GAME'
+  const categoryLabel = CATEGORY_BADGE_LABELS[module.category]
   const Icon: LucideIcon = (module.icon ? ICON_MAP[module.icon] : undefined) ?? Box
 
   return (

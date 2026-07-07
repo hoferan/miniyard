@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import type { ReactNode } from 'react'
-import type { Module } from '@/lib/types'
+import { CATEGORY_LABELS, type Module } from '@/lib/types'
 
 interface Props {
   mod: Module
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export function ModulePageLayout({ mod, children }: Props) {
-  const categoryLabel = mod.category === 'utilities' ? 'Utilities' : 'Games'
+  const categoryLabel = CATEGORY_LABELS[mod.category]
   const categoryHref = `/${mod.category}`
 
   return (
