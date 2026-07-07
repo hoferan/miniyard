@@ -23,4 +23,3 @@ export function getModuleBySlug(slug: string) {
 export function sortModulesByNewest(modules: Module[]): Module[] {
   return [...modules].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 }
-

@@ -1,11 +1,15 @@
 import { test, expect } from '@playwright/test'
-import { registry } from '@/lib/registry'
+import { registry, sortModulesByNewest } from '@/lib/registry'
 import { isNew } from '@/lib/utils'
 
 // Sourced directly from the real registry so this test never drifts when a
 // module is added, removed, or its createdAt changes.
 const utilityModules = registry.filter((m) => m.category === 'utilities')
 const gameModules = registry.filter((m) => m.category === 'games')
+
+// Mirrors HOME_PREVIEW_LIMIT in src/components/home-search.tsx — the home
+// page only renders the 5 newest modules per category.
+const HOME_PREVIEW_LIMIT = 5
 
 test.describe('module card UI', () => {
   test('utilities page: NEW badge matches creation date for each card', async ({ page }) => {
@@ -60,8 +64,9 @@ test.describe('module card UI', () => {
 
     await expect(page.locator('a[href^="/utilities/"]').first()).toBeVisible()
 
-    const allModules = [...utilityModules, ...gameModules]
-    const newCount = allModules.filter((m) => isNew(m.createdAt)).length
+    const visibleUtilities = sortModulesByNewest(utilityModules).slice(0, HOME_PREVIEW_LIMIT)
+    const visibleGames = sortModulesByNewest(gameModules).slice(0, HOME_PREVIEW_LIMIT)
+    const newCount = [...visibleUtilities, ...visibleGames].filter((m) => isNew(m.createdAt)).length
 
     await expect(page.getByText('NEW', { exact: true })).toHaveCount(newCount)
 
