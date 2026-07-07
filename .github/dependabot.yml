@@ -19,6 +19,13 @@ updates:
       # Pinned to 1.56.1 — matches chromium revision 1194 pre-installed in the
       # Claude Code remote container. Bump only when the container is updated.
       - dependency-name: "@playwright/test"
+      # Major bumps blocked: @codecov/nextjs-webpack-plugin@2.0.1 (latest on
+      # npm) only declares peer support for next 14.x/15.x, so npm ci fails
+      # ERESOLVE against next 16 (see PR #117). Remove once the plugin adds
+      # next 16 support, then bump both together.
+      - dependency-name: "next"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: "github-actions"
     directory: "/"
