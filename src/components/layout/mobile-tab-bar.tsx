@@ -14,7 +14,7 @@ export function MobileTabBar() {
   const labsActive = pathname === '/features'
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-20 flex h-[70px] items-start border-t border-border bg-background/80 px-6 pt-3 backdrop-blur-xl md:hidden dark:bg-background/70">
+    <div className="fixed bottom-0 left-0 right-0 z-20 flex h-[70px] items-start border-t border-border bg-background/80 px-2 pt-3 backdrop-blur-xl md:hidden dark:bg-background/70">
       <Link
         href="/"
         aria-label="Home"
