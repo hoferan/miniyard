@@ -39,6 +39,13 @@ const CATEGORIES: {
     proposeHref: 'https://github.com/hoferan/miniyard/issues/new?template=new_minigame.yml',
     proposeLabel: 'Propose a new game',
   },
+  {
+    key: 'apis',
+    label: 'APIs',
+    href: '/apis',
+    proposeHref: 'https://github.com/hoferan/miniyard/issues/new?template=new_apis_module.yml',
+    proposeLabel: 'Propose a new API module',
+  },
 ]
 
 export function HomeSearch({ modules }: HomeSearchProps) {

@@ -2,12 +2,13 @@
 
 ## Project Overview
 
-**miniyard** is a modular playground platform. It starts with two categories and grows over time:
+**miniyard** is a modular playground platform. It grows its set of categories over time:
 
 | Category | Description | Path |
 |---|---|---|
 | **Utilities** | Calculators, converters, text tools, math functions | `src/modules/utilities/` |
 | **Games** | Browser games, mobile-first | `src/modules/games/` |
+| **APIs** | Mini-apps powered by public third-party APIs, proxied through server-side Route Handlers | `src/modules/apis/` |
 
 Solo developer. Learning and showcase project. New categories are added when needed — see [How to add a new category](#how-to-add-a-new-category). Each category has a `README.md` in its module directory that defines what belongs there and guides Claude when creating new modules.
 
@@ -44,6 +45,14 @@ src/
       loading.tsx
       [slug]/page.tsx
       [slug]/loading.tsx
+    apis/
+      page.tsx                  # Category listing page
+      loading.tsx               # Category loading boundary
+      [slug]/page.tsx           # Individual module page (statically generated)
+      [slug]/loading.tsx        # Module loading boundary
+    api/
+      apis/
+        <slug>/route.ts         # Server-side proxy Route Handler per apis module (added per module)
   modules/
     utilities/
       README.md                 # Category definition – what belongs here, brainstorm questions
@@ -61,6 +70,15 @@ src/
         logic.ts
         logic.test.ts
         messages.ts             # (optional) User-facing strings
+    apis/
+      README.md                 # Category definition – what belongs here, brainstorm questions
+      <name>/
+        index.tsx               # React UI component
+        meta.ts                 # Module metadata (slug, title, tags, createdAt)
+        api.ts                  # Client-side fetch wrapper — calls this app's own proxy route
+        logic.ts                # Pure logic – no React, no DOM, no fetch
+        logic.test.ts           # Vitest unit tests
+        messages.ts             # User-facing strings – loading/error/empty states
   components/
     layout/                     # header.tsx, footer.tsx, mobile-tab-bar.tsx
     module-card.tsx
@@ -69,6 +87,7 @@ src/
     category-page-skeleton.tsx  # Loading skeleton for category/home listing pages
     utilities-module-content.tsx  # componentMap + dynamic imports for utilities
     games-module-content.tsx      # componentMap + dynamic imports for games
+    apis-module-content.tsx       # componentMap + dynamic imports for apis
   lib/
     registry.ts                 # Central module registry – all modules listed here
     types.ts                    # Shared TypeScript types (Module, ModuleCategory, etc.)

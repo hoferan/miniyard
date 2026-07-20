@@ -9,6 +9,7 @@ body:
       options:
         - Existing Utility Tool
         - Existing Minigame
+        - Existing API Module
         - UI / UX
         - Performance
         - Other

@@ -25,6 +25,7 @@
 <!-- Check all that apply -->
 - [ ] 🔧 New Utility Tool
 - [ ] 🎮 New Minigame
+- [ ] 🔌 New API Module
 - [ ] 🗂️ New Category
 - [ ] ✨ Improvement / Feature
 - [ ] 🐛 Bug fix

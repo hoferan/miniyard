@@ -28,6 +28,11 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 | [Snake](src/modules/games/snake) | Steer a growing snake around the grid to eat pellets. Avoid the walls and your own tail — beat your high score. |
 | [Colour Sequence Memory](src/modules/games/colour-sequence-memory) | Watch the flashing colour sequence, then repeat it by tapping the tiles in order. Each round adds one more step — how long can you remember? |
 
+### 🔌 APIs
+<!-- Add API-powered modules here as they are built -->
+| Module | Description |
+|------|-------------|
+
 ---
 
 ## Tech Stack

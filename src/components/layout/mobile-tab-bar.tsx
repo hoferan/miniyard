@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { Home, Wrench, Gamepad2, FlaskConical } from 'lucide-react'
+import { Home, Wrench, Gamepad2, Plug, FlaskConical } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function MobileTabBar() {
@@ -10,10 +10,11 @@ export function MobileTabBar() {
   const homeActive = pathname === '/'
   const toolsActive = pathname.startsWith('/utilities')
   const gamesActive = pathname === '/games' || pathname.startsWith('/games/')
+  const apisActive = pathname === '/apis' || pathname.startsWith('/apis/')
   const labsActive = pathname === '/features'
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-20 flex h-[70px] items-start border-t border-border bg-background/80 px-6 pt-3 backdrop-blur-xl md:hidden dark:bg-background/70">
+    <div className="fixed bottom-0 left-0 right-0 z-20 flex h-[70px] items-start border-t border-border bg-background/80 px-2 pt-3 backdrop-blur-xl md:hidden dark:bg-background/70">
       <Link
         href="/"
         aria-label="Home"
@@ -46,6 +47,17 @@ export function MobileTabBar() {
       >
         <Gamepad2 className="h-5 w-5" />
         <span className="text-[10px] font-semibold">Games</span>
+      </Link>
+      <Link
+        href="/apis"
+        aria-label="APIs"
+        className={cn(
+          'flex flex-1 flex-col items-center gap-1 transition-colors',
+          apisActive ? 'text-primary' : 'text-muted-foreground',
+        )}
+      >
+        <Plug className="h-5 w-5" />
+        <span className="text-[10px] font-semibold">APIs</span>
       </Link>
       <Link
         href="/features"

@@ -9,6 +9,7 @@ body:
       options:
         - Utility Tool
         - Minigame
+        - API Module
         - Navigation / Layout
         - Other
     validations:

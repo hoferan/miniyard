@@ -1,0 +1,63 @@
+name: 🔌 New API Module
+description: Idea for a new module powered by a public API
+labels: ["new-module", "apis"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Module name
+      placeholder: "e.g. Weather Lookup, Currency Converter, Random Joke"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What should the module do?
+    validations:
+      required: true
+  - type: input
+    id: api
+    attributes:
+      label: Which external API will it use?
+      placeholder: "e.g. OpenWeatherMap — link to docs: https://openweathermap.org/api"
+    validations:
+      required: true
+  - type: dropdown
+    id: auth
+    attributes:
+      label: Does the API require an API key?
+      options:
+        - "No — public, keyless"
+        - "Yes — requires a free API key"
+        - "Yes — requires a paid API key"
+        - "Not sure yet"
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs
+      placeholder: |
+        - City name
+        - Units (metric / imperial)
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Output / Result
+      placeholder: |
+        - Current temperature
+        - Condition (sunny, rainy, ...)
+    validations:
+      required: true
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated complexity
+      options:
+        - Small (< 2h)
+        - Medium (2–6h)
+        - Large (> 6h)
+    validations:
+      required: true
