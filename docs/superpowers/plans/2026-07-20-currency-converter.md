@@ -62,7 +62,7 @@ Documentation:
 - No API key, no `.env` entry — Frankfurter is public and keyless.
 - Pure logic in `logic.ts` — no React import, no DOM, no `fetch`.
 - User-facing strings live in `messages.ts`; `logic.ts` returns error *keys*, never prose.
-- Tailwind utility classes only — no inline styles. Errors render as a styled `div` (no `alert` shadcn component exists).
+- Tailwind utility classes only — no inline styles. Errors render with the shadcn `Alert` component (`variant="destructive"`).
 - `'use client'` only in `index.tsx`.
 - Unexpected errors in the Route Handler go through `Sentry.captureException`.
 - E2E mocks the proxy route — never hits the real Frankfurter API.
@@ -534,6 +534,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import {
   convert,
   formatAmount,
@@ -687,12 +688,9 @@ export default function CurrencyConverter() {
       </Button>
 
       {error && (
-        <div
-          role="alert"
-          className="rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive"
-        >
-          {MESSAGES.errors[error]}
-        </div>
+        <Alert variant="destructive">
+          <AlertDescription>{MESSAGES.errors[error]}</AlertDescription>
+        </Alert>
       )}
 
       {result && (
