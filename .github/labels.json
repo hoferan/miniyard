@@ -25,6 +25,11 @@
     "description": "Relates to a minigame module"
   },
   {
+    "name": "apis",
+    "color": "006b75",
+    "description": "Relates to an API-powered module"
+  },
+  {
     "name": "new-category",
     "color": "f9d0c4",
     "description": "Proposal to add a new module category"
