@@ -1,10 +1,14 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
+import { ModuleSkeleton } from '@/components/module-skeleton'
 
 const componentMap: Record<string, ComponentType> = {
-  // Add entries here as apis modules are created, e.g.:
-  // 'weather-lookup': dynamic(() => import('@/modules/apis/weather-lookup'), { loading: ModuleSkeleton, ssr: false }),
+  'currency-converter': dynamic(() => import('@/modules/apis/currency-converter'), {
+    loading: ModuleSkeleton,
+    ssr: false,
+  }),
 }
 
 export function ApisModuleContent({ slug }: { slug: string }) {

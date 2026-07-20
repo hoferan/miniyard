@@ -32,6 +32,7 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 <!-- Add API-powered modules here as they are built -->
 | Module | Description |
 |------|-------------|
+| [Currency Converter](src/modules/apis/currency-converter) | Convert an amount between currencies using live European Central Bank reference rates from the keyless Frankfurter API. |
 
 ---
 

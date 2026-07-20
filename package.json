@@ -47,7 +47,7 @@
     "eslint": "9.39.4",
     "eslint-config-next": "15.5.20",
     "jsdom": "29.1.1",
-    "markdownlint-cli2": "0.23.0",
+    "markdownlint-cli2": "0.23.1",
     "postcss": "8.5.16",
     "tailwindcss": "4.3.1",
     "typescript": "6.0.3",
