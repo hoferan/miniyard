@@ -11,6 +11,10 @@ const gameModules = registry.filter((m) => m.category === 'games')
 // page only renders the 5 newest modules per category.
 const HOME_PREVIEW_LIMIT = 5
 
+// Every category the home page renders, derived from the registry so this
+// stays correct as new categories (e.g. apis) gain their first module.
+const allCategories = [...new Set(registry.map((m) => m.category))]
+
 test.describe('module card UI', () => {
   test('utilities page: NEW badge matches creation date for each card', async ({ page }) => {
     await page.goto('/utilities')
@@ -64,9 +68,13 @@ test.describe('module card UI', () => {
 
     await expect(page.locator('a[href^="/utilities/"]').first()).toBeVisible()
 
-    const visibleUtilities = sortModulesByNewest(utilityModules).slice(0, HOME_PREVIEW_LIMIT)
-    const visibleGames = sortModulesByNewest(gameModules).slice(0, HOME_PREVIEW_LIMIT)
-    const newCount = [...visibleUtilities, ...visibleGames].filter((m) => isNew(m.createdAt)).length
+    // Count NEW badges across every category the home page previews, not just
+    // utilities and games — otherwise adding a recent module in another
+    // category (e.g. apis) makes the on-page count exceed this expectation.
+    const visibleAcrossCategories = allCategories.flatMap((category) =>
+      sortModulesByNewest(registry.filter((m) => m.category === category)).slice(0, HOME_PREVIEW_LIMIT),
+    )
+    const newCount = visibleAcrossCategories.filter((m) => isNew(m.createdAt)).length
 
     await expect(page.getByText('NEW', { exact: true })).toHaveCount(newCount)
 
