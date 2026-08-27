@@ -9,6 +9,10 @@ const componentMap: Record<string, ComponentType> = {
     loading: ModuleSkeleton,
     ssr: false,
   }),
+  'random-joke': dynamic(() => import('@/modules/apis/random-joke'), {
+    loading: ModuleSkeleton,
+    ssr: false,
+  }),
 }
 
 export function ApisModuleContent({ slug }: { slug: string }) {
