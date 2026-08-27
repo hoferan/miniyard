@@ -6,6 +6,11 @@ const CURRENCIES = [
   { code: 'USD', name: 'US Dollar' },
 ]
 
+// The app registers a Serwist service worker that handles every request.
+// Playwright's page.route() does not intercept service-worker-initiated
+// requests, so the worker must be blocked for the proxy mocks below to apply.
+test.use({ serviceWorkers: 'block' })
+
 test.describe('Currency Converter', () => {
   test.beforeEach(async ({ page }) => {
     await page.route('**/api/apis/currency-converter**', async (route) => {
