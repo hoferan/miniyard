@@ -26,6 +26,15 @@ updates:
       - dependency-name: "next"
         update-types:
           - "version-update:semver-major"
+      # Major bumps blocked: next 15.5.22 rejects TypeScript >= 7.0 outright
+      # ("Reject TypeScript >= 7.0 with an actionable error"), and TS 7 removes
+      # the `ts.sys` API that next's next-config-ts transpiler calls, so both
+      # `next lint` and `next build` crash loading next.config.ts (see PR #141).
+      # TypeScript 7 needs next 16, which is itself blocked above. Remove once
+      # next 16 is unblocked and adopted, then bump both together.
+      - dependency-name: "typescript"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: "github-actions"
     directory: "/"
