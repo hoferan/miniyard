@@ -1,4 +1,4 @@
-import { Ruler, Code2, ShieldCheck, LayoutGrid, Keyboard, Zap, Worm, Pipette, CaseSensitive, Palette, Coins } from 'lucide-react'
+import { Ruler, Code2, ShieldCheck, LayoutGrid, Keyboard, Zap, Worm, Pipette, CaseSensitive, Palette, Coins, Laugh } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 export const ICON_MAP: Record<string, LucideIcon> = {
@@ -13,4 +13,5 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   'case-sensitive': CaseSensitive,
   'palette': Palette,
   'coins': Coins,
+  'laugh': Laugh,
 }

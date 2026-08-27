@@ -40,8 +40,8 @@ A single joke, in one of two shapes:
 
 ```ts
 type Joke =
-  | { type: 'single';  text: string;                   category: string; id: number }
-  | { type: 'twopart'; setup: string; delivery: string; category: string; id: number }
+  | { type: 'single';  text: string;                   category: string }
+  | { type: 'twopart'; setup: string; delivery: string; category: string }
 ```
 
 ## Logic / Algorithm
@@ -67,6 +67,8 @@ type Joke =
 - **HTTP 429 — rate limited.** Distinct message telling the user to wait.
 - **Malformed payload** — missing `joke`/`setup`/`delivery`, or a `type` that
   is neither `single` nor `twopart` → throws, surfaces as `upstream`.
+- **Missing `category`** — defaults to an empty string; the UI simply omits
+  the category badge rather than failing the whole joke.
 - **Network failure** — proxy catch, `Sentry.captureException`, `network` key.
 - **Punchline state resets** on every new fetch, so a revealed punchline never
   leaks into the next joke.
@@ -113,7 +115,11 @@ Mobile-first: single column, full-width controls, thumb-reachable buttons.
 ## Documentation
 
 - `README.md` — add to the APIs module table
-- `.lighthouserc.json` — add `/apis/random-joke`
+- `.lighthouserc.json` — **not** updated. No `apis` module page is listed
+  there today (`currency-converter` is absent too); only the `/apis` listing
+  page is. Adding a module page would put a live third-party call on the
+  Lighthouse CI path and make the run flaky. Following the existing
+  convention instead.
 
 No `docs/apis/random-joke.md`: the logic is small and the spec covers it.
 
