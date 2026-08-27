@@ -33,6 +33,7 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 | Module | Description |
 |------|-------------|
 | [Currency Converter](src/modules/apis/currency-converter) | Convert an amount between currencies using live European Central Bank reference rates from the keyless Frankfurter API. |
+| [Random Joke](src/modules/apis/random-joke) | Fetch a random joke by category from the keyless JokeAPI, with a safe-mode filter and tap-to-reveal punchlines. |
 
 ---
 
