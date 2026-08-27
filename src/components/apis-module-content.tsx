@@ -13,6 +13,10 @@ const componentMap: Record<string, ComponentType> = {
     loading: ModuleSkeleton,
     ssr: false,
   }),
+  'public-holidays': dynamic(() => import('@/modules/apis/public-holidays'), {
+    loading: ModuleSkeleton,
+    ssr: false,
+  }),
 }
 
 export function ApisModuleContent({ slug }: { slug: string }) {
