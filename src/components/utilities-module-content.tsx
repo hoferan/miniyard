@@ -9,6 +9,7 @@ const componentMap = {
   'password-strength-checker': dynamic(() => import('@/modules/utilities/password-strength-checker'), { loading: ModuleSkeleton, ssr: false }),
   'color-converter': dynamic(() => import('@/modules/utilities/color-converter'), { loading: ModuleSkeleton, ssr: false }),
   'text-case-converter': dynamic(() => import('@/modules/utilities/text-case-converter'), { loading: ModuleSkeleton, ssr: false }),
+  'percentage-calculator': dynamic(() => import('@/modules/utilities/percentage-calculator'), { loading: ModuleSkeleton, ssr: false }),
 }
 
 export function UtilitiesModuleContent({ slug }: { slug: string }) {
