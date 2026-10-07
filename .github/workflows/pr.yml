@@ -66,7 +66,9 @@ jobs:
           fail_ci_if_error: false
 
       - name: Security audit
-        run: npm audit --audit-level=high
+        # Production deps only: dev-only advisories (e.g. braces, no patched release)
+        # must not block CI; Dependabot still raises them.
+        run: npm audit --omit=dev --audit-level=high
 
       - name: Dependency vulnerability scan
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
