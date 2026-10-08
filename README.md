@@ -28,6 +28,7 @@ A modular playground with useful tools and mini games — built with Next.js, Re
 | [Reaction Time Test](src/modules/games/reaction-time-test) | Wait for the screen to flash green, then tap as fast as you can. Track your best reaction time. |
 | [Snake](src/modules/games/snake) | Steer a growing snake around the grid to eat pellets. Avoid the walls and your own tail — beat your high score. |
 | [Colour Sequence Memory](src/modules/games/colour-sequence-memory) | Watch the flashing colour sequence, then repeat it by tapping the tiles in order. Each round adds one more step — how long can you remember? |
+| [2048](src/modules/games/2048) | Slide numbered tiles and merge matching pairs to reach the 2048 tile. Swipe or use the arrow keys — beat your high score. |
 
 ### 🔌 APIs
 <!-- Add API-powered modules here as they are built -->

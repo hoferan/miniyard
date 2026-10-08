@@ -9,6 +9,7 @@ const componentMap = {
   'reaction-time-test': dynamic(() => import('@/modules/games/reaction-time-test'), { loading: ModuleSkeleton, ssr: false }),
   'snake': dynamic(() => import('@/modules/games/snake'), { loading: ModuleSkeleton, ssr: false }),
   'colour-sequence-memory': dynamic(() => import('@/modules/games/colour-sequence-memory'), { loading: ModuleSkeleton, ssr: false }),
+  '2048': dynamic(() => import('@/modules/games/2048'), { loading: ModuleSkeleton, ssr: false }),
 }
 
 export function GamesModuleContent({ slug }: { slug: string }) {
