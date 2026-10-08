@@ -10,9 +10,16 @@ test('manifest.webmanifest is valid and has root start_url', async ({ request })
 })
 
 test('service worker script is accessible', async ({ request }) => {
-  const response = await request.get('/sw.js')
-  expect(response.status()).toBe(200)
-  expect(response.headers()['content-type']).toMatch(/javascript/)
+  // Under `next dev`, Serwist rewrites public/sw.js each time a route compiles for
+  // the first time. A request that lands mid-rewrite gets a Content-Length that
+  // does not match the body (CI: "Parse Error: Expected HTTP/"). Production serves
+  // a static build output, so retry until the dev server returns a complete file.
+  await expect(async () => {
+    const response = await request.get('/sw.js', { timeout: 5_000 })
+    expect(response.status()).toBe(200)
+    expect(response.headers()['content-type']).toMatch(/javascript/)
+    expect((await response.body()).length).toBeGreaterThan(0)
+  }).toPass({ timeout: 30_000 })
 })
 
 test('offline page returns 200', async ({ request }) => {
