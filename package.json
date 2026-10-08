@@ -47,7 +47,7 @@
     "@vitest/coverage-v8": "5.0.3",
     "eslint": "9.39.5",
     "eslint-config-next": "15.5.27",
-    "jsdom": "29.1.1",
+    "jsdom": "30.0.1",
     "markdownlint-cli2": "0.23.3",
     "postcss": "8.5.28",
     "tailwindcss": "4.3.1",
