@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Node.js 20.9+
+- Node.js 22.22.2+ (required by jsdom 30 and Vitest 5)
 - npm 10+
 
 ## First-time setup
