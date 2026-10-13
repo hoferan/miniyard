@@ -22,7 +22,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: 'npm'
@@ -93,7 +93,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: 'npm'
@@ -108,13 +108,13 @@ jobs:
         run: npm run test:e2e
 
       - name: Post E2E summary comment
-        uses: daun/playwright-report-summary@31ed947ec7a623d18a66cfd20ef546dc66ef8063 # v4.1.0
+        uses: daun/playwright-report-summary@5359ae22f265fd2dfdb7744a0cc6614c5c3abde6 # v4.1.1
         if: always()
         with:
           report-file: test-results/results.json
 
       - name: Upload Playwright report
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: playwright-report
