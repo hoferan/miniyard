@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next'
-import { withSentryConfig } from '@sentry/nextjs'
+import { withSentryConfig } from '@sentry/nextjs/config'
 import { codecovNextJSWebpackPlugin } from '@codecov/nextjs-webpack-plugin'
 import withSerwist from '@serwist/next'
 
